@@ -67,7 +67,7 @@ export default async function handler(req, res) {
       res.status(200).json({ message: "not implement" });
       break;
     default:
-      res.setHeader('Allow', ["POST", "PUT"])
+      res.setHeader('Allow', ["GET", "POST", "PUT"])
       res.status(405).end(`Method ${method} Not Allowed`)
   }
 }
