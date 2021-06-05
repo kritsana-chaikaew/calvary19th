@@ -12,6 +12,5 @@ export async function getVehicles() {
 
 export default async function handler(req, res) {
   const vehicles = await getVehicles();
-  console.log(vehicles);
   res.status(200).json(vehicles);
 }

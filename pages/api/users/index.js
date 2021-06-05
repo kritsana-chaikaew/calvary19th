@@ -12,6 +12,5 @@ export async function getUsers() {
 
 export default async function handler(req, res) {
   const users = await getUsers();
-  console.log(users);
   res.status(200).json(users);
 }
