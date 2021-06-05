@@ -1,7 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 const { promisify } = require("util");
 
-
 export async function getUsers() {
   const db = new sqlite3.Database(".db/calvary19.db");
   const asyncAll = promisify(db.all).bind(db);
@@ -11,7 +10,7 @@ export async function getUsers() {
   return users;
 }
 
-export default async function handler(req, res) {gi
+export default async function handler(req, res) {
   const users = await getUsers();
   console.log(users);
   res.status(200).json(users);
