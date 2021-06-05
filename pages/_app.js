@@ -1,5 +1,18 @@
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import React from "react";
+import PropTypes from "prop-types";
+
+function MyApp({ Component, props }) {
+  return <Component {...props} />;
 }
 
-export default MyApp
+MyApp.defaultProps = {
+  Component: null,
+  props: null,
+};
+
+MyApp.propTypes = {
+  Component: PropTypes.element,
+  props: PropTypes.element,
+};
+
+export default MyApp;
