@@ -10,5 +10,5 @@
 ### migrate mock database
 
 ```console
-start_dev.sh
+node migration/initialize.js
 ```
