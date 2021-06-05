@@ -11,7 +11,7 @@ export async function getUsers() {
   return users;
 }
 
-export default async function handler(req, res) {
+export default async function handler(req, res) {gi
   const users = await getUsers();
   console.log(users);
   res.status(200).json(users);
