@@ -70,7 +70,7 @@ module.exports = {
     "no-tabs": 0,
     "no-param-reassign": ["error", { props: false }],
     "no-unused-vars": ["error"],
-    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-console": "off",
     "no-extra-boolean-cast": 0,
     "no-nested-ternary": 0,
     "import/prefer-default-export": 0,

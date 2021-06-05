@@ -1,5 +1,5 @@
-const sqlite3 = require('sqlite3').verbose();
-const { promisify } = require('util');
+const sqlite3 = require("sqlite3").verbose();
+const { promisify } = require("util");
 
 
 export async function getVehicles() {
