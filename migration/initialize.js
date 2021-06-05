@@ -1,5 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
+const { v4: uuidv4 } = require('uuid');
 
 if (!fs.existsSync(".db")) {
   fs.mkdirSync(".db");
@@ -7,7 +8,7 @@ if (!fs.existsSync(".db")) {
 
 fs.open(".db/calvary19.db", "w", () => {});
 
-let db = new sqlite3.Database(".db/calvary19.db", (err) => {
+const db = new sqlite3.Database(".db/calvary19.db", (err) => {
   if (err) {
     console.error(err.message);
   } else {
@@ -15,44 +16,79 @@ let db = new sqlite3.Database(".db/calvary19.db", (err) => {
   }
 });
 
-db.run(
-  `CREATE TABLE IF NOT EXISTS vehicle (
+db.serialize(function() {
+  db.run(
+    `CREATE TABLE IF NOT EXISTS vehicle (
+        id TEXT PRIMARY KEY,
+        type TEXT NOT NULL,
+        status TEXT NOT NULL,
+        regimental TEXT,
+        serial_no TEXT,
+        created_date TEXT NOT NULL,
+        created_by TEXT NOT NULL,
+        updated_date TEXT,
+        updated_by TEXT
+    )`,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log("Created table vehicle");
+      }
+    }
+  );
+  
+  db.run(
+    `INSERT INTO vehicle (
+        id,
+        type,
+        status,
+        regimental,
+        serial_no,
+        created_date,
+        created_by,
+        updated_date,
+        updated_by
+    ) VALUES (
+      '${uuidv4()}',
+      'รถถัง',
+      'พร้อมใช้',
+      'ร้อย.ม.๒',
+      '๑๒๓๔',
+      '${new Date()}',
+      'กฤษณะ',
+      '${new Date()}',
+      'กฤษณะ'
+    )
+    `,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log("Inserted mock vehicle");
+      }
+    }
+  );
+  
+  db.run(
+    `CREATE TABLE IF NOT EXISTS user (
       id TEXT PRIMARY KEY,
-      type TEXT NOT NULL,
-      status TEXT NOT NULL,
-      regimental TEXT,
-      serial_no TEXT,
+      username TEXT NOT NULL,
+      password TEXT NOT NULL,
       created_date TEXT NOT NULL,
       created_by TEXT NOT NULL,
       updated_date TEXT,
       updated_by TEXT
-  )`,
-  (err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log("Created table vehicle");
+    )`,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log("Created table user");
+      }
     }
-  }
-);
-
-db.run(
-  `CREATE TABLE IF NOT EXISTS user (
-    id TEXT PRIMARY KEY,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL,
-    created_date TEXT NOT NULL,
-    created_by TEXT NOT NULL,
-    updated_date TEXT,
-    updated_by TEXT
-  )`,
-  (err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log("Created table user");
-    }
-  }
+  );
+}
 );
 
 db.close((err) => {
