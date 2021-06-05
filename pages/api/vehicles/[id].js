@@ -14,7 +14,10 @@ export async function getVehicle(id) {
 }
 
 export default async function handler(req, res) {
-  const { query: { id }, method } = req || null;
+  const {
+    query: { id },
+    method,
+  } = req;
 
   switch (method) {
     case "GET":
@@ -29,7 +32,7 @@ export default async function handler(req, res) {
       res.status(200).json({ message: "not implement" });
       break;
     default:
-      res.setHeader('Allow', ["GET", "DELETE"])
-      res.status(405).end(`Method ${method} Not Allowed`)
+      res.setHeader("Allow", ["GET", "DELETE"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
