@@ -60,8 +60,7 @@ db.serialize(function() {
       'กฤษณะ',
       '${new Date()}',
       'กฤษณะ'
-    )
-    `,
+    )`,
     (err) => {
       if (err) {
         console.error(err.message);

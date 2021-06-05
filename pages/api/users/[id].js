@@ -10,11 +10,37 @@ export async function getUser(id) {
   return user;
 }
 
-export default async function handler({ query: { id } }, res) {
-  const user = await getUser(id);
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(404).json({message: `user ${id} not found`});
+export default async function handler(req, res) {
+  const { 
+    query: { 
+      id,
+      username,
+      password,
+      created_date,
+      create_by,
+      updated_date,
+      updated_by 
+    },
+    method
+  } = req;
+
+  switch(method) {
+    case "GET":
+      const user = await getUser(id);
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({message: `user ${id} not found`});
+      }
+      break;
+    case "POST":
+      res.status(200).json({message: "not implement"});
+      break;
+    case "PUT":
+      res.status(200).json({message: "not implement"});
+      break;
+    default:
+      res.setHeader("Allow", ["GET", "PUT"])
+      res.status(405).end(`Method ${method} Not Allowed`)
   }
 }
