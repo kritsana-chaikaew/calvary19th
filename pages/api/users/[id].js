@@ -1,9 +1,6 @@
-const sqlite3 = require("sqlite3").verbose();
-const { promisify } = require("util");
+const { db, asyncGet, asyncRun } = require("../../../utils/db");
 
 export async function getUser(id) {
-  const db = new sqlite3.Database(".db/calvary19.db");
-  const asyncGet = promisify(db.get).bind(db);
   const sql = "SELECT * FROM user WHERE id=?";
   const user = await asyncGet(sql, [id]);
   db.close();
@@ -11,8 +8,6 @@ export async function getUser(id) {
 }
 
 export async function deleteUser(id) {
-  const db = new sqlite3.Database(".db/calvary19.db");
-  const asyncRun = promisify(db.run).bind(db);
   const sql = "DELETE FROM user WHERE id=?";
   await asyncRun(sql, [id]);
   db.close();

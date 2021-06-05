@@ -1,12 +1,9 @@
 import { getVehicle } from "./[id]";
 
-const sqlite3 = require("sqlite3").verbose();
-const { promisify } = require("util");
 const { v4: uuidv4 } = require("uuid");
+const { db, asyncAll, asyncRun } = require("../../../utils/db");
 
 export async function getVehicles() {
-  const db = new sqlite3.Database(".db/calvary19.db");
-  const asyncAll = promisify(db.all).bind(db);
   const sql = "SELECT * FROM vehicle";
   const vehicles = await asyncAll(sql, []);
   db.close();
@@ -14,8 +11,6 @@ export async function getVehicles() {
 }
 
 export async function createVehicle(vehicle) {
-  const db = new sqlite3.Database(".db/calvary19.db");
-  const asyncRun = promisify(db.run).bind(db);
   const id = uuidv4();
   const sql = `INSERT INTO vehicle (
     id,

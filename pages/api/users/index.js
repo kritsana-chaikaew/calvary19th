@@ -1,13 +1,11 @@
 import { getUser } from "./[id]";
 
-const sqlite3 = require("sqlite3").verbose();
-const { promisify } = require("util");
+
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
+const { db, asyncAll, asyncRun } = require("../../../utils/db");
 
 export async function getUsers() {
-  const db = new sqlite3.Database(".db/calvary19.db");
-  const asyncAll = promisify(db.all).bind(db);
   const sql = "SELECT * FROM user";
   const users = await asyncAll(sql, []);
   db.close();
@@ -15,8 +13,6 @@ export async function getUsers() {
 }
 
 export async function createUser(user) {
-  const db = new sqlite3.Database(".db/calvary19.db");
-  const asyncRun = promisify(db.run).bind(db);
   const id = uuidv4();
   const sql = `INSERT INTO user (
     id,
