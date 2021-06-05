@@ -1,6 +1,7 @@
 const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
+const bcrypt = require('bcrypt');
 
 if (!fs.existsSync(".db")) {
   fs.mkdirSync(".db");
@@ -85,6 +86,32 @@ db.serialize(function() {
         console.error(err.message);
       } else {
         console.log("Created table user");
+      }
+    }
+  );
+
+  db.run(
+    `INSERT INTO user (
+      id,
+      username,
+      password,
+      created_date,
+      created_by,
+      updated_date,
+      updated_by ) VALUES (
+        '${uuidv4()}',
+        'กฤษณะ',
+        '${bcrypt.hashSync("1234", 5)}',
+        '${new Date}',
+        'กฤษณะ',
+        '${new Date}',
+        'กฤษณะ'
+    )`,
+    (err) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log("Inserted mock user");
       }
     }
   );
