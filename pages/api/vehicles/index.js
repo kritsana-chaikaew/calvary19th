@@ -1,7 +1,8 @@
+import { getVehicle } from "./[id]";
+
 const sqlite3 = require("sqlite3").verbose();
 const { promisify } = require("util");
 const { v4: uuidv4 } = require("uuid");
-import { getVehicle } from "./[id]";
 
 export async function getVehicles() {
   const db = new sqlite3.Database(".db/calvary19.db");
@@ -46,16 +47,17 @@ export async function createVehicle(vehicle) {
 
 export default async function handler(req, res) {
   const { body, method } = req;
+  let vehicles;
 
   switch (method) {
     case "GET":
-      const vehicles = await getVehicles();
+      vehicles = await getVehicles();
       res.status(200).json(vehicles);
       break;
     case "POST":
-      const createdVehicle = await createVehicle(body);
-      if (createdVehicle) {
-        res.status(200).json(createdVehicle);
+      vehicles = await createVehicle(body);
+      if (vehicles) {
+        res.status(200).json(vehicles);
       } else {
         res.status(400).json({ message: "cannot create vehicle" });
       }

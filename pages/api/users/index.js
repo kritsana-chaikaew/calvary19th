@@ -1,8 +1,9 @@
+import { getUser } from "./[id]";
+
 const sqlite3 = require("sqlite3").verbose();
 const { promisify } = require("util");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
-import { getUser } from "./[id]";
 
 export async function getUsers() {
   const db = new sqlite3.Database(".db/calvary19.db");
@@ -43,16 +44,17 @@ export async function createUser(user) {
 
 export default async function handler(req, res) {
   const { body, method } = req;
+  let users;
 
   switch (method) {
     case "GET":
-      const users = await getUsers();
+      users = await getUsers();
       res.status(200).json(users);
       break;
     case "POST":
-      const createdUser = await createUser(body);
-      if (createdUser) {
-        res.status(200).json(createdUser);
+      users = await createUser(body);
+      if (users) {
+        res.status(200).json(users);
       } else {
         res.status(400).json({ message: "cannot create user" });
       }
