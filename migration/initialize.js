@@ -19,7 +19,16 @@ db.run(
       created_by TEXT NOT NULL,
       updated_date TEXT,
       updated_by TEXT
-  )`,
+  );
+  CREATE TABLE IF NOT EXISTS user (
+      id TEXT PRIMARY KEY,
+      username TEXT NOT NULL,
+      password TEXT NOT NULL,
+      created_date TEXT NOT NULL,
+      created_by TEXT NOT NULL,
+      updated_date TEXT,
+      updated_by TEXT
+  );`,
   (err) => {
     if (err) {
       console.error(err.message);
