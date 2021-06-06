@@ -1,4 +1,4 @@
-const handle = require("../utils/errorHandler");
+const handle = require("../utils/error");
 const { db } = require("../utils/db");
 
 const {
