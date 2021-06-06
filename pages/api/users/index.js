@@ -1,14 +1,12 @@
 import { getUser } from "./[id]";
 
-
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
-const { db, asyncAll, asyncRun } = require("../../../utils/db");
+const { asyncAll, asyncRun } = require("../../../utils/db");
 
 export async function getUsers() {
   const sql = "SELECT * FROM user";
-  const users = await asyncAll(sql, []);
-  db.close();
+  const users = await asyncAll(sql);
   return users;
 }
 
@@ -23,19 +21,45 @@ export async function createUser(user) {
     updated_date,
     updated_by
   ) VALUES (
-    '${id}',
-    '${user.username}',
-    '${bcrypt.hashSync(user.password, 5)}',
-    '${new Date()}',
-    '${user.created_by}',
-    '${new Date()}',
-    '${user.updated_by}'
+    $id,
+    $username,
+    $password,
+    $createdDate,
+    $createdBy,
+    $updatedDate,
+    $updatedBy
   )`;
   let createdUser = null;
-  await asyncRun(sql);
+  await asyncRun(sql, {
+    $id: id,
+    $username: user.username,
+    $password: bcrypt.hashSync(user.password, 5),
+    $createdDate: Date.now(),
+    $createdBy: user.created_by,
+    $updatedDate: Date.now(),
+    $updatedBy: user.updated_by,
+  });
   createdUser = await getUser(id);
-  db.close();
   return createdUser;
+}
+
+export async function updateUser(user) {
+  const sql = `UPDATE user 
+  SET
+    password = $password,
+    updated_date = $updatedDate,
+    updated_by = $updatedBy
+  WHERE id = $id
+  `;
+  let updatedUser = null;
+  await asyncRun(sql, {
+    $password: bcrypt.hashSync(user.password, 5),
+    $updatedDate: Date.now(),
+    $updatedBy: user.updated_by,
+    $id: user.id,
+  });
+  updatedUser = await getUser(user.id);
+  return updatedUser;
 }
 
 export default async function handler(req, res) {
@@ -56,7 +80,12 @@ export default async function handler(req, res) {
       }
       break;
     case "PUT":
-      res.status(200).json({ message: "not implement" });
+      users = await updateUser(body);
+      if (users) {
+        res.status(200).json(users);
+      } else {
+        res.status(400).json({ message: "cannot update user" });
+      }
       break;
     default:
       res.setHeader("Allow", ["GET", "POST", "PUT"]);

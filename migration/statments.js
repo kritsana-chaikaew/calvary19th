@@ -29,9 +29,9 @@ const insertVehicle = `INSERT INTO vehicle (
 'พร้อมใช้',
 'ร้อย.ม.๒',
 '๑๒๓๔',
-'${new Date()}',
+'${Date.now()}',
 'กฤษณะ',
-'${new Date()}',
+'${Date.now()}',
 'กฤษณะ'
 )`;
 
@@ -56,9 +56,9 @@ const insertUser = `INSERT INTO user (
     '${uuidv4()}',
     'กฤษณะ',
     '${bcrypt.hashSync("1234", 5)}',
-    '${new Date()}',
+    '${Date.now()}',
     'กฤษณะ',
-    '${new Date()}',
+    '${Date.now()}',
     'กฤษณะ'
 )`;
 

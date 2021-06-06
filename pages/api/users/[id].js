@@ -1,16 +1,14 @@
-const { db, asyncGet, asyncRun } = require("../../../utils/db");
+const { asyncGet, asyncRun } = require("../../../utils/db");
 
 export async function getUser(id) {
-  const sql = "SELECT * FROM user WHERE id=?";
-  const user = await asyncGet(sql, [id]);
-  db.close();
+  const sql = "SELECT * FROM user WHERE id=$id";
+  const user = await asyncGet(sql, { $id: id });
   return user;
 }
 
 export async function deleteUser(id) {
-  const sql = "DELETE FROM user WHERE id=?";
-  await asyncRun(sql, [id]);
-  db.close();
+  const sql = "DELETE FROM user WHERE id=$id";
+  await asyncRun(sql, { $id: id });
 }
 
 export default async function handler(req, res) {
