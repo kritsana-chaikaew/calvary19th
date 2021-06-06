@@ -1,5 +1,5 @@
 const handle = require("../utils/errorHandler");
-const db = require("../utils/db");
+const { db } = require("../utils/db");
 
 const {
   createVehicle,
