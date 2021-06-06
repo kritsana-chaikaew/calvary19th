@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, List } from "antd";
+import { List, Row, Col } from "antd";
+import Inventory from "../component/Inventory";
 
 import "antd/dist/antd.css";
 
@@ -21,16 +22,24 @@ const Home = () => {
   });
 
   return (
-    <List
-      dataSource={vehicles}
-      renderItem={(item) => (
-        <Card title={item?.serial_no} bordered style={{ width: 300 }}>
-          <p>{item?.type}</p>
-          <p>{item?.status}</p>
-          <p>{item?.regimental}</p>
-        </Card>
-      )}
-    />
+    <Row>
+      <Col span={24}>
+        <List
+          dataSource={vehicles}
+          renderItem={(item) => (
+            <Inventory title={item?.serial_no}>
+              <p>ประเภท: {item?.type}</p>
+              <p>สถานะ: {item?.status}</p>
+              <p>กองร้อย: {item?.regimental}</p>
+            </Inventory>
+          )}
+          grid={{
+            gutter: [0, 24],
+            column: 3,
+          }}
+        />
+      </Col>
+    </Row>
   );
 };
 
