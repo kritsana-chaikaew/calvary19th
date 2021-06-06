@@ -5,6 +5,7 @@ import { Table, Tag } from "antd";
 import { getVehicles } from "./api/vehicles/index";
 import "antd/dist/antd.css";
 import parseTime from "../utils/time";
+import BaseLayout from "../components/BaseLayout";
 
 const VehicleTable = ({ vehicles }) => {
   vehicles.forEach(function (vehicle) {
@@ -18,7 +19,7 @@ const VehicleTable = ({ vehicles }) => {
       responsive: ["xs", "sm", "md", "lg", "xl"],
     },
     {
-      title: "ประเภท`",
+      title: "ชนิด`",
       dataIndex: "type",
       key: "type",
       responsive: ["xs", "sm", "md", "lg", "xl"],
@@ -47,7 +48,7 @@ const VehicleTable = ({ vehicles }) => {
       title: "ปรับปรุงเมื่อ",
       dataIndex: "updated_date",
       key: "updated_date",
-      responsive: ["md", "lg", "xl"],
+      responsive: ["lg", "xl"],
       render: (date) => parseTime(date),
     },
     {
@@ -78,6 +79,7 @@ const VehicleTable = ({ vehicles }) => {
 VehicleTable.propTypes = {
   vehicles: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+VehicleTable.getLayout = page => <BaseLayout>{page}</BaseLayout>;
 
 export default VehicleTable;
 

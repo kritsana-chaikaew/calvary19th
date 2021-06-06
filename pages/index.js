@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Card } from "antd";
 import "antd/dist/antd.css";
+import BaseLayout from "../components/BaseLayout";
 import Logo from "../assets/logo.svg";
 
 const { Meta } = Card;
@@ -34,8 +35,9 @@ const Home = () => {
         </Card>
       </Col>
     </Row>
-
   );
 };
+
+Home.getLayout = page => <BaseLayout>{page}</BaseLayout>;
 
 export default Home;
