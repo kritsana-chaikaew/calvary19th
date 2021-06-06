@@ -1,5 +1,6 @@
 const parseTime = (timestamp) => {
-  return new Date(timestamp).toLocaleDateString("th-TH", {
+  const ts = parseInt(timestamp, 10);
+  const thDate = new Date(ts).toLocaleDateString("th-TH", {
     timeZone: "Asia/Bangkok",
     year: "2-digit",
     month: "narrow",
@@ -10,7 +11,7 @@ const parseTime = (timestamp) => {
     minute: "2-digit",
     second: "2-digit"
   });
+  return thDate;
 };
-console.log(parseTime(Date.now()));
 
 module.exports = parseTime;

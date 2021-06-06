@@ -1,6 +1,6 @@
 {
     "[javascript]": {
-      "editor.formatOnSave": true
+      "editor.formatOnSave": true,
     },
     "[json]": {
       "editor.formatOnSave": true
@@ -14,5 +14,5 @@
       "javascriptreact",
       "typescript",
       "typescriptreact"
-    ]
+    ],
 }
