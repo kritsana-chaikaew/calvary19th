@@ -2,7 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MyApp = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+  return (
+    <div>
+      <Component {...pageProps} />
+      <style global jsx>{`
+        html,
+        body,
+        body > div:first-child,
+        div#__next,
+        div#__next > div {
+          height: 100%;
+        }
+      `}
+      </style>
+    </div>
+  );
 };
 
 MyApp.defaultProps = {
