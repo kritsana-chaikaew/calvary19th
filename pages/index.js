@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { List, Row, Col } from "antd";
+import { List } from "antd";
 import Inventory from "../component/Inventory";
+import Template from "../component/Template";
 
 const Home = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -20,24 +21,22 @@ const Home = () => {
   });
 
   return (
-    <Row>
-      <Col span={24}>
-        <List
-          dataSource={vehicles}
-          renderItem={(item) => (
-            <Inventory title={item?.serial_no}>
-              <p>ประเภท: {item?.type}</p>
-              <p>สถานะ: {item?.status}</p>
-              <p>กองร้อย: {item?.regimental}</p>
-            </Inventory>
-          )}
-          grid={{
-            gutter: [0, 24],
-            column: 3,
-          }}
-        />
-      </Col>
-    </Row>
+    <Template>
+      <List
+        dataSource={vehicles}
+        renderItem={(item) => (
+          <Inventory title={item?.serial_no}>
+            <p>ประเภท: {item?.type}</p>
+            <p>สถานะ: {item?.status}</p>
+            <p>กองร้อย: {item?.regimental}</p>
+          </Inventory>
+        )}
+        grid={{
+          gutter: [0, 24],
+          column: 3,
+        }}
+      />
+    </Template>
   );
 };
 
