@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { List, Row, Col } from "antd";
+import { List } from "antd";
 import Inventory from "../component/Inventory";
 
 import "antd/dist/antd.css";
