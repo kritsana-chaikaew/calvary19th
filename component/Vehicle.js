@@ -24,8 +24,8 @@ Vehicle.defaultProps = {
 
 Vehicle.propTypes = {
   children: PropTypes.element,
-  icon: PropTypes.object,
-  data: PropTypes.object,
+  icon: PropTypes.oneOfType([PropTypes.object, PropTypes.symbol]),
+  data: PropTypes.objectOf(PropTypes.string.isRequired),
 };
 
 export default Vehicle;

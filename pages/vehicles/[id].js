@@ -18,7 +18,7 @@ Vehicle.defaultProps = {
 };
 
 Vehicle.propTypes = {
-  vehicle: PropTypes.object,
+  vehicle: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
 export async function getStaticPaths() {

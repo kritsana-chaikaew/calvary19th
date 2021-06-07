@@ -8,11 +8,13 @@ const MyApp = ({ Component, pageProps }) => {
 MyApp.defaultProps = {
   Component: null,
   props: null,
+  pageProps: null
 };
 
 MyApp.propTypes = {
   Component: PropTypes.func,
-  props: PropTypes.object,
+  props: PropTypes.objectOf(PropTypes.string.isRequired),
+  pageProps: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 };
 
 export default MyApp;
