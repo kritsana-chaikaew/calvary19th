@@ -1,6 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
-const bcrypt = require("bcrypt");
-
 const createVehicle = `CREATE TABLE IF NOT EXISTS vehicle (
   id TEXT PRIMARY KEY,
   type TEXT NOT NULL,
@@ -22,18 +19,28 @@ const insertVehicle = `INSERT INTO vehicle (
   created_date,
   created_by,
   updated_date,
-  updated_by
-) VALUES (
-'${uuidv4()}',
-'รถถัง',
-'พร้อมใช้',
-'ร้อย.ม.๒',
-'๑๒๓๔',
-'${Date.now()}',
-'กฤษณะ',
-'${Date.now()}',
-'กฤษณะ'
+  updated_by ) VALUES (
+  $id,
+  $type,
+  $status,
+  $regimental,
+  $serialNo,
+  $createdDate,
+  $createdBy,
+  $updatedDate,
+  $updatedBy
 )`;
+
+const updateVehicleStmt = `UPDATE vehicle 
+  SET
+    type = $type,
+    status = $status,
+    regimental = $regimental,
+    serial_no = $serialNo,
+    updated_date = $updatedDate,
+    updated_by = $updatedBy
+  WHERE id = $id
+`;
 
 const createUser = `CREATE TABLE IF NOT EXISTS user (
   id TEXT PRIMARY KEY,
@@ -53,18 +60,28 @@ const insertUser = `INSERT INTO user (
   created_by,
   updated_date,
   updated_by ) VALUES (
-    '${uuidv4()}',
-    'กฤษณะ',
-    '${bcrypt.hashSync("1234", 5)}',
-    '${Date.now()}',
-    'กฤษณะ',
-    '${Date.now()}',
-    'กฤษณะ'
+  $id,
+  $username,
+  $password,
+  $createdDate,
+  $createdBy,
+  $updatedDate,
+  $updatedBy
 )`;
+
+const updateUserStmt = `UPDATE user 
+SET
+  password = $password,
+  updated_date = $updatedDate,
+  updated_by = $updatedBy
+WHERE id = $id
+`;
 
 module.exports = {
   createVehicle,
-  createUser,
   insertVehicle,
+  updateVehicleStmt,
+  createUser,
   insertUser,
+  updateUserStmt,
 };

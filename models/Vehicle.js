@@ -1,6 +1,6 @@
-
 const { v4: uuidv4 } = require("uuid");
 const { asyncAll, asyncGet, asyncRun } = require("./db");
+const { insertVehicle, updateVehicleStmt } = require("./statments");
 
 export async function getVehicle(id) {
   if (!id) {
@@ -24,29 +24,8 @@ export async function getVehicles() {
 
 export async function createVehicle(vehicle) {
   const id = uuidv4();
-  const sql = `INSERT INTO vehicle (
-    id,
-    type,
-    status,
-    regimental,
-    serial_no,
-    created_date,
-    created_by,
-    updated_date,
-    updated_by
-  ) VALUES (
-    $id,
-    $type,
-    $status,
-    $regimental,
-    $serialNo,
-    $createdDate,
-    $createdBy,
-    $updatedDate,
-    $updatedBy
-  )`;
   let createdVehicle = null;
-  await asyncRun(sql, {
+  await asyncRun(insertVehicle, {
     $id: id,
     $type: vehicle.type,
     $status: vehicle.status,
@@ -62,18 +41,8 @@ export async function createVehicle(vehicle) {
 }
 
 export async function updateVehicle(vehicle) {
-  const sql = `UPDATE vehicle 
-  SET
-    type = $type,
-    status = $status,
-    regimental = $regimental,
-    serial_no = $serialNo,
-    updated_date = $updatedDate,
-    updated_by = $updatedBy
-  WHERE id = $id
-  `;
   let updatedVehicle = null;
-  await asyncRun(sql, {
+  await asyncRun(updateVehicleStmt, {
     $id: vehicle.id,
     $type: vehicle.type,
     $status: vehicle.status,

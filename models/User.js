@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const { asyncAll, asyncGet, asyncRun } = require("./db");
+const { insertUser, updateUserStmt } = require("./statments");
 
 export async function getUser(id) {
   const sql = "SELECT * FROM user WHERE id=$id";
@@ -21,25 +22,8 @@ export async function getUsers() {
 
 export async function createUser(user) {
   const id = uuidv4();
-  const sql = `INSERT INTO user (
-    id,
-    username,
-    password,
-    created_date,
-    created_by,
-    updated_date,
-    updated_by
-  ) VALUES (
-    $id,
-    $username,
-    $password,
-    $createdDate,
-    $createdBy,
-    $updatedDate,
-    $updatedBy
-  )`;
   let createdUser = null;
-  await asyncRun(sql, {
+  await asyncRun(insertUser, {
     $id: id,
     $username: user.username,
     $password: bcrypt.hashSync(user.password, 5),
@@ -53,15 +37,8 @@ export async function createUser(user) {
 }
 
 export async function updateUser(user) {
-  const sql = `UPDATE user 
-  SET
-    password = $password,
-    updated_date = $updatedDate,
-    updated_by = $updatedBy
-  WHERE id = $id
-  `;
   let updatedUser = null;
-  await asyncRun(sql, {
+  await asyncRun(updateUserStmt, {
     $password: bcrypt.hashSync(user.password, 5),
     $updatedDate: Date.now(),
     $updatedBy: user.updated_by,
@@ -70,6 +47,3 @@ export async function updateUser(user) {
   updatedUser = await getUser(user.id);
   return updatedUser;
 }
-
-
-
