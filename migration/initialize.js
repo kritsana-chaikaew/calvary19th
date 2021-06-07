@@ -26,10 +26,11 @@ const mockVehicle = {
     "รสพ. M.113 A 1",
     "รสพ.ติดตั้ง ค.4.2 นิ้ว M.106 A 2",
   ]),
-  $status: sample(["พร้อมใช้งาน", " ไม่พร้อมใช้งาน", "ชะงักใช้งาน"]),
+  $status: sample(["พร้อมใช้งาน", "ไม่พร้อมใช้งาน", "ชะงักใช้งาน"]),
   $regimental: sample(["ร้อย.บก", "ร้อย.ม.1", "ร้อย.ม.2", "ร้อย.ม.3"]),
   $serialNo: randomInt(10000, 20000),
-  $repairSlip: "https://nerdist.com/wp-content/uploads/2020/07/maxresdefault.jpg",
+  $repairSlip:
+    "https://nerdist.com/wp-content/uploads/2020/07/maxresdefault.jpg",
   $image: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Is-3_lesany.jpg",
   $createdDate: Date.now(),
   $createdBy: sample(["กฤษณะ", "นิติ", "โอฬาร"]),
