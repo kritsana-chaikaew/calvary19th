@@ -58,3 +58,16 @@ export async function updateVehicle(vehicle) {
   updatedVehicle = await getVehicle(vehicle.id);
   return updatedVehicle;
 }
+
+export async function getAllVehicleIds() {
+  const sql = "SELECT id FROM vehicle";
+  const items = await asyncAll(sql);
+  const allIds = items.map((item) => {
+    return {
+      params: {
+        id: item.id,
+      },
+    };
+  });
+  return allIds;
+}
