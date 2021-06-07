@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { promisify } = require("util");
 const sqlite3 = require("sqlite3").verbose();
-const handle = require("./error");
+const handle = require("../utils/error");
 
 if (!fs.existsSync(".db")) {
   fs.mkdirSync(".db");

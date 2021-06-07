@@ -1,18 +1,4 @@
-const { asyncGet, asyncRun } = require("../../../utils/db");
-
-export async function getVehicle(id) {
-  if (!id) {
-    return null;
-  }
-  const sql = "SELECT * FROM vehicle WHERE id=$id";
-  const vehicle = await asyncGet(sql, { $id: id });
-  return vehicle;
-}
-
-export async function deleteVehicle(id) {
-  const sql = "DELETE FROM vehicle WHERE id=$id";
-  await asyncRun(sql, { $id: id });
-}
+import { getVehicle, deleteVehicle } from "../../../models/Vehicle";
 
 export default async function handler(req, res) {
   const {
