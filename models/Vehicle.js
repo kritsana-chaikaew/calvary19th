@@ -31,6 +31,8 @@ export async function createVehicle(vehicle) {
     $status: vehicle.status,
     $regimental: vehicle.regimental,
     $serialNo: vehicle.serial_no,
+    $repaireSlip: vehicle.repair_slip,
+    $image: vehicle.image,
     $createdDate: Date.now(),
     $createdBy: vehicle.created_by,
     $updatedDate: Date.now(),
@@ -48,6 +50,8 @@ export async function updateVehicle(vehicle) {
     $status: vehicle.status,
     $regimental: vehicle.regimental,
     $serialNo: vehicle.serial_no,
+    $repaireSlip: vehicle.repair_slip,
+    $image: vehicle.image,
     $updatedDate: Date.now(),
     $updatedBy: vehicle.updated_by,
   });

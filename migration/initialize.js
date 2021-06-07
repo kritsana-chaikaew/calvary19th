@@ -29,6 +29,8 @@ const mockVehicle = {
   $status: sample(["พร้อมใช้งาน", " ไม่พร้อมใช้งาน", "ชะงักใช้งาน"]),
   $regimental: sample(["ร้อย.บก", "ร้อย.ม.1", "ร้อย.ม.2", "ร้อย.ม.3"]),
   $serialNo: randomInt(10000, 20000),
+  $repairSlip: "https://nerdist.com/wp-content/uploads/2020/07/maxresdefault.jpg",
+  $image: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Is-3_lesany.jpg",
   $createdDate: Date.now(),
   $createdBy: sample(["กฤษณะ", "นิติ", "โอฬาร"]),
   $updatedDate: Date.now(),
