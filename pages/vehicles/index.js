@@ -6,8 +6,6 @@ import Vehicle from "../../component/Vehicle";
 import TruckIcon from "../../assets/military-truck.svg";
 import { getVehicles } from "../../models/Vehicle";
 
-import "antd/dist/antd.css";
-
 const Index = ({ vehicles }) => {
   const router = useRouter();
 
