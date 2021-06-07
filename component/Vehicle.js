@@ -6,13 +6,21 @@ import PropTypes from "prop-types";
 const ButtomWrapper = styled(Button)`
   width: 10rem;
   height: 10rem;
+  & div.disable > svg {
+    filter: opacity(0.5) grayscale(1);
+  }
+  & div.unavailable > svg {
+    filter: hue-rotate(270deg) saturate(400%);
+  }
 `;
 
 const Vehicle = ({ icon, data, ...rest }) => {
-  // TODO: change icon color based on status
-  // const disable = data?.status === "ชะงักใช้งาน";
-  // const unavailable = data?.status === "ไม่พร้อมใช้งาน";
-  return <ButtomWrapper {...rest}>{icon}</ButtomWrapper>;
+  let className;
+  if (data?.status === "ชะงักใช้งาน")
+    className = "disable";
+  if (data?.status === "ไม่พร้อมใช้งาน")
+    className = "unavailable";
+  return <ButtomWrapper {...rest}><div className={className}>{icon}</div></ButtomWrapper>;
 };
 Vehicle.defaultProps = {
   icon: null,
