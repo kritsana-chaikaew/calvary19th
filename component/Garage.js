@@ -7,7 +7,7 @@ import TruckIcon from "../assets/military-truck.svg";
 
 const CardWrapper = styled(Card)`
   width: 100%;
-  height: 6rem;
+  height: 5rem;
   padding: 2px 2px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   div[class^="ant-card"] {

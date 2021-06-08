@@ -7,7 +7,7 @@ const Building = ({ title, ...props }) => {
       {title}
       <style jsx>{`
         .building {
-          height: 6rem;
+          height: 5rem;
           width: 100%;
           text-align: center;
           border: 1px solid grey;
