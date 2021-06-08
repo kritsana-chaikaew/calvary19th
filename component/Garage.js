@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { Card } from "antd";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -21,12 +20,11 @@ const CardWrapper = styled(Card)`
   }
 `;
 
-const Garage = ({ vehicles, title, ...rest }) => {
-  const router = useRouter();
+const Garage = ({ vehicles, title, onClick, ...rest }) => {
   const vehicleList = vehicles.map(vehicle => {
     return (
       <Vehicle
-        onClick={() => router.push(`/vehicles/${vehicle?.id}`)}
+        onClick={() => onClick(vehicle)}
         icon={<TruckIcon />}
         data={vehicle}
         key={vehicle?.id}
@@ -45,12 +43,14 @@ const Garage = ({ vehicles, title, ...rest }) => {
 };
 Garage.defaultProps = {
   vehicles: [],
-  title: ""
+  title: "",
+  onClick: null
 };
 
 Garage.propTypes = {
   vehicles: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string
+  title: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default Garage;

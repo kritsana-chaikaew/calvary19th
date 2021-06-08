@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, Modal } from "antd";
 import styled from "styled-components";
 import { getVehicles } from "../../models/Vehicle";
 import Garage from "../../component/Garage";
@@ -34,6 +34,24 @@ const min2RowHeight = "14rem";
 const buildingHeight = "13rem";
 
 const Index = ({ vehicles }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalData, setModalData] = useState({});
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleGarageClick = (vehicleData) => {
+    setModalData(vehicleData);
+    showModal();
+  };
   return (
     <LayoutWrapper>
       <Content style={{ padding: "20px 20px" }}>
@@ -51,11 +69,11 @@ const Index = ({ vehicles }) => {
           </Col>
           <Col span={16}>
             <Row style={{minHeight: minRowHeight}} gutter={[32, 4]}>
-              <Col span={12}><Garage title="โรงรถล้อ ร้อย.บก" vehicles={vehicles} /></Col>
-              <Col span={12}><Garage title="โรงรถล้อ ร้อย.ม.1" vehicles={vehicles} /></Col>
+              <Col span={12}><Garage onClick={handleGarageClick} title="โรงรถล้อ ร้อย.บก" vehicles={vehicles} /></Col>
+              <Col span={12}><Garage onClick={handleGarageClick} title="โรงรถล้อ ร้อย.ม.1" vehicles={vehicles} /></Col>
             </Row>
             <Row style={{minHeight: minRowHeight}} gutter={[32, 4]}>
-              <Col span={8}><Garage title="โรงรถสายพาน ร้อย.บก" vehicles={vehicles} /></Col>
+              <Col span={8}><Garage onClick={handleGarageClick} title="โรงรถสายพาน ร้อย.บก" vehicles={vehicles} /></Col>
               <Col span={16} />
             </Row>
           </Col>
@@ -78,7 +96,7 @@ const Index = ({ vehicles }) => {
               <Col span={12} />
             </Row>
             <Row style={{minHeight: minRowHeight}} gutter={[32, 4]}>
-              <Col span={12}><Garage title="โรงรถล้อ ร้อย.ม.3" vehicles={vehicles} /></Col>
+              <Col span={12}><Garage onClick={handleGarageClick} title="โรงรถล้อ ร้อย.ม.3" vehicles={vehicles} /></Col>
               <Col span={12} />
             </Row>
           </Col>
@@ -90,11 +108,17 @@ const Index = ({ vehicles }) => {
         </Row>
         
         <Row style={{minHeight: minRowHeight}} gutter={[32, 4]}>
-          <Col span={8}><Garage title="โรงรถสายพาน ร้อย.ม.3" vehicles={vehicles} /></Col>
-          <Col span={8}><Garage title="โรงรถสายพาน ร้อย.ม.1" vehicles={vehicles} /></Col>
-          <Col span={8}><Garage title="โรงรถสายพาน ร้อย.ม.2" vehicles={vehicles} /></Col>
+          <Col span={8}><Garage onClick={handleGarageClick} title="โรงรถสายพาน ร้อย.ม.3" vehicles={vehicles} /></Col>
+          <Col span={8}><Garage onClick={handleGarageClick} title="โรงรถสายพาน ร้อย.ม.1" vehicles={vehicles} /></Col>
+          <Col span={8}><Garage onClick={handleGarageClick} title="โรงรถสายพาน ร้อย.ม.2" vehicles={vehicles} /></Col>
         </Row>
       </Content>
+      <Modal title="ข้อมูลยานพาหนะ" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p>{modalData?.serial_no}</p>
+        <p>{modalData?.type}</p>
+        <p>{modalData?.status}</p>
+        <p>{modalData?.regimental}</p>
+      </Modal>
     </LayoutWrapper>
   );
 };
