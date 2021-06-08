@@ -4,30 +4,12 @@ import { Layout, Row, Col, Modal } from "antd";
 import styled from "styled-components";
 import { getVehicles } from "../../models/Vehicle";
 import Garage from "../../component/Garage";
+import Building from "../../component/Building";
 
 const { Content } = Layout;
 const LayoutWrapper = styled(Layout)`
   height: 100%;
 `;
-
-const Building = ({ title, ...props }) => {
-  return (
-    <div className="building" {...props}>
-      {title}
-      <style jsx>{`
-        .building {
-          height: 6rem;
-          width: 100%;
-          text-align: center;
-          border: 1px solid grey;
-          background-color: #fff;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        `}
-      </style>
-    </div>
-  );
-};
 
 const minRowHeight = "7rem";
 const min2RowHeight = "14rem";
