@@ -10,6 +10,7 @@ const CardWrapper = styled(Card)`
   width: 100%;
   height: 6rem;
   padding: 2px 2px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   div[class^="ant-card"] {
     padding: 0px 0px;
     min-height: 1rem;
@@ -33,8 +34,8 @@ const Garage = ({ vehicles, title, ...rest }) => {
     );
   });
   return (
-    <CardWrapper title={title} {...rest} hoverable>
-      <div className="container" style={{overflowX: "scroll"}}>
+    <CardWrapper title={title} {...rest}>
+      <div className="container" style={{overflowX: "scroll", paddingBottom: "15px"}}>
         <div className="scroller" style={{width: "max-content", padding: "0px 2px"}}>
           {vehicleList}
         </div>

@@ -4,14 +4,17 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const ButtomWrapper = styled(Button)`
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   padding: 0px 0px;
   div.disable > svg {
     filter: opacity(0.5) grayscale(1);
   }
   div.unavailable > svg {
     filter: hue-rotate(270deg) saturate(400%);
+  }
+  :hover {
+    transform: scale(1.1);
   }
 `;
 
@@ -21,7 +24,7 @@ const Vehicle = ({ icon, data, ...rest }) => {
     className = "disable";
   if (data?.status === "ไม่พร้อมใช้งาน")
     className = "unavailable";
-  return <ButtomWrapper {...rest}><div className={className}>{icon}</div></ButtomWrapper>;
+  return <ButtomWrapper type="text" {...rest}><div className={className}>{icon}</div></ButtomWrapper>;
 };
 Vehicle.defaultProps = {
   icon: null,
