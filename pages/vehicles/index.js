@@ -1,33 +1,50 @@
 import React from "react";
-import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { List, Row, Col } from "antd";
-import Vehicle from "../../component/Vehicle";
-import TruckIcon from "../../assets/military-truck.svg";
+import { Layout, Row, Col } from "antd";
+import styled from "styled-components";
 import { getVehicles } from "../../models/Vehicle";
+import Garage from "../../component/Garage";
+
+const { Content } = Layout;
+const LayoutWrapper = styled(Layout)`
+  height: 100%;
+`;
 
 const Index = ({ vehicles }) => {
-  const router = useRouter();
-
   return (
-    <Row>
-      <Col span={24}>
-        <List
-          dataSource={vehicles}
-          renderItem={(vehicle) => (
-            <Vehicle
-              onClick={() => router.push(`/vehicles/${vehicle?.id}`)}
-              icon={<TruckIcon />}
-              data={vehicle}
-            />
-          )}
-          grid={{
-            gutter: [0, 24],
-            column: 3,
-          }}
-        />
-      </Col>
-    </Row>
+    <LayoutWrapper>
+      <Content style={{ padding: "50px 50px" }}>
+        <Row style={{border: "1px solid black", minHeight: "8rem"}} gutter={[8, 8]}>
+          <Col span={6} />
+          <Col span={12} />
+          <Col span={6} />
+        </Row>
+        <Row style={{border: "1px solid black", minHeight: "8rem"}} gutter={[8, 8]}>
+          <Col span={4} />
+          <Col span={8} />
+          <Col span={8} />
+          <Col span={4} />
+        </Row>
+        <Row style={{border: "1px solid black", minHeight: "8rem"}} gutter={[8, 8]}>
+          <Col span={4} />
+          <Col span={6} />
+          <Col span={4} />
+          <Col span={6} />
+          <Col span={4} />
+        </Row>
+        <Row style={{border: "1px solid black", minHeight: "8rem"}} gutter={[8, 8]}>
+          <Col span={4} />
+          <Col span={8} />
+          <Col span={8} />
+          <Col span={4} />
+        </Row>
+        <Row style={{border: "1px solid black", minHeight: "8rem"}} gutter={[8, 8]}>
+          <Col span={8}><Garage title="โรงรถ ร้อย.ม.2" vehicles={vehicles} /></Col>
+          <Col span={8}><Garage title="โรงรถ ร้อย.ม.2" vehicles={vehicles} /></Col>
+          <Col span={8}><Garage title="โรงรถ ร้อย.ม.2" vehicles={vehicles} /></Col>
+        </Row>
+      </Content>
+    </LayoutWrapper>
   );
 };
 Index.defaultProps = {

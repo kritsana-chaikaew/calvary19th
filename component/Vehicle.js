@@ -4,12 +4,13 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const ButtomWrapper = styled(Button)`
-  width: 10rem;
-  height: 10rem;
-  & div.disable > svg {
+  width: 4rem;
+  height: 4rem;
+  padding: 0px 0px;
+  div.disable > svg {
     filter: opacity(0.5) grayscale(1);
   }
-  & div.unavailable > svg {
+  div.unavailable > svg {
     filter: hue-rotate(270deg) saturate(400%);
   }
 `;

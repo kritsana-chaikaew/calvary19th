@@ -4,7 +4,22 @@ import PropTypes from "prop-types";
 import "antd/dist/antd.css";
 
 const MyApp = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+  return (
+    <div>
+      <style global jsx>
+        {`
+          html,
+          body,
+          body > div:first-child,
+          div#__next,
+          div#__next > div {
+            height: 100%;
+          }
+        `}
+      </style>
+      <Component {...pageProps} />
+    </div>
+    );
 };
 
 MyApp.defaultProps = {
