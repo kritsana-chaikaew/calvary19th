@@ -20,11 +20,13 @@ const ButtomWrapper = styled(Button)`
 
 const Vehicle = ({ icon, data, ...rest }) => {
   let className;
-  if (data?.status === "ชะงักใช้งาน")
-    className = "disable";
-  if (data?.status === "ไม่พร้อมใช้งาน")
-    className = "unavailable";
-  return <ButtomWrapper type="text" {...rest}><div className={className}>{icon}</div></ButtomWrapper>;
+  if (data?.status === "ชะงักใช้งาน") className = "disable";
+  if (data?.status === "ไม่พร้อมใช้งาน") className = "unavailable";
+  return (
+    <ButtomWrapper type="text" {...rest}>
+      <div className={className}>{icon}</div>
+    </ButtomWrapper>
+  );
 };
 Vehicle.defaultProps = {
   icon: null,

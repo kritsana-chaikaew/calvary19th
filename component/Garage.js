@@ -21,7 +21,7 @@ const CardWrapper = styled(Card)`
 `;
 
 const Garage = ({ vehicles, title, onClick, ...rest }) => {
-  const vehicleList = vehicles.map(vehicle => {
+  const vehicleList = vehicles.map((vehicle) => {
     return (
       <Vehicle
         onClick={() => onClick(vehicle)}
@@ -33,8 +33,14 @@ const Garage = ({ vehicles, title, onClick, ...rest }) => {
   });
   return (
     <CardWrapper title={title} {...rest}>
-      <div className="container" style={{overflowX: "scroll", paddingBottom: "15px"}}>
-        <div className="scroller" style={{width: "max-content", padding: "0px 2px"}}>
+      <div
+        className="container"
+        style={{ overflowX: "scroll", paddingBottom: "15px" }}
+      >
+        <div
+          className="scroller"
+          style={{ width: "max-content", padding: "0px 2px" }}
+        >
           {vehicleList}
         </div>
       </div>
@@ -44,13 +50,13 @@ const Garage = ({ vehicles, title, onClick, ...rest }) => {
 Garage.defaultProps = {
   vehicles: [],
   title: "",
-  onClick: null
+  onClick: null,
 };
 
 Garage.propTypes = {
   vehicles: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default Garage;

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "antd/dist/antd.css";
 
 const MyApp = ({ Component, pageProps }) => {
-  const getTemplate = Component.getTemplate || (page => page);
+  const getTemplate = Component.getTemplate || ((page) => page);
   return getTemplate(
     <div>
       <style global jsx>
@@ -20,7 +20,7 @@ const MyApp = ({ Component, pageProps }) => {
       </style>
       <Component {...pageProps} />
     </div>
-    );
+  );
 };
 
 MyApp.defaultProps = {
