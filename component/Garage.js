@@ -2,8 +2,6 @@ import React from "react";
 import { Card } from "antd";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import Vehicle from "./Vehicle";
-import TruckIcon from "../assets/military-truck.svg";
 
 const CardWrapper = styled(Card)`
   width: 100%;
@@ -20,17 +18,8 @@ const CardWrapper = styled(Card)`
   }
 `;
 
-const Garage = ({ vehicles, title, onClick, ...rest }) => {
-  const vehicleList = vehicles.map((vehicle) => {
-    return (
-      <Vehicle
-        onClick={() => onClick(vehicle)}
-        icon={<TruckIcon />}
-        data={vehicle}
-        key={vehicle?.id}
-      />
-    );
-  });
+const Garage = ({ vehicleList, title, ...rest }) => {
+  
   return (
     <CardWrapper title={title} {...rest}>
       <div
@@ -50,13 +39,13 @@ const Garage = ({ vehicles, title, onClick, ...rest }) => {
 Garage.defaultProps = {
   vehicles: [],
   title: "",
-  onClick: null,
+  vehicleList: []
 };
 
 Garage.propTypes = {
   vehicles: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
-  onClick: PropTypes.func,
+  vehicleList: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default Garage;

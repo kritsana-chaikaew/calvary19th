@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Modal, Image } from "antd";
+import NImage from "next/image";
 import { getVehicles } from "../models/Vehicle";
 import Garage from "../component/Garage";
 import Building from "../component/Building";
 import Template from "../component/Template";
+import Vehicle from "../component/Vehicle";
+
+const Icon = <NImage layout="fill" src="/military-truck.svg" alt="icon" />;
 
 const Index = ({ vehicles }) => {
   const minRowHeight = "6rem";
@@ -33,6 +37,17 @@ const Index = ({ vehicles }) => {
     setModalData(vehicleData);
     showModal();
   };
+
+  const vehicleList = vehicles.map((vehicle) => {
+    return (
+      <Vehicle
+        onClick={() => handleGarageClick(vehicle)}
+        icon={Icon}
+        data={vehicle}
+        key={vehicle?.id}
+      />
+    );
+  });
   return (
     <div>
       <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
@@ -57,14 +72,14 @@ const Index = ({ vehicles }) => {
               <Garage
                 onClick={handleGarageClick}
                 title="โรงรถล้อ ร้อย.บก"
-                vehicles={vehicles}
+                vehicleList={vehicleList}
               />
             </Col>
             <Col span={12}>
               <Garage
                 onClick={handleGarageClick}
                 title="โรงรถล้อ ร้อย.ม.1"
-                vehicles={vehicles}
+                vehicleList={vehicleList}
               />
             </Col>
           </Row>
@@ -73,7 +88,7 @@ const Index = ({ vehicles }) => {
               <Garage
                 onClick={handleGarageClick}
                 title="โรงรถสายพาน ร้อย.บก"
-                vehicles={vehicles}
+                vehicleList={vehicleList}
               />
             </Col>
             <Col span={16} />
@@ -106,7 +121,7 @@ const Index = ({ vehicles }) => {
               <Garage
                 onClick={handleGarageClick}
                 title="โรงรถล้อ ร้อย.ม.3"
-                vehicles={vehicles}
+                vehicleList={vehicleList}
               />
             </Col>
             <Col span={12} />
@@ -126,21 +141,21 @@ const Index = ({ vehicles }) => {
           <Garage
             onClick={handleGarageClick}
             title="โรงรถสายพาน ร้อย.ม.3"
-            vehicles={vehicles}
+            vehicleList={vehicleList}
           />
         </Col>
         <Col span={8}>
           <Garage
             onClick={handleGarageClick}
             title="โรงรถสายพาน ร้อย.ม.1"
-            vehicles={vehicles}
+            vehicleList={vehicleList}
           />
         </Col>
         <Col span={8}>
           <Garage
             onClick={handleGarageClick}
             title="โรงรถสายพาน ร้อย.ม.2"
-            vehicles={vehicles}
+            vehicleList={vehicleList}
           />
         </Col>
       </Row>

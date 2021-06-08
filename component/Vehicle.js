@@ -7,10 +7,10 @@ const ButtomWrapper = styled(Button)`
   width: 3rem;
   height: 3rem;
   padding: 0px 0px;
-  div.disable > svg {
+  div.disable > div > img {
     filter: opacity(0.5) grayscale(1);
   }
-  div.unavailable > svg {
+  div.unavailable > div > img {
     filter: hue-rotate(270deg) saturate(400%);
   }
   :hover {
@@ -34,7 +34,7 @@ Vehicle.defaultProps = {
 };
 
 Vehicle.propTypes = {
-  icon: PropTypes.oneOfType([PropTypes.object, PropTypes.symbol]),
+  icon: PropTypes.element,
   data: PropTypes.objectOf(PropTypes.string.isRequired),
 };
 
