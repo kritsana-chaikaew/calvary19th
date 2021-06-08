@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Row, Col } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import device from "../../utils/device";
 
 const LayoutWrapper = styled(Layout)`
   background-color: inherit;
@@ -26,7 +27,12 @@ const Navbar = styled(Layout.Header)`
 `;
 
 const Content = styled(Layout.Content)`
-  padding: 80px 50px 30px;
+  @media ${device.md} { 
+    padding: 80px 50px 5px;
+  }
+  @media ${device.xs} { 
+    padding: 60px 5px 5px;
+  }
 `;
 
 const Template = (props) => {

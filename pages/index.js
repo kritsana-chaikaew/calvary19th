@@ -6,11 +6,15 @@ import Garage from "../component/Garage";
 import Building from "../component/Building";
 import Template from "../component/Template";
 
-const minRowHeight = "6rem";
-const min2RowHeight = "12rem";
-const buildingHeight = "11rem";
-
 const Index = ({ vehicles }) => {
+  const minRowHeight = "6rem";
+  const min2RowHeight = "12rem";
+  const buildingHeight = "11rem";
+  const gutter = [
+    { xs: 5, sm: 16, md: 16, lg: 16 },
+    { xs: 5, sm: 16, md: 16, lg: 16 },
+  ];
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalData, setModalData] = useState({});
   const showModal = () => {
@@ -31,7 +35,7 @@ const Index = ({ vehicles }) => {
   };
   return (
     <div>
-      <Row style={{ minHeight: minRowHeight }} gutter={[32, 4]}>
+      <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
         <Col span={8} />
         <Col span={8}>
           <Building title="บก.พัน" />
@@ -39,16 +43,16 @@ const Index = ({ vehicles }) => {
         <Col span={8} />
       </Row>
 
-      <Row style={{ minHeight: min2RowHeight }} gutter={[32, 4]}>
+      <Row style={{ minHeight: min2RowHeight }} gutter={gutter}>
         <Col span={4}>
-          <Row style={{ minHeight: min2RowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: min2RowHeight }} gutter={gutter}>
             <Col span={24}>
               <Building style={{ height: buildingHeight }} title="ร้อย.บก." />
             </Col>
           </Row>
         </Col>
         <Col span={16}>
-          <Row style={{ minHeight: minRowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
             <Col span={12}>
               <Garage
                 onClick={handleGarageClick}
@@ -64,7 +68,7 @@ const Index = ({ vehicles }) => {
               />
             </Col>
           </Row>
-          <Row style={{ minHeight: minRowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
             <Col span={8}>
               <Garage
                 onClick={handleGarageClick}
@@ -76,7 +80,7 @@ const Index = ({ vehicles }) => {
           </Row>
         </Col>
         <Col span={4}>
-          <Row style={{ minHeight: min2RowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: min2RowHeight }} gutter={gutter}>
             <Col span={24}>
               <Building style={{ height: buildingHeight }} title="ร้อย.ม.1" />
             </Col>
@@ -84,20 +88,20 @@ const Index = ({ vehicles }) => {
         </Col>
       </Row>
 
-      <Row style={{ minHeight: min2RowHeight }} gutter={[32, 4]}>
+      <Row style={{ minHeight: min2RowHeight }} gutter={gutter}>
         <Col span={4}>
-          <Row style={{ minHeight: min2RowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: min2RowHeight }} gutter={gutter}>
             <Col span={24}>
               <Building style={{ height: buildingHeight }} title="ร้อย.ม.3" />
             </Col>
           </Row>
         </Col>
         <Col span={16}>
-          <Row style={{ minHeight: minRowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
             <Col span={12} />
             <Col span={12} />
           </Row>
-          <Row style={{ minHeight: minRowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
             <Col span={12}>
               <Garage
                 onClick={handleGarageClick}
@@ -109,7 +113,7 @@ const Index = ({ vehicles }) => {
           </Row>
         </Col>
         <Col span={4}>
-          <Row style={{ minHeight: min2RowHeight }} gutter={[32, 4]}>
+          <Row style={{ minHeight: min2RowHeight }} gutter={gutter}>
             <Col span={24}>
               <Building style={{ height: buildingHeight }} title="ร้อย.ม.2" />
             </Col>
@@ -117,7 +121,7 @@ const Index = ({ vehicles }) => {
         </Col>
       </Row>
 
-      <Row style={{ minHeight: minRowHeight }} gutter={[32, 4]}>
+      <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
         <Col span={8}>
           <Garage
             onClick={handleGarageClick}
