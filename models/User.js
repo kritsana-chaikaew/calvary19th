@@ -9,6 +9,12 @@ export async function getUser(id) {
   return user;
 }
 
+export async function getUserByUserName(username) {
+  const sql = "SELECT * FROM user WHERE username=$username";
+  const user = await asyncGet(sql, { $username: username });
+  return user;
+}
+
 export async function deleteUser(id) {
   const sql = "DELETE FROM user WHERE id=$id";
   await asyncRun(sql, { $id: id });
