@@ -7,8 +7,14 @@ import Garage from "../component/Garage";
 import Building from "../component/Building";
 import Template from "../component/Template";
 import Vehicle from "../component/Vehicle";
+import { types, regimentals, statuses } from "../utils/const";
 
-const Icon = <NImage layout="fill" src="/military-truck.svg" alt="icon" />;
+const Icons = Object.fromEntries(
+  types.map((type) => [
+    type.name,
+    <NImage layout="fill" src={type.icon} alt={type.name} />,
+  ])
+);
 
 const Index = ({ vehicles }) => {
   const minRowHeight = "6rem";
@@ -38,16 +44,30 @@ const Index = ({ vehicles }) => {
     showModal();
   };
 
-  const vehicleList = vehicles.map((vehicle) => {
-    return (
-      <Vehicle
-        onClick={() => handleVehicleClick(vehicle)}
-        icon={Icon}
-        data={vehicle}
-        key={vehicle?.id}
-      />
-    );
-  });
+  const getVehicleList = (vehicleList) => {
+    return vehicleList.map((vehicle) => {
+      return (
+        <Vehicle
+          onClick={() => handleVehicleClick(vehicle)}
+          icon={Icons[vehicle.type]}
+          data={vehicle}
+          key={vehicle?.id}
+        />
+      );
+    });
+  };
+
+  // TODO: vehicles should belong to Garage not only regimental
+  // and should get from db
+  const vehicleListByRegimental = Object.fromEntries(
+    regimentals.map((regimental) => [
+      regimental,
+      vehicles.filter((vehicle) => {
+        return vehicle.regimental === regimental;
+      }),
+    ])
+  );
+
   return (
     <div>
       <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
@@ -71,13 +91,17 @@ const Index = ({ vehicles }) => {
             <Col span={12}>
               <Garage
                 title="โรงรถล้อ ร้อย.บก"
-                vehicleList={vehicleList}
+                vehicleList={getVehicleList(
+                  vehicleListByRegimental[regimentals[0]]
+                )}
               />
             </Col>
             <Col span={12}>
               <Garage
                 title="โรงรถล้อ ร้อย.ม.1"
-                vehicleList={vehicleList}
+                vehicleList={getVehicleList(
+                  vehicleListByRegimental[regimentals[1]]
+                )}
               />
             </Col>
           </Row>
@@ -85,7 +109,9 @@ const Index = ({ vehicles }) => {
             <Col span={8}>
               <Garage
                 title="โรงรถสายพาน ร้อย.บก"
-                vehicleList={vehicleList}
+                vehicleList={getVehicleList(
+                  vehicleListByRegimental[regimentals[0]]
+                )}
               />
             </Col>
             <Col span={16} />
@@ -117,7 +143,9 @@ const Index = ({ vehicles }) => {
             <Col span={12}>
               <Garage
                 title="โรงรถล้อ ร้อย.ม.3"
-                vehicleList={vehicleList}
+                vehicleList={getVehicleList(
+                  vehicleListByRegimental[regimentals[3]]
+                )}
               />
             </Col>
             <Col span={12} />
@@ -136,19 +164,25 @@ const Index = ({ vehicles }) => {
         <Col span={8}>
           <Garage
             title="โรงรถสายพาน ร้อย.ม.3"
-            vehicleList={vehicleList}
+            vehicleList={getVehicleList(
+              vehicleListByRegimental[regimentals[3]]
+            )}
           />
         </Col>
         <Col span={8}>
           <Garage
             title="โรงรถสายพาน ร้อย.ม.1"
-            vehicleList={vehicleList}
+            vehicleList={getVehicleList(
+              vehicleListByRegimental[regimentals[1]]
+            )}
           />
         </Col>
         <Col span={8}>
           <Garage
             title="โรงรถสายพาน ร้อย.ม.2"
-            vehicleList={vehicleList}
+            vehicleList={getVehicleList(
+              vehicleListByRegimental[regimentals[2]]
+            )}
           />
         </Col>
       </Row>
@@ -165,9 +199,11 @@ const Index = ({ vehicles }) => {
         <pre>ชนิด {modalData?.type}</pre>
         <pre>สถานะ {modalData?.status}</pre>
         <pre>กองร้อย {modalData?.regimental}</pre>
-        <pre>
-          ใบส่งซ่อม <Image width={100} src={modalData?.repair_slip} />
-        </pre>
+        {modalData?.status === statuses[1] && (
+          <pre>
+            ใบส่งซ่อม <Image width={100} src={modalData?.repair_slip} />
+          </pre>
+        )}
       </Modal>
     </div>
   );
