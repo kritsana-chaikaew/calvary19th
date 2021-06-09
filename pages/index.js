@@ -33,7 +33,7 @@ const Index = ({ vehicles }) => {
     setIsModalVisible(false);
   };
 
-  const handleGarageClick = (vehicleData) => {
+  const handleVehicleClick = (vehicleData) => {
     setModalData(vehicleData);
     showModal();
   };
@@ -41,7 +41,7 @@ const Index = ({ vehicles }) => {
   const vehicleList = vehicles.map((vehicle) => {
     return (
       <Vehicle
-        onClick={() => handleGarageClick(vehicle)}
+        onClick={() => handleVehicleClick(vehicle)}
         icon={Icon}
         data={vehicle}
         key={vehicle?.id}
@@ -70,14 +70,12 @@ const Index = ({ vehicles }) => {
           <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
             <Col span={12}>
               <Garage
-                onClick={handleGarageClick}
                 title="โรงรถล้อ ร้อย.บก"
                 vehicleList={vehicleList}
               />
             </Col>
             <Col span={12}>
               <Garage
-                onClick={handleGarageClick}
                 title="โรงรถล้อ ร้อย.ม.1"
                 vehicleList={vehicleList}
               />
@@ -86,7 +84,6 @@ const Index = ({ vehicles }) => {
           <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
             <Col span={8}>
               <Garage
-                onClick={handleGarageClick}
                 title="โรงรถสายพาน ร้อย.บก"
                 vehicleList={vehicleList}
               />
@@ -119,7 +116,6 @@ const Index = ({ vehicles }) => {
           <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
             <Col span={12}>
               <Garage
-                onClick={handleGarageClick}
                 title="โรงรถล้อ ร้อย.ม.3"
                 vehicleList={vehicleList}
               />
@@ -139,21 +135,18 @@ const Index = ({ vehicles }) => {
       <Row style={{ minHeight: minRowHeight }} gutter={gutter}>
         <Col span={8}>
           <Garage
-            onClick={handleGarageClick}
             title="โรงรถสายพาน ร้อย.ม.3"
             vehicleList={vehicleList}
           />
         </Col>
         <Col span={8}>
           <Garage
-            onClick={handleGarageClick}
             title="โรงรถสายพาน ร้อย.ม.1"
             vehicleList={vehicleList}
           />
         </Col>
         <Col span={8}>
           <Garage
-            onClick={handleGarageClick}
             title="โรงรถสายพาน ร้อย.ม.2"
             vehicleList={vehicleList}
           />
