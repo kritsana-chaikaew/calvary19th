@@ -10,11 +10,12 @@ import Vehicle from "../component/Vehicle";
 import VehicleDetail from "../component/VehicleDetail";
 import { types, regimentals } from "../utils/const";
 
-const Icons = Object.fromEntries(
-  types.map((type) => [
-    type.name,
-    <Image layout="fill" src={type.icon} alt={type.name} />,
-  ])
+const Icons = types.reduce(
+  (o, type) => ({
+    ...o,
+    [type.name]: <Image layout="fill" src={type.icon} alt={type.name} />,
+  }),
+  {}
 );
 
 const Index = ({ vehicles }) => {
