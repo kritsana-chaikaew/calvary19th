@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Row, Col, Modal, Image } from "antd";
-import NImage from "next/image";
+import { Row, Col } from "antd";
+import Image from "next/image";
 import { getVehicles } from "../models/Vehicle";
 import Garage from "../component/Garage";
 import Building from "../component/Building";
 import Template from "../component/Template";
 import Vehicle from "../component/Vehicle";
-import { types, regimentals, statuses } from "../utils/const";
+import VehicleDetail from "../component/VehicleDetail";
+import { types, regimentals } from "../utils/const";
 
 const Icons = Object.fromEntries(
   types.map((type) => [
     type.name,
-    <NImage layout="fill" src={type.icon} alt={type.name} />,
+    <Image layout="fill" src={type.icon} alt={type.name} />,
   ])
 );
 
@@ -26,7 +27,7 @@ const Index = ({ vehicles }) => {
   ];
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalData, setModalData] = useState({});
+  const [vehicleData, setVehicleData] = useState({});
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -39,8 +40,8 @@ const Index = ({ vehicles }) => {
     setIsModalVisible(false);
   };
 
-  const handleVehicleClick = (vehicleData) => {
-    setModalData(vehicleData);
+  const handleVehicleClick = (data) => {
+    setVehicleData(data);
     showModal();
   };
 
@@ -186,25 +187,13 @@ const Index = ({ vehicles }) => {
           />
         </Col>
       </Row>
-      <Modal
+      <VehicleDetail
         title="ข้อมูลยานพาหนะ"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-      >
-        <pre>
-          ภาพ <Image width={100} src={modalData?.image} />
-        </pre>
-        <pre>หมายเลข {modalData?.serial_no}</pre>
-        <pre>ชนิด {modalData?.type}</pre>
-        <pre>สถานะ {modalData?.status}</pre>
-        <pre>กองร้อย {modalData?.regimental}</pre>
-        {modalData?.status === statuses[1] && (
-          <pre>
-            ใบส่งซ่อม <Image width={100} src={modalData?.repair_slip} />
-          </pre>
-        )}
-      </Modal>
+        vehicleData={vehicleData}
+      />
     </div>
   );
 };
