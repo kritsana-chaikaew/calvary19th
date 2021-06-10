@@ -8,7 +8,7 @@ import Building from "../component/Building";
 import Template from "../component/Template";
 import Vehicle from "../component/Vehicle";
 import VehicleDetail from "../component/VehicleDetail";
-import { types, regimentals, garages } from "../utils/const";
+import { types, garages } from "../utils/const";
 import device from "../utils/device";
 
 const Icons = types.reduce(
@@ -88,7 +88,7 @@ const Index = ({ vehicles }) => {
     setSelectedGarageName(garageName);
     showGarageModal();
   };
-  const getVehicleList = (vehicleList) => {
+  const getVehicleComponentList = (vehicleList) => {
     return vehicleList.map((vehicle) => {
       return (
         <Vehicle
@@ -100,23 +100,13 @@ const Index = ({ vehicles }) => {
       );
     });
   };
-
-  // TODO: vehicles should belong to Garage not only regimental
-  // and should get from db
-  const vehicleListByRegimental = Object.fromEntries(
-    regimentals.map((regimental) => [
-      regimental,
-      vehicles.filter((vehicle) => {
-        return vehicle.regimental === regimental;
-      }),
-    ])
-  );
-
-  // filter by regimental for now
+  
   const vehicleListInGarage = garages.reduce((o, garage) => {
         return {
           ...o,
-          [garage.name]: vehicleListByRegimental[garage.regimental],
+          [garage.name]: vehicles.filter((vehicle) => {
+            return vehicle.garage === garage.name;
+          }),
         };
     },
     {}
@@ -128,16 +118,19 @@ const Index = ({ vehicles }) => {
         <Col span={8}>
           <Building
             title="โรงรถสายพาน ร้อย.ม.2"
+            onClick={() => handleGarageClick(garages[5].name)}
           />
         </Col>
         <Col span={8}>
           <Building
             title="โรงรถสายพาน ร้อย.ม.1"
+            onClick={() => handleGarageClick(garages[3].name)}
           />
         </Col>
         <Col span={8}>
           <Building
             title="โรงรถสายพาน ร้อย.ม.3"
+            onClick={() => handleGarageClick(garages[7].name)}
           />
         </Col>
       </RowWrapper>
@@ -186,18 +179,23 @@ const Index = ({ vehicles }) => {
           <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
             <Col span={16} />
             <Col span={8}>
-              <Building title="โรงรถสายพาน ร้อย.บก" />
+              <Building 
+                title="โรงรถสายพาน ร้อย.บก" 
+                onClick={() => handleGarageClick(garages[1].name)}
+              />
             </Col>
           </RowWrapper>
           <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
             <Col span={12}>
               <Building
                 title="โรงรถล้อ ร้อย.ม.1"
+                onClick={() => handleGarageClick(garages[2].name)}
               />
             </Col>
             <Col span={12}>
               <Building
                 title="โรงรถล้อ ร้อย.บก"
+                onClick={() => handleGarageClick(garages[0].name)}
               />
             </Col>
           </RowWrapper>
@@ -239,7 +237,7 @@ const Index = ({ vehicles }) => {
         ]}
       >
         <div className="container">
-          {selectedGarageName? getVehicleList(vehicleListInGarage[selectedGarageName]): ""}
+          {selectedGarageName? getVehicleComponentList(vehicleListInGarage[selectedGarageName]): ""}
         </div>
       </ModalWrapper>
     </div>

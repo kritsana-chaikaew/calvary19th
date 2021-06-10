@@ -13,7 +13,7 @@ import device from "../utils/device";
 
 const ModalWrapper = styled(Modal)`
   min-height: 70vh;
-  width: 500px !important;
+  width: 600px !important;
   .ant-modal-content {
     height: 100%;
     width: 100%;
@@ -88,7 +88,7 @@ const VehicleDetail = ({ vehicleData, onOk, ...rest }) => {
           </RowWrapper>
           <RowWrapper>
             <h2>
-              <strong>กองร้อย</strong>
+              <strong>อยู่ที่</strong>
             </h2>
           </RowWrapper>
         </Col>
@@ -105,7 +105,7 @@ const VehicleDetail = ({ vehicleData, onOk, ...rest }) => {
             <h2>{vehicleData?.type}</h2>
           </RowWrapper>
           <RowWrapper>
-            <h2>{vehicleData?.regimental}</h2>
+            <h2>{vehicleData?.garage}</h2>
           </RowWrapper>
         </Col>
       </RowWrapper>
