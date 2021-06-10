@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const handle = require("../utils/error");
 const { db } = require("../models/db");
-const { statuses, regimentals } = require("../utils/const");
+const { statuses, types, garages } = require("../utils/const");
 
 const {
   createVehicle,
@@ -20,15 +20,12 @@ const randomInt = (min, max) => {
   );
 };
 
+const randomGarage = sample(garages);
 const mockVehicle = {
   $id: uuidv4(),
-  $type: sample([
-    "ถ.เบา 21 FV.101",
-    "รสพ. M.113 A 1",
-    "รสพ.ติดตั้ง ค.4.2 นิ้ว M.106 A 2",
-  ]),
+  $type: sample(types.map(t => t.name)),
   $status: sample(statuses),
-  $regimental: sample(regimentals),
+  $regimental: randomGarage.regimental,
   $serialNo: randomInt(10000, 20000),
   $repairSlip:
     "https://image.shutterstock.com/image-vector/example-red-square-grunge-stamp-260nw-327662909.jpg",
@@ -37,6 +34,8 @@ const mockVehicle = {
   $createdBy: sample(["กฤษณะ", "นิติ", "โอฬาร"]),
   $updatedDate: Date.now(),
   $updatedBy: sample(["กฤษณะ", "นิติ", "โอฬาร"]),
+  $garage: randomGarage.name,
+  $symptom: "อาการเสีย"
 };
 
 const mockUser = {

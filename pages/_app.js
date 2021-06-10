@@ -16,6 +16,9 @@ const MyApp = ({ Component, pageProps }) => {
           div#__next > div {
             height: 100%;
           }
+          html {
+            font-size: 17px;
+          }
         `}
       </style>
       <Component {...pageProps} />

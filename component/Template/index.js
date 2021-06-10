@@ -27,7 +27,7 @@ const Navbar = styled(Layout.Header)`
 
 const Content = styled(Layout.Content)`
   @media ${device.md} {
-    padding: 80px 50px 5px;
+    padding: 80px 150px 5px;
   }
   @media ${device.xs} {
     padding: 60px 5px 5px;
