@@ -127,7 +127,7 @@ const Index = ({ vehicles }) => {
       <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
         <Col span={8}>
           <Building
-            title="โรงรถสายพาน ร้อย.ม.3"
+            title="โรงรถสายพาน ร้อย.ม.2"
           />
         </Col>
         <Col span={8}>
@@ -137,7 +137,7 @@ const Index = ({ vehicles }) => {
         </Col>
         <Col span={8}>
           <Building
-            title="โรงรถสายพาน ร้อย.ม.2"
+            title="โรงรถสายพาน ร้อย.ม.3"
           />
         </Col>
       </RowWrapper>
