@@ -40,6 +40,20 @@ const Template = (props) => {
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [isUserNotFound, setIsUserNotFound] = useState(false);
 
+
+  const exportDatabase = () => {
+    window.open('/api/export')
+    // fetch("/api/export", {
+    //   method: "GET",
+    // }).then((res) => {
+    //   if (res.status !== 200) {
+    //     console.log("API not found")
+    //   } else {
+    //     console.log("export success")
+    //   }
+    // });
+  };
+
   const showLoginForm = () => {
     setIsLoginFormVisible(true);
   };
@@ -71,6 +85,14 @@ const Template = (props) => {
       <Navbar>
         <Row align="middle">
           <Col flex="auto">Hello World</Col>
+          <Col span={2}>
+            {/* <Button ghost>
+              <Link route={'/api/export'}></Link>
+            </Button> */}
+            <Button ghost onClick={exportDatabase}>
+              Export
+            </Button>
+          </Col>
           <Col span={2}>
             {cookie?.username || (
               <Button ghost onClick={showLoginForm}>

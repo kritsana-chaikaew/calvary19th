@@ -10,6 +10,7 @@ import Vehicle from "../component/Vehicle";
 import VehicleDetail from "../component/VehicleDetail";
 import { types, regimentals } from "../utils/const";
 
+
 const Icons = types.reduce(
   (o, type) => ({
     ...o,
