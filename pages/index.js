@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Row, Col } from "antd";
+import { Row, Col, Modal, Button } from "antd";
 import Image from "next/image";
 import styled from "styled-components";
 import { getVehicles } from "../models/Vehicle";
@@ -8,7 +8,8 @@ import Building from "../component/Building";
 import Template from "../component/Template";
 import Vehicle from "../component/Vehicle";
 import VehicleDetail from "../component/VehicleDetail";
-import { types, regimentals } from "../utils/const";
+import { types, regimentals, garages } from "../utils/const";
+import device from "../utils/device";
 
 const Icons = types.reduce(
   (o, type) => ({
@@ -20,6 +21,37 @@ const Icons = types.reduce(
 
 const RowWrapper = styled(Row)`
   padding-top: ${props => props.gap||0}rem;
+`;
+
+const ModalWrapper = styled(Modal)`
+  width: 70vw !important;
+  min-height: 50vh;
+  .ant-modal-content {
+    height: 100%;
+    width: 100%;
+    display: flex !important;
+    flex-flow: column nowrap;
+  }
+  .ant-modal-body {
+    overflow: scroll;
+    height: 300px;
+  }
+  .ant-modal-title {
+    font-size: 1.5rem;
+  }
+  @media ${device.xs} {
+    .ant-modal-body {
+      text-align: center;
+    }
+  }
+  @media ${device.md} {
+    .ant-modal-body {
+      text-align: unset;
+    }
+  }
+  .container {
+    height: 100%;
+  }
 `;
 
 // Todo: replace old garage with improved garage
@@ -34,23 +66,28 @@ const Index = ({ vehicles }) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [vehicleData, setVehicleData] = useState({});
+  const [isGarageModalVisible, setIsGarageModalVisible] = useState(false);
+  const [selectedGarageName, setSelectedGarageName] = useState();
   const showModal = () => {
     setIsModalVisible(true);
   };
-
-  const handleOk = () => {
+  const showGarageModal = () => {
+    setIsGarageModalVisible(true);
+  };
+  const handleModalOk = () => {
     setIsModalVisible(false);
   };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const handleGarageModalOk = () => {
+    setIsGarageModalVisible(false);
   };
-
   const handleVehicleClick = (data) => {
     setVehicleData(data);
     showModal();
   };
-
+  const handleGarageClick = (garageName) => {
+    setSelectedGarageName(garageName);
+    showGarageModal();
+  };
   const getVehicleList = (vehicleList) => {
     return vehicleList.map((vehicle) => {
       return (
@@ -75,25 +112,32 @@ const Index = ({ vehicles }) => {
     ])
   );
 
+  // filter by regimental for now
+  const vehicleListInGarage = garages.reduce((o, garage) => {
+        return {
+          ...o,
+          [garage.name]: vehicleListByRegimental[garage.regimental],
+        };
+    },
+    {}
+  );
+
   return (
     <div>
       <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
         <Col span={8}>
           <Building
             title="โรงรถสายพาน ร้อย.ม.3"
-            items={getVehicleList(vehicleListByRegimental[regimentals[3]])}
           />
         </Col>
         <Col span={8}>
           <Building
             title="โรงรถสายพาน ร้อย.ม.1"
-            items={getVehicleList(vehicleListByRegimental[regimentals[1]])}
           />
         </Col>
         <Col span={8}>
           <Building
             title="โรงรถสายพาน ร้อย.ม.2"
-            items={getVehicleList(vehicleListByRegimental[regimentals[2]])}
           />
         </Col>
       </RowWrapper>
@@ -112,7 +156,7 @@ const Index = ({ vehicles }) => {
             <Col span={12}>
               <Building
                 title="โรงรถล้อ ร้อย.ม.3"
-                items={getVehicleList(vehicleListByRegimental[regimentals[3]])}
+                onClick={() => handleGarageClick(garages[6].name)}
               />
             </Col>
           </RowWrapper>
@@ -149,13 +193,11 @@ const Index = ({ vehicles }) => {
             <Col span={12}>
               <Building
                 title="โรงรถล้อ ร้อย.ม.1"
-                items={getVehicleList(vehicleListByRegimental[regimentals[1]])}
               />
             </Col>
             <Col span={12}>
               <Building
                 title="โรงรถล้อ ร้อย.บก"
-                items={getVehicleList(vehicleListByRegimental[regimentals[0]])}
               />
             </Col>
           </RowWrapper>
@@ -180,10 +222,26 @@ const Index = ({ vehicles }) => {
       <VehicleDetail
         title="ข้อมูลยานพาหนะ"
         visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        onOk={handleModalOk}
+        onCancel={handleModalOk}
         vehicleData={vehicleData}
       />
+      <ModalWrapper 
+        title={selectedGarageName}
+        visible={isGarageModalVisible}
+        onCancel={handleGarageModalOk}
+        okText="ปิด"
+        centered
+        footer={[
+          <Button key="ok" onClick={handleGarageModalOk} type="primary" size="large">
+            ปิด
+          </Button>,
+        ]}
+      >
+        <div className="container">
+          {selectedGarageName? getVehicleList(vehicleListInGarage[selectedGarageName]): ""}
+        </div>
+      </ModalWrapper>
     </div>
   );
 };

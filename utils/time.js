@@ -1,5 +1,6 @@
 const parseTime = (timestamp) => {
-  return new Date(timestamp).toLocaleDateString("th-TH", {
+  const ts = parseInt(timestamp, 10);
+  return new Date(ts).toLocaleDateString("th-TH", {
     timeZone: "Asia/Bangkok",
     year: "2-digit",
     month: "narrow",

@@ -4,8 +4,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const ButtomWrapper = styled(Button)`
-  width: 3rem;
-  height: 3rem;
+  width: 6rem;
+  height: 6rem;
   padding: 0px 0px;
   div.disable > div > img {
     filter: opacity(0.5) grayscale(1);

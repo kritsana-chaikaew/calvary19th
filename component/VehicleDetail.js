@@ -1,17 +1,57 @@
 import React from "react";
-import { Modal, Image, Row, Col, Tag, Button } from "antd";
+import { Modal, Image, Row, Col, Tag, Button, Divider } from "antd";
 import {
   CloseCircleOutlined,
   CheckCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { statuses } from "../utils/const";
+import parseTime from "../utils/time";
+import device from "../utils/device";
+
+const ModalWrapper = styled(Modal)`
+  min-height: 70vh;
+  width: 500px !important;
+  .ant-modal-content {
+    height: 100%;
+    width: 100%;
+    display: flex !important;
+    flex-flow: column nowrap;
+  }
+  .ant-modal-body {
+    overflow: scroll;
+    height: 400px;
+  }
+  .ant-modal-title {
+    font-size: 1.5rem;
+  }
+  .ant-tag > span > * {
+    display: inline;
+    color: inherit;
+  }
+  .ant-tag {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+  }
+  @media ${device.xs} {
+    h2 {
+      font-size: 1.1em;
+    }
+  }
+`;
+
+const RowWrapper = styled(Row)`
+  min-height: 2.3rem;
+`;
 
 const VehicleDetail = ({ vehicleData, onOk, ...rest }) => {
   let color = "success";
   let icon = <CheckCircleOutlined />;
-  if (vehicleData?.status === statuses[1]) {
+  const isUnavailable = vehicleData?.status === statuses[1];
+  if (isUnavailable) {
     color = "error";
     icon = <CloseCircleOutlined />;
   }
@@ -20,49 +60,96 @@ const VehicleDetail = ({ vehicleData, onOk, ...rest }) => {
     icon = <MinusCircleOutlined />;
   }
   return (
-    <Modal
+    <ModalWrapper
       {...rest}
       footer={[
-        <Button key="นา" onClick={onOk} type="primary">
-          ตกลง
+        <Button key="ok" onClick={onOk} type="primary" size="large">
+          ปิด
         </Button>,
       ]}
+      centered
     >
-      <Row>
-        <Col span={10}>
-          <Image width={120} height={100} src={vehicleData?.image} />
-        </Col>
-        <Col span={6}>
-          <Row>หมายเลข</Row>
-          <Row>สถานะ</Row>
-          <Row>ชนิด</Row>
-          <Row>กองร้อย</Row>
-          <Row>ใบส่งซ่อม</Row>
-        </Col>
+      <RowWrapper>
         <Col span={8}>
-          <Row>{vehicleData.serial_no}</Row>
-          <Row>
-            <Tag icon={icon} color={color}>
-              {vehicleData?.status}
-            </Tag>
-          </Row>
-          <Row>{vehicleData?.type}</Row>
-          <Row>{vehicleData?.regimental}</Row>
-          <Row>
-            <Image width={100} src={vehicleData?.repair_slip} />
-          </Row>
+          <RowWrapper>
+            <h2>
+              <strong>หมายเลข</strong>
+            </h2>
+          </RowWrapper>
+          <RowWrapper>
+            <h2>
+              <strong>สถานะ</strong>
+            </h2>
+          </RowWrapper>
+          <RowWrapper>
+            <h2>
+              <strong>ชนิด</strong>
+            </h2>
+          </RowWrapper>
+          <RowWrapper>
+            <h2>
+              <strong>กองร้อย</strong>
+            </h2>
+          </RowWrapper>
         </Col>
-      </Row>
-    </Modal>
+        <Col span={16}>
+          <RowWrapper>
+            <h2>{vehicleData.serial_no}</h2>
+          </RowWrapper>
+          <RowWrapper>
+            <Tag icon={icon} color={color}>
+              <h2>{vehicleData?.status}</h2>
+            </Tag>
+          </RowWrapper>
+          <RowWrapper>
+            <h2>{vehicleData?.type}</h2>
+          </RowWrapper>
+          <RowWrapper>
+            <h2>{vehicleData?.regimental}</h2>
+          </RowWrapper>
+        </Col>
+      </RowWrapper>
+      {isUnavailable && (
+        <Divider>
+          <i>ข้อมูลการซ่อม</i>
+        </Divider>
+      )}
+      {isUnavailable && (
+        <RowWrapper>
+          <Col span={8}>
+            <h2>
+              <strong>วันส่งซ่อม</strong>
+            </h2>
+          </Col>
+          <Col span={16}>
+            <h2>{parseTime(vehicleData?.updated_date)}</h2>
+          </Col>
+        </RowWrapper>
+      )}
+      {isUnavailable && (
+        <RowWrapper>
+          <Col span={8}>
+            <h2>
+              <strong>ใบส่งซ่อม</strong>
+            </h2>
+          </Col>
+          <Col span={16}>
+            <Image width={60} src={vehicleData?.repair_slip}>
+              <strong>ใบส่งซ่อม</strong>
+            </Image>
+          </Col>
+        </RowWrapper>
+      )}
+    </ModalWrapper>
   );
 };
 VehicleDetail.defaultProps = {
   vehicleData: null,
-  onOk: null
+  onOk: null,
 };
 VehicleDetail.propTypes = {
   vehicleData: PropTypes.objectOf(PropTypes.string.isRequired),
-  onOk: PropTypes.func
+  onOk: PropTypes.func,
 };
 
 export default VehicleDetail;
