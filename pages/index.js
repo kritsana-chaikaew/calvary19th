@@ -11,7 +11,6 @@ import VehicleDetail from "../component/VehicleDetail";
 import { types, garages } from "../utils/const";
 import device from "../utils/device";
 
-
 const Icons = types.reduce(
   (o, type) => ({
     ...o,
@@ -55,7 +54,6 @@ const ModalWrapper = styled(Modal)`
   }
 `;
 
-// Todo: replace old garage with improved garage
 const Index = ({ vehicles }) => {
   const minRowWrapperHeight = "6rem";
   const min2RowWrapperHeight = "12rem";

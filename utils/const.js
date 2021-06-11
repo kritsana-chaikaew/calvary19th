@@ -19,12 +19,12 @@ const types = [
 const garages = [
   { name: "โรงรถล้อ ร้อย.บก", regimental: regimentals[0] },
   { name: "โรงรถสายพาน ร้อย.บก", regimental: regimentals[0] },
-  { name: "โรงรถล้อ ร้อย.ม.1", regimental: regimentals[0] },
-  { name: "โรงรถสายพาน ร้อย.ม.1", regimental: regimentals[0] },
-  { name: "โรงรถล้อ ร้อย.ม.2", regimental: regimentals[0] },
-  { name: "โรงรถสายพาน ร้อย.ม.2", regimental: regimentals[0] },
-  { name: "โรงรถล้อ ร้อย.ม.3", regimental: regimentals[0] },
-  { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[0] },
+  { name: "โรงรถล้อ ร้อย.ม.1", regimental: regimentals[1] },
+  { name: "โรงรถสายพาน ร้อย.ม.1", regimental: regimentals[1] },
+  { name: "โรงรถล้อ ร้อย.ม.2", regimental: regimentals[2] },
+  { name: "โรงรถสายพาน ร้อย.ม.2", regimental: regimentals[2] },
+  { name: "โรงรถล้อ ร้อย.ม.3", regimental: regimentals[3] },
+  { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[3] },
 ];
 
 module.exports = {

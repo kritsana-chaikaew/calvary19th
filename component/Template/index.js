@@ -42,16 +42,7 @@ const Template = (props) => {
 
 
   const exportDatabase = () => {
-    window.open('/api/export')
-    // fetch("/api/export", {
-    //   method: "GET",
-    // }).then((res) => {
-    //   if (res.status !== 200) {
-    //     console.log("API not found")
-    //   } else {
-    //     console.log("export success")
-    //   }
-    // });
+    window.open("/api/export");
   };
 
   const showLoginForm = () => {
@@ -86,9 +77,6 @@ const Template = (props) => {
         <Row align="middle">
           <Col flex="auto">Hello World</Col>
           <Col span={2}>
-            {/* <Button ghost>
-              <Link route={'/api/export'}></Link>
-            </Button> */}
             <Button ghost onClick={exportDatabase}>
               Export
             </Button>
