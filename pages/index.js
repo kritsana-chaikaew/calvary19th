@@ -1,30 +1,21 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Modal, Button } from "antd";
-import Image from "next/image";
 import styled from "styled-components";
 import { getVehicles } from "../models/Vehicle";
 import Building from "../component/Building";
 import Template from "../component/Template";
-import Vehicle from "../component/Vehicle";
 import VehicleDetail from "../component/VehicleDetail";
-import { types, garages } from "../utils/const";
+import { garages } from "../utils/const";
 import device from "../utils/device";
 import Garage from "../component/Garage";
-
-const Icons = types.reduce(
-  (o, type) => ({
-    ...o,
-    [type.name]: <Image layout="fill" src={type.icon} alt={type.name} />,
-  }),
-  {}
-);
+import VehicleList from "../component/VehicleList";
 
 const RowWrapper = styled(Row)`
-  padding-top: ${props => props.gap||0}rem;
+  padding-top: ${(props) => props.gap || 0}rem;
 `;
 
-const ModalWrapper = styled(Modal)`
+const GarageModal = styled(Modal)`
   width: 70vw !important;
   min-height: 50vh;
   .ant-modal-content {
@@ -88,81 +79,75 @@ const Index = ({ vehicles }) => {
     setSelectedGarageName(garageName);
     showGarageModal();
   };
-  const getVehicleComponentList = (vehicleList) => {
-    return vehicleList.map((vehicle) => {
-      return (
-        <Vehicle
-          onClick={() => handleVehicleClick(vehicle)}
-          icon={Icons[vehicle.type]}
-          data={vehicle}
-          key={vehicle?.id}
-        />
-      );
-    });
-  };
-  
+
   const vehicleListInGarage = garages.reduce((o, garage) => {
-        return {
-          ...o,
-          [garage.name]: vehicles.filter((vehicle) => {
-            return vehicle.garage === garage.name;
-          }),
-        };
-    },
-    {}
-  );
+    return {
+      ...o,
+      [garage.name]: vehicles.filter((vehicle) => {
+        return vehicle.garage === garage.name;
+      }),
+    };
+  }, {});
 
   return (
     <div>
-      <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
+      <RowWrapper
+        gap={gap}
+        style={{ minHeight: minRowWrapperHeight }}
+        gutter={gutter}
+      >
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.2 */}
-          <Garage
-            name={garages[5].name}
-            onClick={handleGarageClick}
-          />
+          <Garage name={garages[5].name} onClick={handleGarageClick} />
         </Col>
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.1 */}
-          <Garage
-            name={garages[3].name}
-            onClick={handleGarageClick}
-          />
+          <Garage name={garages[3].name} onClick={handleGarageClick} />
         </Col>
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.3 */}
-          <Garage
-            name={garages[7].name}
-            onClick={handleGarageClick}
-          />
+          <Garage name={garages[7].name} onClick={handleGarageClick} />
         </Col>
       </RowWrapper>
-      
+
       <RowWrapper style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
         <Col span={4}>
-          <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: min2RowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={24}>
               <Building name="ร้อย.ม.2" />
             </Col>
           </RowWrapper>
         </Col>
         <Col span={16}>
-          <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: minRowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={12} />
             <Col span={12}>
-              <Garage
-                name={garages[6].name}
-                onClick={handleGarageClick}
-              />
+              <Garage name={garages[6].name} onClick={handleGarageClick} />
             </Col>
           </RowWrapper>
-          <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: minRowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={12} />
             <Col span={12} />
           </RowWrapper>
         </Col>
         <Col span={4}>
-          <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: min2RowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={24}>
               <Building name="ร้อย.ม.3" />
             </Col>
@@ -172,54 +157,65 @@ const Index = ({ vehicles }) => {
 
       <RowWrapper style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
         <Col span={4}>
-          <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: min2RowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={24}>
               <Building name="ร้อย.ม.1" />
             </Col>
           </RowWrapper>
         </Col>
         <Col span={16}>
-          <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: minRowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={16} />
             <Col span={8}>
-              <Garage 
-                name={garages[1].name}
-                onClick={handleGarageClick}
-              />
+              <Garage name={garages[1].name} onClick={handleGarageClick} />
             </Col>
           </RowWrapper>
-          <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: minRowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={12}>
-              <Garage
-                name={garages[2].name}
-                onClick={handleGarageClick}
-              />
+              <Garage name={garages[2].name} onClick={handleGarageClick} />
             </Col>
             <Col span={12}>
-              <Garage
-                name={garages[0].name}
-                onClick={handleGarageClick}
-              />
+              <Garage name={garages[0].name} onClick={handleGarageClick} />
             </Col>
           </RowWrapper>
         </Col>
         <Col span={4}>
-          <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
+          <RowWrapper
+            gap={gap}
+            style={{ minHeight: min2RowWrapperHeight }}
+            gutter={gutter}
+          >
             <Col span={24}>
               <Building name="ร้อย.บก." />
             </Col>
           </RowWrapper>
         </Col>
       </RowWrapper>
-      
-      <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
+
+      <RowWrapper
+        gap={gap}
+        style={{ minHeight: minRowWrapperHeight }}
+        gutter={gutter}
+      >
         <Col span={8} />
         <Col span={8}>
           <Building name="บก.พัน" />
         </Col>
         <Col span={8} />
       </RowWrapper>
-      
+
       <VehicleDetail
         title="ข้อมูลยานพาหนะ"
         visible={isModalVisible}
@@ -227,22 +223,34 @@ const Index = ({ vehicles }) => {
         onCancel={handleModalOk}
         vehicleData={vehicleData}
       />
-      <ModalWrapper 
+      <GarageModal
         title={selectedGarageName}
         visible={isGarageModalVisible}
         onCancel={handleGarageModalOk}
         okText="ปิด"
         centered
         footer={[
-          <Button key="ok" onClick={handleGarageModalOk} type="primary" size="large">
+          <Button
+            key="ok"
+            onClick={handleGarageModalOk}
+            type="primary"
+            size="large"
+          >
             ปิด
           </Button>,
         ]}
       >
         <div className="container">
-          {selectedGarageName? getVehicleComponentList(vehicleListInGarage[selectedGarageName]): ""}
+          {selectedGarageName ? (
+            <VehicleList
+              vehicles={vehicleListInGarage[selectedGarageName]}
+              onVehicleClick={handleVehicleClick}
+            />
+          ) : (
+            ""
+          )}
         </div>
-      </ModalWrapper>
+      </GarageModal>
     </div>
   );
 };
