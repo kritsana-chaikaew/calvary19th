@@ -7,7 +7,7 @@ if (!fs.existsSync(".db")) {
   fs.mkdirSync(".db");
 }
 
-fs.open(".db/calvary19.db", "a", () => {});
+fs.open(".db/calvary19.db", "a", () => { });
 const db = new sqlite3.Database(".db/calvary19.db", (err) =>
   handle(err, "Connected to the database.")
 );
