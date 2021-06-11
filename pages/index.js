@@ -1,49 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Row, Col, Modal, Button } from "antd";
+import { Row, Col } from "antd";
 import styled from "styled-components";
 import { getVehicles } from "../models/Vehicle";
 import Building from "../component/Building";
 import Template from "../component/Template";
-import VehicleDetail from "../component/VehicleDetail";
+import VehicleModal from "../component/VehicleModal";
 import { garages } from "../utils/const";
-import device from "../utils/device";
 import Garage from "../component/Garage";
-import VehicleList from "../component/VehicleList";
+import GarageModal from "../component/GarageModal";
 
 const RowWrapper = styled(Row)`
   padding-top: ${(props) => props.gap || 0}rem;
-`;
-
-const GarageModal = styled(Modal)`
-  width: 70vw !important;
-  min-height: 50vh;
-  .ant-modal-content {
-    height: 100%;
-    width: 100%;
-    display: flex !important;
-    flex-flow: column nowrap;
-  }
-  .ant-modal-body {
-    overflow: scroll;
-    height: 300px;
-  }
-  .ant-modal-title {
-    font-size: 1.5rem;
-  }
-  @media ${device.xs} {
-    .ant-modal-body {
-      text-align: center;
-    }
-  }
-  @media ${device.md} {
-    .ant-modal-body {
-      text-align: unset;
-    }
-  }
-  .container {
-    height: 100%;
-  }
 `;
 
 const Index = ({ vehicles }) => {
@@ -216,7 +184,7 @@ const Index = ({ vehicles }) => {
         <Col span={8} />
       </RowWrapper>
 
-      <VehicleDetail
+      <VehicleModal
         title="ข้อมูลยานพาหนะ"
         visible={isModalVisible}
         onOk={handleModalOk}
@@ -224,33 +192,14 @@ const Index = ({ vehicles }) => {
         vehicleData={vehicleData}
       />
       <GarageModal
-        title={selectedGarageName}
+        name={selectedGarageName}
         visible={isGarageModalVisible}
         onCancel={handleGarageModalOk}
         okText="ปิด"
         centered
-        footer={[
-          <Button
-            key="ok"
-            onClick={handleGarageModalOk}
-            type="primary"
-            size="large"
-          >
-            ปิด
-          </Button>,
-        ]}
-      >
-        <div className="container">
-          {selectedGarageName ? (
-            <VehicleList
-              vehicles={vehicleListInGarage[selectedGarageName]}
-              onVehicleClick={handleVehicleClick}
-            />
-          ) : (
-            ""
-          )}
-        </div>
-      </GarageModal>
+        vehicles={vehicleListInGarage[selectedGarageName]}
+        onVehicleClick={handleVehicleClick}
+      />
     </div>
   );
 };

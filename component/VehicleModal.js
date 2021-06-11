@@ -47,7 +47,7 @@ const RowWrapper = styled(Row)`
   min-height: 2.3rem;
 `;
 
-const VehicleDetail = ({ vehicleData, onOk, ...rest }) => {
+const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
   let color = "success";
   let icon = <CheckCircleOutlined />;
   const isUnavailable = vehicleData?.status === statuses[1];
@@ -143,13 +143,13 @@ const VehicleDetail = ({ vehicleData, onOk, ...rest }) => {
     </ModalWrapper>
   );
 };
-VehicleDetail.defaultProps = {
+VehicleModal.defaultProps = {
   vehicleData: null,
   onOk: null,
 };
-VehicleDetail.propTypes = {
-  vehicleData: PropTypes.objectOf(PropTypes.string.isRequired),
+VehicleModal.propTypes = {
+  vehicleData: PropTypes.objectOf(PropTypes.any),
   onOk: PropTypes.func,
 };
 
-export default VehicleDetail;
+export default VehicleModal;
