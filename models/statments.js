@@ -11,7 +11,9 @@ const createVehicle = `CREATE TABLE IF NOT EXISTS vehicle (
   updated_date TEXT,
   updated_by TEXT,
   garage TEXT,
-  symptom TEXT
+  symptom TEXT,
+  row INTEGER,
+  col INTEGER
 )`;
 
 const insertVehicle = `INSERT INTO vehicle (
@@ -27,7 +29,9 @@ const insertVehicle = `INSERT INTO vehicle (
   updated_date,
   updated_by,
   garage,
-  symptom
+  symptom,
+  row,
+  col
 ) VALUES (
   $id,
   $type,
@@ -41,7 +45,9 @@ const insertVehicle = `INSERT INTO vehicle (
   $updatedDate,
   $updatedBy,
   $garage,
-  $symptom
+  $symptom,
+  $row,
+  $col
 )`;
 
 const updateVehicleStmt = `UPDATE vehicle 
@@ -55,7 +61,9 @@ const updateVehicleStmt = `UPDATE vehicle
     updated_date = $updatedDate,
     updated_by = $updatedBy,
     garage = $garage,
-    symptom = $symptom
+    symptom = $symptom,
+    row = $row,
+    col = $col
   WHERE id = $id
 `;
 

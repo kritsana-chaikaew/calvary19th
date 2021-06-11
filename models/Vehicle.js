@@ -38,7 +38,9 @@ export async function createVehicle(vehicle) {
     $updatedDate: Date.now(),
     $updatedBy: vehicle.updated_by,
     $garage: vehicle.garage,
-    $symptom: vehicle.symptom
+    $symptom: vehicle.symptom,
+    $row: vehicle.row,
+    $col: vehicle.col
   });
   createdVehicle = await getVehicle(id);
   return createdVehicle;
@@ -57,7 +59,9 @@ export async function updateVehicle(vehicle) {
     $updatedDate: Date.now(),
     $updatedBy: vehicle.updated_by,
     $garage: vehicle.garage,
-    $symptom: vehicle.symptom
+    $symptom: vehicle.symptom,
+    $row: vehicle.row,
+    $col: vehicle.col
   });
   updatedVehicle = await getVehicle(vehicle.id);
   return updatedVehicle;
