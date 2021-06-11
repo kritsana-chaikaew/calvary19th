@@ -116,21 +116,24 @@ const Index = ({ vehicles }) => {
     <div>
       <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
         <Col span={8}>
+          {/* โรงรถสายพาน ร้อย.ม.2 */}
           <Garage
-            title="โรงรถสายพาน ร้อย.ม.2"
-            onClick={() => handleGarageClick(garages[5].name)}
+            name={garages[5].name}
+            onClick={handleGarageClick}
           />
         </Col>
         <Col span={8}>
+          {/* โรงรถสายพาน ร้อย.ม.1 */}
           <Garage
-            title="โรงรถสายพาน ร้อย.ม.1"
-            onClick={() => handleGarageClick(garages[3].name)}
+            name={garages[3].name}
+            onClick={handleGarageClick}
           />
         </Col>
         <Col span={8}>
+          {/* โรงรถสายพาน ร้อย.ม.3 */}
           <Garage
-            title="โรงรถสายพาน ร้อย.ม.3"
-            onClick={() => handleGarageClick(garages[7].name)}
+            name={garages[7].name}
+            onClick={handleGarageClick}
           />
         </Col>
       </RowWrapper>
@@ -139,7 +142,7 @@ const Index = ({ vehicles }) => {
         <Col span={4}>
           <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
             <Col span={24}>
-              <Building title="ร้อย.ม.2" />
+              <Building name="ร้อย.ม.2" />
             </Col>
           </RowWrapper>
         </Col>
@@ -148,8 +151,8 @@ const Index = ({ vehicles }) => {
             <Col span={12} />
             <Col span={12}>
               <Garage
-                title="โรงรถล้อ ร้อย.ม.3"
-                onClick={() => handleGarageClick(garages[6].name)}
+                name={garages[6].name}
+                onClick={handleGarageClick}
               />
             </Col>
           </RowWrapper>
@@ -161,7 +164,7 @@ const Index = ({ vehicles }) => {
         <Col span={4}>
           <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
             <Col span={24}>
-              <Building title="ร้อย.ม.3" />
+              <Building name="ร้อย.ม.3" />
             </Col>
           </RowWrapper>
         </Col>
@@ -171,7 +174,7 @@ const Index = ({ vehicles }) => {
         <Col span={4}>
           <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
             <Col span={24}>
-              <Building title="ร้อย.ม.1" />
+              <Building name="ร้อย.ม.1" />
             </Col>
           </RowWrapper>
         </Col>
@@ -180,22 +183,22 @@ const Index = ({ vehicles }) => {
             <Col span={16} />
             <Col span={8}>
               <Garage 
-                title="โรงรถสายพาน ร้อย.บก" 
-                onClick={() => handleGarageClick(garages[1].name)}
+                name={garages[1].name}
+                onClick={handleGarageClick}
               />
             </Col>
           </RowWrapper>
           <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
             <Col span={12}>
               <Garage
-                title="โรงรถล้อ ร้อย.ม.1"
-                onClick={() => handleGarageClick(garages[2].name)}
+                name={garages[2].name}
+                onClick={handleGarageClick}
               />
             </Col>
             <Col span={12}>
               <Garage
-                title="โรงรถล้อ ร้อย.บก"
-                onClick={() => handleGarageClick(garages[0].name)}
+                name={garages[0].name}
+                onClick={handleGarageClick}
               />
             </Col>
           </RowWrapper>
@@ -203,7 +206,7 @@ const Index = ({ vehicles }) => {
         <Col span={4}>
           <RowWrapper gap={gap} style={{ minHeight: min2RowWrapperHeight }} gutter={gutter}>
             <Col span={24}>
-              <Building title="ร้อย.บก." />
+              <Building name="ร้อย.บก." />
             </Col>
           </RowWrapper>
         </Col>
@@ -212,7 +215,7 @@ const Index = ({ vehicles }) => {
       <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
         <Col span={8} />
         <Col span={8}>
-          <Building title="บก.พัน" />
+          <Building name="บก.พัน" />
         </Col>
         <Col span={8} />
       </RowWrapper>

@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import device from "../utils/device";
 
-const Building = ({ title, items,  ...props }) => {
+const Building = ({ name, ...props }) => {
   return (
     <div className="building" {...props}>
-      <h1 className="title">{title}</h1>
+      <h1 className="name">{name}</h1>
       <style jsx>
         {`
           .building {
@@ -29,7 +29,7 @@ const Building = ({ title, items,  ...props }) => {
             border: solid #364239;
           }
           @media ${device.xs} {
-            h1.title {
+            h1.name {
               font-size: 1em;
             }
           }
@@ -39,12 +39,10 @@ const Building = ({ title, items,  ...props }) => {
   );
 };
 Building.defaultProps = {
-  title: "",
-  items: []
+  name: "",
 };
 Building.propTypes = {
-  title: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.object)
+  name: PropTypes.string,
 };
 
 export default Building;
