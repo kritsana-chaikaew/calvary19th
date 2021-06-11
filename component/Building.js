@@ -24,6 +24,10 @@ const Building = ({ title, items,  ...props }) => {
           .building:active {
             transform: translateY(4px);
           }
+          .building:hover {
+            transform: scale(1.01);
+            border: solid #364239;
+          }
           @media ${device.xs} {
             h1.title {
               font-size: 1em;
