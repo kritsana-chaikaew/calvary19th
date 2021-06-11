@@ -10,6 +10,7 @@ import Vehicle from "../component/Vehicle";
 import VehicleDetail from "../component/VehicleDetail";
 import { types, garages } from "../utils/const";
 import device from "../utils/device";
+import Garage from "../component/Garage";
 
 const Icons = types.reduce(
   (o, type) => ({
@@ -115,19 +116,19 @@ const Index = ({ vehicles }) => {
     <div>
       <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
         <Col span={8}>
-          <Building
+          <Garage
             title="โรงรถสายพาน ร้อย.ม.2"
             onClick={() => handleGarageClick(garages[5].name)}
           />
         </Col>
         <Col span={8}>
-          <Building
+          <Garage
             title="โรงรถสายพาน ร้อย.ม.1"
             onClick={() => handleGarageClick(garages[3].name)}
           />
         </Col>
         <Col span={8}>
-          <Building
+          <Garage
             title="โรงรถสายพาน ร้อย.ม.3"
             onClick={() => handleGarageClick(garages[7].name)}
           />
@@ -146,7 +147,7 @@ const Index = ({ vehicles }) => {
           <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
             <Col span={12} />
             <Col span={12}>
-              <Building
+              <Garage
                 title="โรงรถล้อ ร้อย.ม.3"
                 onClick={() => handleGarageClick(garages[6].name)}
               />
@@ -178,7 +179,7 @@ const Index = ({ vehicles }) => {
           <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
             <Col span={16} />
             <Col span={8}>
-              <Building 
+              <Garage 
                 title="โรงรถสายพาน ร้อย.บก" 
                 onClick={() => handleGarageClick(garages[1].name)}
               />
@@ -186,13 +187,13 @@ const Index = ({ vehicles }) => {
           </RowWrapper>
           <RowWrapper gap={gap} style={{ minHeight: minRowWrapperHeight }} gutter={gutter}>
             <Col span={12}>
-              <Building
+              <Garage
                 title="โรงรถล้อ ร้อย.ม.1"
                 onClick={() => handleGarageClick(garages[2].name)}
               />
             </Col>
             <Col span={12}>
-              <Building
+              <Garage
                 title="โรงรถล้อ ร้อย.บก"
                 onClick={() => handleGarageClick(garages[0].name)}
               />
