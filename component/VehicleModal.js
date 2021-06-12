@@ -1,5 +1,10 @@
 import React from "react";
-import { Modal, Image, Row, Col, Tag, Button, Divider } from "antd";
+import {
+  Modal,
+  Button,
+  Form,
+  Input,
+} from "antd";
 import {
   CloseCircleOutlined,
   CheckCircleOutlined,
@@ -8,8 +13,8 @@ import {
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { statuses } from "../utils/const";
-import parseTime from "../utils/time";
 import device from "../utils/device";
+import ImageUpload from "./ImageUpload";
 
 const ModalWrapper = styled(Modal)`
   min-height: 70vh;
@@ -22,7 +27,6 @@ const ModalWrapper = styled(Modal)`
   }
   .ant-modal-body {
     overflow: scroll;
-    // height: 400px;
   }
   .ant-modal-title {
     font-size: 1.5rem;
@@ -41,10 +45,9 @@ const ModalWrapper = styled(Modal)`
       font-size: 1.1em;
     }
   }
-`;
-
-const RowWrapper = styled(Row)`
-  min-height: var(--unit-size);
+  .ant-form-item {
+    margin-bottom: 5px;
+  }
 `;
 
 const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
@@ -60,6 +63,16 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
     color = "default";
     icon = <MinusCircleOutlined />;
   }
+
+  const [form] = Form.useForm();
+  const formItemLayout = {
+    labelCol: {
+      span: 4,
+    },
+    wrapperCol: {
+      span: 10,
+    },
+  };
   return (
     <ModalWrapper
       {...rest}
@@ -70,77 +83,39 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
       ]}
       centered
     >
-      <RowWrapper>
-        <Col span={8}>
-          <RowWrapper>
-            <h2>
-              <strong>หมายเลข</strong>
-            </h2>
-          </RowWrapper>
-          <RowWrapper>
-            <h2>
-              <strong>สถานะ</strong>
-            </h2>
-          </RowWrapper>
-          <RowWrapper>
-            <h2>
-              <strong>ชนิด</strong>
-            </h2>
-          </RowWrapper>
-          <RowWrapper>
-            <h2>
-              <strong>อยู่ที่</strong>
-            </h2>
-          </RowWrapper>
-        </Col>
-        <Col span={16}>
-          <RowWrapper>
-            <h2>{vehicleData.serial_no}</h2>
-          </RowWrapper>
-          <RowWrapper>
-            <Tag icon={icon} color={color}>
-              <h2>{vehicleData?.status}</h2>
-            </Tag>
-          </RowWrapper>
-          <RowWrapper>
-            <h2>{vehicleData?.type}</h2>
-          </RowWrapper>
-          <RowWrapper>
-            <h2>{`${vehicleData?.garage} แถวที่ ${vehicleData?.row + 1} ช่องที่ ${vehicleData?.col + 1}`}</h2>
-          </RowWrapper>
-        </Col>
-      </RowWrapper>
-      {isUnavailable && (
-        <Divider>
-          <i>ข้อมูลการซ่อม</i>
-        </Divider>
-      )}
-      {isUnavailable && (
-        <RowWrapper>
-          <Col span={8}>
-            <h2>
-              <strong>วันส่งซ่อม</strong>
-            </h2>
-          </Col>
-          <Col span={16}>
-            <h2>{parseTime(vehicleData?.updated_date)}</h2>
-          </Col>
-        </RowWrapper>
-      )}
-      {isUnavailable && (
-        <RowWrapper>
-          <Col span={8}>
-            <h2>
-              <strong>ใบส่งซ่อม</strong>
-            </h2>
-          </Col>
-          <Col span={16}>
-            <Image width={60} src={vehicleData?.repair_slip}>
-              <strong>ใบส่งซ่อม</strong>
-            </Image>
-          </Col>
-        </RowWrapper>
-      )}
+      <Form
+        {...formItemLayout}
+        layout="horizontal"
+        form={form}
+      >
+        <Form.Item label="หมายเลข">
+          <Input type="text" readOnly value={vehicleData?.serial_no} placeholder="หมายเลข" />
+        </Form.Item>
+        <Form.Item label="ชนิด">
+          <Input type="text" readOnly value={vehicleData?.type} placeholder="ชนิด" />
+        </Form.Item>
+        <Form.Item label="สถานะ">
+          <Input type="text" readOnly value={vehicleData?.status} placeholder="สถานะ" />
+        </Form.Item>
+        <Form.Item label="หมายเหตุ">
+          <Input.TextArea type="text" readOnly value={vehicleData?.symptom} placeholder="หมายเหตุ" />
+        </Form.Item>
+        <Form.Item label="กองร้อย">
+          <Input type="text" readOnly value={vehicleData?.regimental} placeholder="กองร้อย" />
+        </Form.Item>
+        <Form.Item label="โรงรถ">
+          <Input type="text" readOnly value={vehicleData?.garage} placeholder="โรงรถ" />
+        </Form.Item>
+        <Form.Item label="แถวจอด">
+          <Input type="number" readOnly value={vehicleData?.row} placeholder="แถวจอด" />
+        </Form.Item>
+        <Form.Item label="ช่องจอด">
+          <Input type="number" readOnly value={vehicleData?.col} placeholder="ช่องจอด" />
+        </Form.Item>
+        <Form.Item label="ใบส่งซ่อม">
+          <ImageUpload />
+        </Form.Item>
+      </Form>
     </ModalWrapper>
   );
 };
