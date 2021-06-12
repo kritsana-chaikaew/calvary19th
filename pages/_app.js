@@ -19,6 +19,9 @@ const MyApp = ({ Component, pageProps }) => {
           html {
             font-size: 17px;
           }
+          :root {
+            --unit-size: 3rem;
+          }          
         `}
       </style>
       <Component {...pageProps} />

@@ -2,17 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import Building from "./Building";
 
-const Garage = ({name, onClick, ...rest}) => {
+const Garage = ({garage, onClick, ...rest}) => {
   return (
-    <Building name={name} onClick={() => onClick(name)} {...rest} />
+    <Building name={garage.name} onClick={() => onClick(garage)} {...rest} />
   );
 };
 Garage.defaultProps = {
-  name: "",
+  garage: null,
   onClick: null
 };
 Garage.propTypes = {
-  name: PropTypes.string,
+  garage: PropTypes.objectOf(PropTypes.any),
   onClick: PropTypes.func
 };
 

@@ -140,6 +140,10 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
           </Col>
         </RowWrapper>
       )}
+      <RowWrapper>
+        {vehicleData.row}
+        {vehicleData.col}
+      </RowWrapper>
     </ModalWrapper>
   );
 };

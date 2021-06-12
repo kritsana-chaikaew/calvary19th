@@ -1,13 +1,15 @@
 import React from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Row, Col, Empty } from "antd";
+import Image from "next/image";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import device from "../utils/device";
 import VehicleList from "./VehicleList";
+import Vehicle from "../component/Vehicle";
 
 const ModalWrapper = styled(Modal)`
-  width: 70vw !important;
-  min-height: 50vh;
+  width: max-content !important;
+  min-height: max-contentvh;
   .ant-modal-content {
     height: 100%;
     width: 100%;
@@ -16,7 +18,7 @@ const ModalWrapper = styled(Modal)`
   }
   .ant-modal-body {
     overflow: scroll;
-    height: 300px;
+    height: max-content;
   }
   .ant-modal-title {
     font-size: 1.5rem;
@@ -34,13 +36,50 @@ const ModalWrapper = styled(Modal)`
   .container {
     height: 100%;
   }
+  .ant-row {
+    min-height: var(--unit-size);
+    width: 100%;
+  }
+  .ant-col {
+    min-height: var(--unit-size);
+    min-width: var(--unit-size);
+  }
 `;
 
+const EmptyIcon = <Image layout="fill" src="/empty.svg" alt="empty" />;
+
 const GarageModal = (props) => {
-  const { vehicles, onVehicleClick, name, onCancel, ...rest } = props;
+  const { vehicles, onVehicleClick, garage, onCancel, ...rest } = props;
+  const List = VehicleList({vehicles, onVehicleClick});
+  const slot = [...new Array(garage.row)];
+  for (let i=0; i<garage.row; i++) {
+    slot[i] = [...new Array(garage.col)].map(() => {
+      return <Vehicle icon={EmptyIcon} />
+    });
+  }
+  for (const vehicle of List) {
+    slot[vehicle.props.data.row][vehicle.props.data.col] = vehicle;
+  }
+  console.log(slot);
+  const Slot = slot.map((row, index) => {
+    return (
+      <Row key={index}>
+        {
+          row.map((col, index) => {
+            return (<Col key={index}>{col}</Col>);
+          })
+        }
+      </Row>
+    );
+  });
+  
+  List.map(item => {
+    console.log(item.props.data);
+    return null;
+  });
   return (
     <ModalWrapper 
-      title={name} 
+      title={garage?.name} 
       {...rest} 
       onCancel={onCancel}
       footer={[
@@ -55,14 +94,7 @@ const GarageModal = (props) => {
     ]}
     >
       <div className="container">
-        {name ? (
-          <VehicleList
-            vehicles={vehicles}
-            onVehicleClick={onVehicleClick}
-          />
-        ) : (
-          ""
-        )}
+        {Slot}
       </div>
     </ModalWrapper>
   );
@@ -70,13 +102,13 @@ const GarageModal = (props) => {
 GarageModal.defaultProps = {
   vehicles: [],
   onVehicleClick: null,
-  name: "",
+  garage: null,
   onCancel: null
 };
 GarageModal.propTypes = {
   vehicles: PropTypes.arrayOf(PropTypes.object),
   onVehicleClick: PropTypes.func,
-  name: PropTypes.string,
+  garage: PropTypes.objectOf(PropTypes.any),
   onCancel: PropTypes.func
 };
 

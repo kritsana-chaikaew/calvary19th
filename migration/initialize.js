@@ -36,8 +36,8 @@ const mockVehicle = {
   $updatedBy: sample(["กฤษณะ", "นิติ", "โอฬาร"]),
   $garage: randomGarage.name,
   $symptom: "อาการเสีย",
-  $row: 1,
-  $col: 1
+  $row: sample([0, 1]),
+  $col: sample([0, 1, 2, 3])
 };
 
 const mockUser = {

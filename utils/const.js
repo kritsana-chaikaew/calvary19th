@@ -17,14 +17,14 @@ const types = [
   { name: "รยบ. 1/4 ตัน M51A (Mitsubishi)", icon: "/jeep.svg" },
 ];
 const garages = [
-  { name: "โรงรถล้อ ร้อย.บก", regimental: regimentals[0], row: 2, col: 4 },
-  { name: "โรงรถสายพาน ร้อย.บก", regimental: regimentals[0], row: 2, col: 4 },
-  { name: "โรงรถล้อ ร้อย.ม.1", regimental: regimentals[1], row: 2, col: 4 },
-  { name: "โรงรถสายพาน ร้อย.ม.1", regimental: regimentals[1], row: 2, col: 4 },
-  { name: "โรงรถล้อ ร้อย.ม.2", regimental: regimentals[2], row: 2, col: 4 },
-  { name: "โรงรถสายพาน ร้อย.ม.2", regimental: regimentals[2], row: 2, col: 4 },
-  { name: "โรงรถล้อ ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 4 },
-  { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 4 },
+  { name: "โรงรถล้อ ร้อย.บก", regimental: regimentals[0], row: 2, col: 25 },
+  { name: "โรงรถสายพาน ร้อย.บก", regimental: regimentals[0], row: 2, col: 25 },
+  { name: "โรงรถล้อ ร้อย.ม.1", regimental: regimentals[1], row: 2, col: 25 },
+  { name: "โรงรถสายพาน ร้อย.ม.1", regimental: regimentals[1], row: 2, col: 25 },
+  { name: "โรงรถล้อ ร้อย.ม.2", regimental: regimentals[2], row: 2, col: 25 },
+  { name: "โรงรถสายพาน ร้อย.ม.2", regimental: regimentals[2], row: 2, col: 25 },
+  { name: "โรงรถล้อ ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 25 },
+  { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 25 },
 ];
 
 module.exports = {

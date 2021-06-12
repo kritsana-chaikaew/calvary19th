@@ -5,9 +5,11 @@ import PropTypes from "prop-types";
 import { statuses } from "../utils/const";
 
 const ButtomWrapper = styled(Button)`
-  width: 6rem;
-  height: 6rem;
+  background-color: #d6d6d6;
+  width: var(--unit-size);
+  height: var(--unit-size);
   padding: 0px 0px;
+  margin: 1px;
   div.disable > div > img {
     filter: opacity(0.5) grayscale(1);
   }

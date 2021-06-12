@@ -26,7 +26,7 @@ const Index = ({ vehicles }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [vehicleData, setVehicleData] = useState({});
   const [isGarageModalVisible, setIsGarageModalVisible] = useState(false);
-  const [selectedGarageName, setSelectedGarageName] = useState();
+  const [selectedGarage, setSelectedGarage] = useState(garages[0]);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -43,8 +43,8 @@ const Index = ({ vehicles }) => {
     setVehicleData(data);
     showModal();
   };
-  const handleGarageClick = (garageName) => {
-    setSelectedGarageName(garageName);
+  const handleGarageClick = (garage) => {
+    setSelectedGarage(garage);
     showGarageModal();
   };
 
@@ -66,15 +66,15 @@ const Index = ({ vehicles }) => {
       >
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.2 */}
-          <Garage name={garages[5].name} onClick={handleGarageClick} />
+          <Garage garage={garages[5]} onClick={handleGarageClick} />
         </Col>
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.1 */}
-          <Garage name={garages[3].name} onClick={handleGarageClick} />
+          <Garage garage={garages[3]} onClick={handleGarageClick} />
         </Col>
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.3 */}
-          <Garage name={garages[7].name} onClick={handleGarageClick} />
+          <Garage garage={garages[7]} onClick={handleGarageClick} />
         </Col>
       </RowWrapper>
 
@@ -98,7 +98,8 @@ const Index = ({ vehicles }) => {
           >
             <Col span={12} />
             <Col span={12}>
-              <Garage name={garages[6].name} onClick={handleGarageClick} />
+              {/* โรงรถล้อ ร้อย.ม.3 */}
+              <Garage garage={garages[6]} onClick={handleGarageClick} />
             </Col>
           </RowWrapper>
           <RowWrapper
@@ -143,7 +144,8 @@ const Index = ({ vehicles }) => {
           >
             <Col span={16} />
             <Col span={8}>
-              <Garage name={garages[1].name} onClick={handleGarageClick} />
+              {/* โรงรถสายพาน ร้อย.บก */}
+              <Garage garage={garages[1]} onClick={handleGarageClick} />
             </Col>
           </RowWrapper>
           <RowWrapper
@@ -152,10 +154,12 @@ const Index = ({ vehicles }) => {
             gutter={gutter}
           >
             <Col span={12}>
-              <Garage name={garages[2].name} onClick={handleGarageClick} />
+              {/* โรงรถล้อ ร้อย.ม.1 */}
+              <Garage garage={garages[2]} onClick={handleGarageClick} />
             </Col>
             <Col span={12}>
-              <Garage name={garages[0].name} onClick={handleGarageClick} />
+              {/* โรงรถล้อ ร้อย.บก */}
+              <Garage garage={garages[0]} onClick={handleGarageClick} />
             </Col>
           </RowWrapper>
         </Col>
@@ -192,12 +196,12 @@ const Index = ({ vehicles }) => {
         vehicleData={vehicleData}
       />
       <GarageModal
-        name={selectedGarageName}
+        garage={selectedGarage}
         visible={isGarageModalVisible}
         onCancel={handleGarageModalOk}
         okText="ปิด"
         centered
-        vehicles={vehicleListInGarage[selectedGarageName]}
+        vehicles={vehicleListInGarage[selectedGarage.name]}
         onVehicleClick={handleVehicleClick}
       />
     </div>
