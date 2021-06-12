@@ -13,7 +13,7 @@ import device from "../utils/device";
 
 const ModalWrapper = styled(Modal)`
   min-height: 70vh;
-  width: 600px !important;
+  width: 650px !important;
   .ant-modal-content {
     height: 100%;
     width: 100%;
@@ -22,7 +22,7 @@ const ModalWrapper = styled(Modal)`
   }
   .ant-modal-body {
     overflow: scroll;
-    height: 400px;
+    // height: 400px;
   }
   .ant-modal-title {
     font-size: 1.5rem;
@@ -44,18 +44,19 @@ const ModalWrapper = styled(Modal)`
 `;
 
 const RowWrapper = styled(Row)`
-  min-height: 2.3rem;
+  min-height: var(--unit-size);
 `;
 
 const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
   let color = "success";
   let icon = <CheckCircleOutlined />;
   const isUnavailable = vehicleData?.status === statuses[1];
+  const isDisable = vehicleData?.status === statuses[2];
   if (isUnavailable) {
     color = "error";
     icon = <CloseCircleOutlined />;
   }
-  if (vehicleData?.status === statuses[2]) {
+  if (isDisable) {
     color = "default";
     icon = <MinusCircleOutlined />;
   }
@@ -105,7 +106,7 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
             <h2>{vehicleData?.type}</h2>
           </RowWrapper>
           <RowWrapper>
-            <h2>{vehicleData?.garage}</h2>
+            <h2>{`${vehicleData?.garage} แถวที่ ${vehicleData?.row + 1} ช่องที่ ${vehicleData?.col + 1}`}</h2>
           </RowWrapper>
         </Col>
       </RowWrapper>
@@ -140,10 +141,6 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
           </Col>
         </RowWrapper>
       )}
-      <RowWrapper>
-        {vehicleData.row}
-        {vehicleData.col}
-      </RowWrapper>
     </ModalWrapper>
   );
 };
