@@ -106,7 +106,11 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
             <h2>{vehicleData?.type}</h2>
           </RowWrapper>
           <RowWrapper>
-            <h2>{`${vehicleData?.garage} แถวที่ ${vehicleData?.row + 1} ช่องที่ ${vehicleData?.col + 1}`}</h2>
+            <h2>
+              {`${vehicleData?.garage} แถวที่ ${vehicleData?.row + 1} ช่องที่ ${
+                vehicleData?.col + 1
+              }`}
+            </h2>
           </RowWrapper>
         </Col>
       </RowWrapper>
@@ -144,10 +148,12 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
     </ModalWrapper>
   );
 };
+
 VehicleModal.defaultProps = {
   vehicleData: null,
   onOk: null,
 };
+
 VehicleModal.propTypes = {
   vehicleData: PropTypes.objectOf(PropTypes.any),
   onOk: PropTypes.func,

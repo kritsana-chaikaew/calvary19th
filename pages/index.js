@@ -27,22 +27,28 @@ const Index = ({ vehicles }) => {
   const [vehicleData, setVehicleData] = useState({});
   const [isGarageModalVisible, setIsGarageModalVisible] = useState(false);
   const [selectedGarage, setSelectedGarage] = useState(garages[0]);
+
   const showModal = () => {
     setIsModalVisible(true);
   };
+
   const showGarageModal = () => {
     setIsGarageModalVisible(true);
   };
+
   const handleModalOk = () => {
     setIsModalVisible(false);
   };
+
   const handleGarageModalOk = () => {
     setIsGarageModalVisible(false);
   };
+
   const handleVehicleClick = (data) => {
     setVehicleData(data);
     showModal();
   };
+
   const handleGarageClick = (garage) => {
     setSelectedGarage(garage);
     showGarageModal();
@@ -199,7 +205,6 @@ const Index = ({ vehicles }) => {
         garage={selectedGarage}
         visible={isGarageModalVisible}
         onCancel={handleGarageModalOk}
-        okText="ปิด"
         centered
         vehicles={vehicleListInGarage[selectedGarage.name]}
         onVehicleClick={handleVehicleClick}
@@ -207,6 +212,7 @@ const Index = ({ vehicles }) => {
     </div>
   );
 };
+
 Index.defaultProps = {
   vehicles: [],
 };
