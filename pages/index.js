@@ -27,6 +27,7 @@ const Index = ({ vehicles }) => {
   const [vehicleData, setVehicleData] = useState({});
   const [isGarageModalVisible, setIsGarageModalVisible] = useState(false);
   const [selectedGarage, setSelectedGarage] = useState(garages[0]);
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -36,12 +37,20 @@ const Index = ({ vehicles }) => {
     setIsGarageModalVisible(true);
   };
 
+  const showAddModal = () => {
+    setIsAddModalVisible(true);
+  };
+
   const handleModalOk = () => {
     setIsModalVisible(false);
   };
 
   const handleGarageModalOk = () => {
     setIsGarageModalVisible(false);
+  };
+
+  const handleAddModalOk = () => {
+    setIsAddModalVisible(false);
   };
 
   const handleVehicleClick = (data) => {
@@ -54,6 +63,10 @@ const Index = ({ vehicles }) => {
     showGarageModal();
   };
 
+  const handleAddClick = () => {
+    showAddModal();
+  };
+
   const vehicleListInGarage = garages.reduce((o, garage) => {
     return {
       ...o,
@@ -64,7 +77,7 @@ const Index = ({ vehicles }) => {
   }, {});
 
   return (
-    <div>
+    <Template onAddClick={handleAddClick}>
       <RowWrapper
         gap={gap}
         style={{ minHeight: minRowWrapperHeight }}
@@ -201,6 +214,13 @@ const Index = ({ vehicles }) => {
         onCancel={handleModalOk}
         vehicleData={vehicleData}
       />
+      <VehicleModal
+        title="เพิ่มยานพาหนะ"
+        visible={isAddModalVisible}
+        onOk={handleAddModalOk}
+        onCancel={handleAddModalOk}
+        vehicleData={{}}
+      />
       <GarageModal
         garage={selectedGarage}
         visible={isGarageModalVisible}
@@ -209,7 +229,7 @@ const Index = ({ vehicles }) => {
         vehicles={vehicleListInGarage[selectedGarage.name]}
         onVehicleClick={handleVehicleClick}
       />
-    </div>
+    </Template>
   );
 };
 
@@ -220,8 +240,6 @@ Index.defaultProps = {
 Index.propTypes = {
   vehicles: PropTypes.arrayOf(PropTypes.object),
 };
-
-Index.getTemplate = (page) => <Template>{page}</Template>;
 
 export default Index;
 

@@ -35,7 +35,7 @@ const Content = styled(Layout.Content)`
 `;
 
 const Template = (props) => {
-  const { children } = props;
+  const { children, onAddClick } = props;
   const [cookie, setCookie] = useCookies();
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [isUserNotFound, setIsUserNotFound] = useState(false);
@@ -76,18 +76,23 @@ const Template = (props) => {
         <Row align="middle">
           <Col flex="auto">Hello World</Col>
           <Col span={2}>
+            <Button ghost onClick={() => onAddClick()}>
+              เพิ่มข้อมูล
+            </Button>
+          </Col>
+          <Col span={2}>
             <Button ghost onClick={exportDatabase}>
-              Export
+              ส่งออกข้อมูล
             </Button>
           </Col>
           <Col span={2}>
             {cookie?.username || (
               <Button ghost onClick={showLoginForm}>
-                Login
+                เข้าสู่ระบบ
               </Button>
             )}
             <Modal
-              title="Login"
+              title="เข้าสู่ระบบ"
               visible={isLoginFormVisible}
               footer={null}
               onCancel={hideLoginForm}
@@ -131,10 +136,12 @@ const Template = (props) => {
 
 Template.defaultProps = {
   children: null,
+  onAddClick: null
 };
 
 Template.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
+  onAddClick: PropTypes.func
 };
 
 export default Template;

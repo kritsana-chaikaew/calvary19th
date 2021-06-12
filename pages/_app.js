@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import "antd/dist/antd.css";
 
 const MyApp = ({ Component, pageProps }) => {
-  const getTemplate = Component.getTemplate || ((page) => page);
-  return getTemplate(
+  return (
     <div>
       <style global jsx>
         {`
