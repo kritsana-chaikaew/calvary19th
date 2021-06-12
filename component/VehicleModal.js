@@ -1,10 +1,5 @@
-import React from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  Input,
-} from "antd";
+import React, { useState } from "react";
+import { Modal, Button, Form, Input, Select, Tag } from "antd";
 import {
   CloseCircleOutlined,
   CheckCircleOutlined,
@@ -50,20 +45,38 @@ const ModalWrapper = styled(Modal)`
   }
 `;
 
-const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
+const statusOptions = statuses.map(status => ({value: status}));
+
+const tagRender = (props) => {
+  const { label, value, closable, onClose } = props;
   let color = "success";
   let icon = <CheckCircleOutlined />;
-  const isUnavailable = vehicleData?.status === statuses[1];
-  const isDisable = vehicleData?.status === statuses[2];
-  if (isUnavailable) {
+  if (value === statuses[1]) {
     color = "error";
     icon = <CloseCircleOutlined />;
-  }
-  if (isDisable) {
+  } else if (value === statuses[2]) {
     color = "default";
     icon = <MinusCircleOutlined />;
   }
+  const onPreventMouseDown = event => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+  return (
+    <Tag
+      icon={icon}
+      color={color}
+      onMouseDown={onPreventMouseDown}
+      closable={closable}
+      onClose={onClose}
+      style={{ marginRight: 3 }}
+    >
+      {label}
+    </Tag>
+  );
+};
 
+const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
   const [form] = Form.useForm();
   const formItemLayout = {
     labelCol: {
@@ -73,6 +86,7 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
       span: 10,
     },
   };
+
   return (
     <ModalWrapper
       {...rest}
@@ -83,34 +97,73 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
       ]}
       centered
     >
-      <Form
-        {...formItemLayout}
-        layout="horizontal"
-        form={form}
-      >
+      <Form {...formItemLayout} layout="horizontal" form={form}>
         <Form.Item label="หมายเลข">
-          <Input type="text" readOnly value={vehicleData?.serial_no} placeholder="หมายเลข" />
+          <Input
+            type="text"
+            readOnly
+            value={vehicleData?.serial_no}
+            placeholder="หมายเลข"
+          />
         </Form.Item>
         <Form.Item label="ชนิด">
-          <Input type="text" readOnly value={vehicleData?.type} placeholder="ชนิด" />
+          <Input
+            type="text"
+            readOnly
+            value={vehicleData?.type}
+            placeholder="ชนิด"
+          />
         </Form.Item>
         <Form.Item label="สถานะ">
-          <Input type="text" readOnly value={vehicleData?.status} placeholder="สถานะ" />
+          <Select
+            readOnly
+            mode="multiple"
+            value={[vehicleData?.status]}
+            onChange={handleStatusChange}
+            tagRender={tagRender}
+            style={{ width: "100%" }}
+            options={statusOptions}
+          />
         </Form.Item>
         <Form.Item label="หมายเหตุ">
-          <Input.TextArea type="text" readOnly value={vehicleData?.symptom} placeholder="หมายเหตุ" />
+          <Input.TextArea
+            type="text"
+            readOnly
+            value={vehicleData?.symptom}
+            placeholder="หมายเหตุ"
+          />
         </Form.Item>
         <Form.Item label="กองร้อย">
-          <Input type="text" readOnly value={vehicleData?.regimental} placeholder="กองร้อย" />
+          <Input
+            type="text"
+            readOnly
+            value={vehicleData?.regimental}
+            placeholder="กองร้อย"
+          />
         </Form.Item>
         <Form.Item label="โรงรถ">
-          <Input type="text" readOnly value={vehicleData?.garage} placeholder="โรงรถ" />
+          <Input
+            type="text"
+            readOnly
+            value={vehicleData?.garage}
+            placeholder="โรงรถ"
+          />
         </Form.Item>
         <Form.Item label="แถวจอด">
-          <Input type="number" readOnly value={vehicleData?.row} placeholder="แถวจอด" />
+          <Input
+            type="number"
+            readOnly
+            value={vehicleData?.row}
+            placeholder="แถวจอด"
+          />
         </Form.Item>
         <Form.Item label="ช่องจอด">
-          <Input type="number" readOnly value={vehicleData?.col} placeholder="ช่องจอด" />
+          <Input
+            type="number"
+            readOnly
+            value={vehicleData?.col}
+            placeholder="ช่องจอด"
+          />
         </Form.Item>
         <Form.Item label="ใบส่งซ่อม">
           <ImageUpload />
