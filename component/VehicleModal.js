@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Button, Form, Input, Select, Tag } from "antd";
 import {
   CloseCircleOutlined,
@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { statuses } from "../utils/const";
+import { statuses, types } from "../utils/const";
 import device from "../utils/device";
 import ImageUpload from "./ImageUpload";
 
@@ -46,6 +46,7 @@ const ModalWrapper = styled(Modal)`
 `;
 
 const statusOptions = statuses.map(status => ({value: status}));
+const typeOptions = types.map(type => ({value: type.name}));
 
 const tagRender = (props) => {
   const { label, value, closable, onClose } = props;
@@ -107,11 +108,11 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
           />
         </Form.Item>
         <Form.Item label="ชนิด">
-          <Input
-            type="text"
+          <Select
             readOnly
             value={vehicleData?.type}
-            placeholder="ชนิด"
+            style={{ width: "100%" }}
+            options={typeOptions}
           />
         </Form.Item>
         <Form.Item label="สถานะ">
@@ -119,7 +120,7 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
             readOnly
             mode="multiple"
             value={[vehicleData?.status]}
-            onChange={handleStatusChange}
+            // onChange={handleStatusChange}
             tagRender={tagRender}
             style={{ width: "100%" }}
             options={statusOptions}
