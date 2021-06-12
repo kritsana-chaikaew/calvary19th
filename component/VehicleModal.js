@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Input, Select, Tag } from "antd";
 import {
   CloseCircleOutlined,
@@ -43,6 +43,11 @@ const ModalWrapper = styled(Modal)`
   .ant-form-item {
     margin-bottom: 5px;
   }
+  .ant-select-selector {
+    background: transparent !important;
+    cursor: text !important;
+    color: unset !important;
+  }
 `;
 
 const statusOptions = statuses.map(status => ({value: status}));
@@ -64,20 +69,23 @@ const tagRender = (props) => {
     event.stopPropagation();
   };
   return (
-    <Tag
-      icon={icon}
-      color={color}
-      onMouseDown={onPreventMouseDown}
-      onClose={onClose}
-      style={{ marginRight: 3 }}
-    >
-      {label}
-    </Tag>
+    label ? (
+      <Tag
+        icon={icon}
+        color={color}
+        onMouseDown={onPreventMouseDown}
+        onClose={onClose}
+        style={{ marginRight: 3 }}
+      >
+        {label}
+      </Tag>
+    ) : ""
   );
 };
 
-const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
+const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   const [form] = Form.useForm();
+  const [isEdit, setIsEdit] = useState(false);
   const formItemLayout = {
     labelCol: {
       span: 4,
@@ -86,86 +94,110 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
       span: 12,
     },
   };
-
+  const handleStatusChange = (value) => {
+    form.setFieldsValue({
+      status: [value[value.length - 1]]
+    });
+  };
+  const handleEditClick = () => {
+    setIsEdit(!isEdit);
+  };
+  useEffect(() => {
+    form.setFieldsValue({...vehicleData, status: [vehicleData.status]});
+    setIsEdit(edit);
+  }, [visible]);
   return (
     <ModalWrapper
+      visible={visible}
       {...rest}
       footer={[
         <Button key="ok" onClick={onOk} type="primary" size="large">
           ปิด
         </Button>,
+        <Button key="edit" onClick={handleEditClick} type="warning" size="large">
+          {isEdit ? "บันทึก" : "แก้ไข"}
+        </Button>,
       ]}
       centered
     >
       <Form {...formItemLayout} layout="horizontal" form={form}>
-        <Form.Item label="หมายเลข">
+        <Form.Item name="id" rules={[{required: true}]}>
+          <Input
+            type="hidden"
+            readOnly={!isEdit}
+            value={({ getFieldValue }) => getFieldValue("id")}
+          />
+        </Form.Item>
+        <Form.Item label="หมายเลข" name="serial_no" rules={[{required: true}]}>
           <Input
             type="text"
-            readOnly
-            value={vehicleData?.serial_no}
+            readOnly={!isEdit}
+            value={({ getFieldValue }) => getFieldValue("serial_no")}
             placeholder="หมายเลข"
           />
         </Form.Item>
-        <Form.Item label="ชนิด">
+        <Form.Item label="ชนิด" name="type" rules={[{required: true}]}>
           <Select
-            readOnly
-            value={vehicleData?.type}
+            disabled={!isEdit}
+            value={({ getFieldValue }) => getFieldValue("type")}
             style={{ width: "100%" }}
             options={typeOptions}
+            placeholder="ชนิด"
           />
         </Form.Item>
-        <Form.Item label="สถานะ">
+        <Form.Item label="สถานะ" name="status" rules={[{required: true}]}>
           <Select
-            readOnly
-            mode="multiple"
-            value={[vehicleData?.status]}
-            // onChange={handleStatusChange}
+            disabled={!isEdit}
+            mode="tags"
+            value={({ getFieldValue }) => getFieldValue("status")}
+            onChange={handleStatusChange}
             tagRender={tagRender}
             style={{ width: "100%" }}
             options={statusOptions}
+            placeholder="สถานะ"
           />
         </Form.Item>
-        <Form.Item label="หมายเหตุ">
+        <Form.Item label="หมายเหตุ" name="symptom" rules={[{required: false}]}>
           <Input.TextArea
+            readOnly={!isEdit}
             type="text"
-            readOnly
-            value={vehicleData?.symptom}
+            value={({ getFieldValue }) => getFieldValue("symptom")}
             placeholder="หมายเหตุ"
           />
         </Form.Item>
-        <Form.Item label="กองร้อย">
+        <Form.Item label="กองร้อย" name="regimental" rules={[{required: true}]}>
           <Input
+            readOnly={!isEdit}
             type="text"
-            readOnly
-            value={vehicleData?.regimental}
+            value={({ getFieldValue }) => getFieldValue("regimental")}
             placeholder="กองร้อย"
           />
         </Form.Item>
-        <Form.Item label="อยู่ที่">
+        <Form.Item label="อยู่ที่" name="garage" rules={[{required: true}]}>
           <Input
+            readOnly={!isEdit}
             type="text"
-            readOnly
-            value={vehicleData?.garage}
+            value={({ getFieldValue }) => getFieldValue("garage")}
             placeholder="อยู่ที่"
           />
         </Form.Item>
-        <Form.Item label="จอดแถวที่">
+        <Form.Item label="จอดแถวที่" name="row" rules={[{required: true}]}>
           <Input
+            readOnly={!isEdit}
             type="number"
-            readOnly
-            value={vehicleData?.row + 1}
+            value={({ getFieldValue }) => getFieldValue("row") + 1}
             placeholder="จอดแถวที่"
           />
         </Form.Item>
-        <Form.Item label="จอดช่องที่">
+        <Form.Item label="จอดช่องที่" name="col" rules={[{required: true}]}>
           <Input
+            readOnly={!isEdit}
             type="number"
-            readOnly
-            value={vehicleData?.col + 1}
+            value={({ getFieldValue }) => getFieldValue("col") + 1}
             placeholder="จอดช่องที่"
           />
         </Form.Item>
-        <Form.Item label="ใบส่งซ่อม">
+        <Form.Item label="ใบส่งซ่อม" name="type" rules={[{required: false}]}>
           <ImageUpload />
         </Form.Item>
       </Form>
@@ -176,11 +208,15 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
 VehicleModal.defaultProps = {
   vehicleData: null,
   onOk: null,
+  edit: false,
+  visible: false
 };
 
 VehicleModal.propTypes = {
   vehicleData: PropTypes.objectOf(PropTypes.any),
   onOk: PropTypes.func,
+  edit: PropTypes.bool,
+  visible: PropTypes.bool
 };
 
 export default VehicleModal;

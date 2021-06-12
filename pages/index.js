@@ -215,7 +215,8 @@ const Index = ({ vehicles }) => {
         vehicleData={vehicleData}
       />
       <VehicleModal
-        title="เพิ่มยานพาหนะ"
+        title="เพิ่มข้อมูล"
+        edit
         visible={isAddModalVisible}
         onOk={handleAddModalOk}
         onCancel={handleAddModalOk}
