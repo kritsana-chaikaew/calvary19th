@@ -40,7 +40,6 @@ const Template = (props) => {
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [isUserNotFound, setIsUserNotFound] = useState(false);
 
-
   const exportDatabase = () => {
     window.open("/api/export");
   };

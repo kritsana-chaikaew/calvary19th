@@ -1,10 +1,11 @@
 import React from "react";
 import { Button } from "antd";
+import Image from "next/image";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { statuses } from "../utils/const";
+import { statuses, types } from "../utils/const";
 
-const ButtomWrapper = styled(Button)`
+const ButtonWrapper = styled(Button)`
   background-color: #d6d6d6;
   width: var(--unit-size);
   height: var(--unit-size);
@@ -24,16 +25,27 @@ const ButtomWrapper = styled(Button)`
   }
 `;
 
-const Vehicle = ({ icon, data, ...rest }) => {
+const EmptyIcon = <Image layout="fill" src="/empty.svg" alt="empty" />;
+
+const Icons = types.reduce(
+  (o, type) => ({
+    ...o,
+    [type.name]: <Image layout="fill" src={type.icon} alt={type.name} />,
+  }),
+  {}
+);
+
+const Vehicle = ({ data, ...rest }) => {
   let className = "icon available";
   if (data?.status === statuses[2]) className = "icon disable";
   if (data?.status === statuses[1]) className = "icon unavailable";
   return (
-    <ButtomWrapper type="text" {...rest}>
-      <div className={className}>{icon}</div>
-    </ButtomWrapper>
+    <ButtonWrapper type="text" {...rest}>
+      <div className={className}>{data ? Icons[data.type] : EmptyIcon}</div>
+    </ButtonWrapper>
   );
 };
+
 Vehicle.defaultProps = {
   icon: null,
   data: null,

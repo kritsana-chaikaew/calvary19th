@@ -49,7 +49,7 @@ const statusOptions = statuses.map(status => ({value: status}));
 const typeOptions = types.map(type => ({value: type.name}));
 
 const tagRender = (props) => {
-  const { label, value, closable, onClose } = props;
+  const { label, value, onClose } = props;
   let color = "success";
   let icon = <CheckCircleOutlined />;
   if (value === statuses[1]) {
@@ -68,7 +68,6 @@ const tagRender = (props) => {
       icon={icon}
       color={color}
       onMouseDown={onPreventMouseDown}
-      closable={closable}
       onClose={onClose}
       style={{ marginRight: 3 }}
     >
@@ -84,7 +83,7 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
       span: 4,
     },
     wrapperCol: {
-      span: 10,
+      span: 12,
     },
   };
 
@@ -142,28 +141,28 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
             placeholder="กองร้อย"
           />
         </Form.Item>
-        <Form.Item label="โรงรถ">
+        <Form.Item label="อยู่ที่">
           <Input
             type="text"
             readOnly
             value={vehicleData?.garage}
-            placeholder="โรงรถ"
+            placeholder="อยู่ที่"
           />
         </Form.Item>
-        <Form.Item label="แถวจอด">
+        <Form.Item label="จอดแถวที่">
           <Input
             type="number"
             readOnly
-            value={vehicleData?.row}
-            placeholder="แถวจอด"
+            value={vehicleData?.row + 1}
+            placeholder="จอดแถวที่"
           />
         </Form.Item>
-        <Form.Item label="ช่องจอด">
+        <Form.Item label="จอดช่องที่">
           <Input
             type="number"
             readOnly
-            value={vehicleData?.col}
-            placeholder="ช่องจอด"
+            value={vehicleData?.col + 1}
+            placeholder="จอดช่องที่"
           />
         </Form.Item>
         <Form.Item label="ใบส่งซ่อม">
@@ -173,10 +172,12 @@ const VehicleModal = ({ vehicleData, onOk, ...rest }) => {
     </ModalWrapper>
   );
 };
+
 VehicleModal.defaultProps = {
   vehicleData: null,
   onOk: null,
 };
+
 VehicleModal.propTypes = {
   vehicleData: PropTypes.objectOf(PropTypes.any),
   onOk: PropTypes.func,

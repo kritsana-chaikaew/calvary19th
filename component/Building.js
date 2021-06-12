@@ -38,9 +38,11 @@ const Building = ({ name, ...props }) => {
     </div>
   );
 };
+
 Building.defaultProps = {
   name: "",
 };
+
 Building.propTypes = {
   name: PropTypes.string,
 };
