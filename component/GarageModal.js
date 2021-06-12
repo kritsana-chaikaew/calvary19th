@@ -60,7 +60,6 @@ const GarageModal = (props) => {
   for (const vehicle of List) {
     slot[vehicle.props.data.row][vehicle.props.data.col] = vehicle;
   }
-  console.log(slot);
   const Slot = slot.map((row, index) => {
     return (
       <Row key={index}>
@@ -71,11 +70,6 @@ const GarageModal = (props) => {
         }
       </Row>
     );
-  });
-  
-  List.map(item => {
-    console.log(item.props.data);
-    return null;
   });
   return (
     <ModalWrapper 
