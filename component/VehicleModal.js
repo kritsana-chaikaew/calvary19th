@@ -50,8 +50,8 @@ const ModalWrapper = styled(Modal)`
   }
 `;
 
-const statusOptions = statuses.map(status => ({value: status}));
-const typeOptions = types.map(type => ({value: type.name}));
+const statusOptions = statuses.map((status) => ({ value: status }));
+const typeOptions = types.map((type) => ({ value: type.name }));
 
 const tagRender = (props) => {
   const { label, value, onClose } = props;
@@ -64,22 +64,22 @@ const tagRender = (props) => {
     color = "default";
     icon = <MinusCircleOutlined />;
   }
-  const onPreventMouseDown = event => {
+  const onPreventMouseDown = (event) => {
     event.preventDefault();
     event.stopPropagation();
   };
-  return (
-    label ? (
-      <Tag
-        icon={icon}
-        color={color}
-        onMouseDown={onPreventMouseDown}
-        onClose={onClose}
-        style={{ marginRight: 3 }}
-      >
-        {label}
-      </Tag>
-    ) : ""
+  return label ? (
+    <Tag
+      icon={icon}
+      color={color}
+      onMouseDown={onPreventMouseDown}
+      onClose={onClose}
+      style={{ marginRight: 3 }}
+    >
+      {label}
+    </Tag>
+  ) : (
+    ""
   );
 };
 
@@ -96,14 +96,19 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   };
   const handleStatusChange = (value) => {
     form.setFieldsValue({
-      status: [value[value.length - 1]]
+      status: [value[value.length - 1]],
     });
   };
   const handleEditClick = () => {
     setIsEdit(!isEdit);
   };
   useEffect(() => {
-    form.setFieldsValue({...vehicleData, status: [vehicleData.status]});
+    form.setFieldsValue({
+      ...vehicleData,
+      status: [vehicleData.status],
+      row: vehicleData.row + 1,
+      col: vehicleData.col + 1,
+    });
     setIsEdit(edit);
   }, [visible]);
   return (
@@ -114,42 +119,48 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
         <Button key="ok" onClick={onOk} type="primary" size="large">
           ปิด
         </Button>,
-        <Button key="edit" onClick={handleEditClick} type="warning" size="large">
+        <Button
+          key="edit"
+          onClick={handleEditClick}
+          type="warning"
+          size="large"
+        >
           {isEdit ? "บันทึก" : "แก้ไข"}
         </Button>,
       ]}
       centered
     >
       <Form {...formItemLayout} layout="horizontal" form={form}>
-        <Form.Item name="id" rules={[{required: true}]}>
-          <Input
-            type="hidden"
-            readOnly={!isEdit}
-            value={({ getFieldValue }) => getFieldValue("id")}
-          />
+        <Form.Item name="id" rules={isEdit ? [{ required: true }] : null}>
+          <Input type="hidden" readOnly={!isEdit} />
         </Form.Item>
-        <Form.Item label="หมายเลข" name="serial_no" rules={[{required: true}]}>
-          <Input
-            type="text"
-            readOnly={!isEdit}
-            value={({ getFieldValue }) => getFieldValue("serial_no")}
-            placeholder="หมายเลข"
-          />
+        <Form.Item
+          label="หมายเลข"
+          name="serial_no"
+          rules={isEdit ? [{ required: true }] : null}
+        >
+          <Input type="text" readOnly={!isEdit} placeholder="หมายเลข" />
         </Form.Item>
-        <Form.Item label="ชนิด" name="type" rules={[{required: true}]}>
+        <Form.Item
+          label="ชนิด"
+          name="type"
+          rules={isEdit ? [{ required: true }] : null}
+        >
           <Select
             disabled={!isEdit}
-            value={({ getFieldValue }) => getFieldValue("type")}
             style={{ width: "100%" }}
             options={typeOptions}
             placeholder="ชนิด"
           />
         </Form.Item>
-        <Form.Item label="สถานะ" name="status" rules={[{required: true}]}>
+        <Form.Item
+          label="สถานะ"
+          name="status"
+          rules={isEdit ? [{ required: true }] : null}
+        >
           <Select
             disabled={!isEdit}
             mode="tags"
-            value={({ getFieldValue }) => getFieldValue("status")}
             onChange={handleStatusChange}
             tagRender={tagRender}
             style={{ width: "100%" }}
@@ -157,47 +168,62 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
             placeholder="สถานะ"
           />
         </Form.Item>
-        <Form.Item label="หมายเหตุ" name="symptom" rules={[{required: false}]}>
+        <Form.Item
+          label="หมายเหตุ"
+          name="symptom"
+          rules={isEdit ? [{ required: true }] : null}
+        >
           <Input.TextArea
             readOnly={!isEdit}
             type="text"
-            value={({ getFieldValue }) => getFieldValue("symptom")}
             placeholder="หมายเหตุ"
           />
         </Form.Item>
-        <Form.Item label="กองร้อย" name="regimental" rules={[{required: true}]}>
-          <Input
-            readOnly={!isEdit}
-            type="text"
-            value={({ getFieldValue }) => getFieldValue("regimental")}
-            placeholder="กองร้อย"
-          />
+        <Form.Item
+          label="กองร้อย"
+          name="regimental"
+          rules={isEdit ? [{ required: true }] : null}
+        >
+          <Input readOnly={!isEdit} type="text" placeholder="กองร้อย" />
         </Form.Item>
-        <Form.Item label="อยู่ที่" name="garage" rules={[{required: true}]}>
-          <Input
-            readOnly={!isEdit}
-            type="text"
-            value={({ getFieldValue }) => getFieldValue("garage")}
-            placeholder="อยู่ที่"
-          />
+        <Form.Item
+          label="อยู่ที่"
+          name="garage"
+          rules={isEdit ? [{ required: true }] : null}
+        >
+          <Input readOnly={!isEdit} type="text" placeholder="อยู่ที่" />
         </Form.Item>
-        <Form.Item label="จอดแถวที่" name="row" rules={[{required: true}]}>
+        <Form.Item
+          label="จอดแถวที่"
+          name="row"
+          rules={isEdit ? [{ required: true }] : null}
+        >
           <Input
             readOnly={!isEdit}
             type="number"
-            value={({ getFieldValue }) => getFieldValue("row") + 1}
             placeholder="จอดแถวที่"
+            max="25"
+            min="0"
           />
         </Form.Item>
-        <Form.Item label="จอดช่องที่" name="col" rules={[{required: true}]}>
+        <Form.Item
+          label="จอดช่องที่"
+          name="col"
+          rules={isEdit ? [{ required: true }] : null}
+        >
           <Input
             readOnly={!isEdit}
             type="number"
-            value={({ getFieldValue }) => getFieldValue("col") + 1}
             placeholder="จอดช่องที่"
+            max="25"
+            min="0"
           />
         </Form.Item>
-        <Form.Item label="ใบส่งซ่อม" name="type" rules={[{required: false}]}>
+        <Form.Item
+          label="ใบส่งซ่อม"
+          name="type"
+          rules={isEdit ? [{ required: false }] : null}
+        >
           <ImageUpload />
         </Form.Item>
       </Form>
@@ -209,14 +235,14 @@ VehicleModal.defaultProps = {
   vehicleData: null,
   onOk: null,
   edit: false,
-  visible: false
+  visible: false,
 };
 
 VehicleModal.propTypes = {
   vehicleData: PropTypes.objectOf(PropTypes.any),
   onOk: PropTypes.func,
   edit: PropTypes.bool,
-  visible: PropTypes.bool
+  visible: PropTypes.bool,
 };
 
 export default VehicleModal;
