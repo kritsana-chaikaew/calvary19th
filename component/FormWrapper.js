@@ -49,7 +49,12 @@ const FormWrapper = ({ form, formItemLayout, layout, isEdit, ...rest }) => {
     });
   };
   return (
-    <Form {...formItemLayout} layout="horizontal" form={form} {...rest}>
+    <Form
+      {...formItemLayout}
+      layout="horizontal"
+      form={form}
+      {...rest}
+    >
       <Form.Item name="id" rules={isEdit ? [{ required: true }] : null}>
         <Input type="hidden" readOnly={!isEdit} />
       </Form.Item>
@@ -138,6 +143,7 @@ const FormWrapper = ({ form, formItemLayout, layout, isEdit, ...rest }) => {
         label="ใบส่งซ่อม"
         name="type"
         rules={isEdit ? [{ required: false }] : null}
+        value=""
       >
         <ImageUpload name="repaire_slip" />
       </Form.Item>

@@ -44,6 +44,24 @@ const ModalWrapper = styled(Modal)`
   }
 `;
 
+const initValue = {
+  id: "",
+  type: "",
+  status: [],
+  regimental: "",
+  serial_no: "",
+  repair_slip: "",
+  image: "",
+  created_date: "",
+  created_by: "",
+  updated_date: "",
+  updated_by: "",
+  garage: "",
+  symptom: "",
+  row: 1,
+  col: 1,
+};
+
 const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   const [form] = Form.useForm();
   const [isEdit, setIsEdit] = useState(false);
@@ -57,12 +75,16 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   };
   useEffect(() => {
     if (visible) {
-      form.setFieldsValue({
-        ...vehicleData,
-        status: [vehicleData.status],
-        row: vehicleData.row + 1,
-        col: vehicleData.col + 1,
-      });
+      if (edit) {
+        form.setFieldsValue(initValue);
+      } else {
+        form.setFieldsValue({
+          ...vehicleData,
+          status: [vehicleData.status],
+          row: vehicleData.row + 1,
+          col: vehicleData.col + 1,
+        });
+      }
       setIsEdit(edit);
     }
   }, [visible]);
