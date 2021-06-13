@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -11,16 +12,11 @@ const getBase64 = (file) => {
   });
 };
 
-const ImageUpload = () => {
+const ImageUpload = ({ isEdit }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([{
-    uid: "-1",
-    name: "image.png",
-    status: "done",
-    url: "/tank.svg",
-  }]);
+  const [fileList, setFileList] = useState([]);
 
   const handleCancel = () => setPreviewVisible(false);
 
@@ -34,7 +30,15 @@ const ImageUpload = () => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf("/") + 1));
   };
 
-  const handleChange = ({fileList}) => setFileList(fileList);
+  const handleChange = ({file, fileList, event}) => {
+    console.log(file, fileList, event);
+    setFileList(fileList);
+  };
+
+  const handleRemove = (file) => {
+    console.log(file);
+    setFileList([]);
+  };
 
   const uploadButton = (
     <div>
@@ -47,9 +51,13 @@ const ImageUpload = () => {
       <Upload
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         fileList={fileList}
+        listType="picture-card"
+        maxCount={1}
+        multiple
         onPreview={handlePreview}
         onChange={handleChange}
-        disabled
+        onRemove={handleRemove}
+        showUploadList={{ showRemoveIcon: isEdit}}
       >
         {fileList.length >= 1 ? null : uploadButton}
       </Upload>
@@ -59,10 +67,16 @@ const ImageUpload = () => {
         footer={null}
         onCancel={handleCancel}
       >
-        <img readOnly alt="example" style={{ width: "100%" }} src={previewImage} />
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
       </Modal>
     </div>
   );
+};
+ImageUpload.defaultProps = {
+  isEdit: false
+};
+ImageUpload.propTypes = {
+  isEdit: PropTypes.bool
 };
 
 export default ImageUpload;

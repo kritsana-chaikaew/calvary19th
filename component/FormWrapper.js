@@ -145,7 +145,7 @@ const FormWrapper = ({ form, formItemLayout, layout, isEdit, ...rest }) => {
         rules={isEdit ? [{ required: false }] : null}
         value=""
       >
-        <ImageUpload name="repaire_slip" />
+        <ImageUpload isEdit={isEdit} />
       </Form.Item>
     </Form>
   );
