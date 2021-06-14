@@ -38,15 +38,22 @@ const ImageUpload = ({ isEdit, form, isOpen }) => {
     );
   };
 
+  useEffect(() => {
+    form.setFieldsValue({
+      repair_slip: files,
+    });
+  }, [files]);
+
   const handleChange = ({ file }) => {
-    setFiles([file]);
+    if (file.status === "uploading") {
+      setFiles([file]);
+      return;
+    }
     if (file.status === "error") {
       handleRemove();
     }
-    if (file.status !== "uploading") {
-      form.setFieldsValue({
-        repair_slip: files,
-      });
+    if (file.status === "done") {
+      setFiles([file.response]);
     }
   };
 
