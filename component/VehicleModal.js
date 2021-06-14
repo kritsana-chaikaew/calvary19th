@@ -80,14 +80,17 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
       if (edit) {
         form.setFieldsValue(initValue);
       } else {
-        const repair_slip = vehicleData.repair_slip === "" ? [] : [
-          {
-            uid: "-1",
-            name: "ใบส่งซ่อม",
-            status: "done",
-            url: vehicleData.repair_slip,
-          },
-        ];
+        const repair_slip =
+          vehicleData.repair_slip === ""
+            ? []
+            : [
+                {
+                  uid: "-1",
+                  name: "ใบส่งซ่อม",
+                  status: "done",
+                  url: vehicleData.repair_slip,
+                },
+              ];
         form.setFieldsValue({
           ...vehicleData,
           status: [vehicleData.status],
@@ -104,18 +107,14 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   }, [visible]);
 
   const handleModalClose = () => {
-    // form.resetFields();
     onOk();
   };
 
   const makeRequest = async (url, values) => {
     // eslint-disable-next-line camelcase
     const method = edit ? "POST" : "PUT";
-    console.log(values);
     let { repair_slip, status, row, col } = values;
-    console.log(repair_slip);
     repair_slip = repair_slip[0]?.url || "";
-    console.log(repair_slip);
     [status] = status;
     row -= 1;
     col -= 1;
@@ -144,8 +143,7 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   const onFinish = async (values) => {
     if (isEdit) {
       try {
-        const res = await makeRequest("/api/vehicles", values);
-        console.log(res);
+        await makeRequest("/api/vehicles", values);
         setIsEdit(false);
       } catch (e) {
         console.log(e);

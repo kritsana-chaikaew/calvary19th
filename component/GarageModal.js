@@ -42,7 +42,6 @@ const ModalWrapper = styled(Modal)`
   }
   .ant-col {
     min-height: var(--unit-size);
-    // min-width: var(--unit-size);
   }
 `;
 
@@ -63,14 +62,10 @@ const GarageModal = (props) => {
       slots.push(<Row key={`row-${i}`}>{cols}</Row>);
     }
 
-
     for (const vehicle of vehicles) {
       slots[vehicle.row].props.children[vehicle.col] = (
         <Col key={`${vehicle.row}-${vehicle.col}`}>
-          <Vehicle
-            onClick={() => onVehicleClick(vehicle)}
-            data={vehicle}
-          />
+          <Vehicle onClick={() => onVehicleClick(vehicle)} data={vehicle} />
         </Col>
       );
     }
