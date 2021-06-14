@@ -83,6 +83,12 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
           status: [vehicleData.status],
           row: vehicleData.row + 1,
           col: vehicleData.col + 1,
+          repair_slip: {
+            uid: "-1",
+            name: "ใบส่งซ่อม.png",
+            status: "done",
+            url: vehicleData.repair_slip,
+          },
         });
       }
       setIsEdit(edit);
@@ -90,6 +96,11 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   }, [visible]);
   const handleEditClick = () => {
     setIsEdit(!isEdit);
+  };
+  const handleFileChange = (fileList) => {
+    form.setFieldsValue({
+      repair_slip: fileList,
+    });
   };
 
   return (
@@ -116,6 +127,7 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
         layout="horizontal"
         form={form}
         isEdit={isEdit}
+        onFileChange={handleFileChange}
       />
     </ModalWrapper>
   );

@@ -42,19 +42,21 @@ const tagRender = (props) => {
   );
 };
 
-const FormWrapper = ({ form, formItemLayout, layout, isEdit, ...rest }) => {
+const FormWrapper = ({
+  form,
+  formItemLayout,
+  layout,
+  isEdit,
+  onFileChange,
+  ...rest
+}) => {
   const handleStatusChange = (value) => {
     form.setFieldsValue({
       status: [value[value.length - 1]],
     });
   };
   return (
-    <Form
-      {...formItemLayout}
-      layout="horizontal"
-      form={form}
-      {...rest}
-    >
+    <Form {...formItemLayout} layout="horizontal" form={form} {...rest}>
       <Form.Item name="id" rules={isEdit ? [{ required: true }] : null}>
         <Input type="hidden" readOnly={!isEdit} />
       </Form.Item>
@@ -145,7 +147,7 @@ const FormWrapper = ({ form, formItemLayout, layout, isEdit, ...rest }) => {
         rules={isEdit ? [{ required: false }] : null}
         value=""
       >
-        <ImageUpload isEdit={isEdit} />
+        <ImageUpload isEdit={isEdit} onFileChange={onFileChange} form={form} />
       </Form.Item>
     </Form>
   );
@@ -155,12 +157,14 @@ FormWrapper.defaultProps = {
   formItemLayout: null,
   layout: null,
   isEdit: false,
+  onFileChange: null,
 };
 FormWrapper.propTypes = {
   form: PropTypes.objectOf(PropTypes.any),
   formItemLayout: PropTypes.objectOf(PropTypes.any),
   layout: PropTypes.string,
   isEdit: PropTypes.bool,
+  onFileChange: PropTypes.func,
 };
 
 export default FormWrapper;
