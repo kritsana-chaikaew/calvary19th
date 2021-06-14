@@ -22,7 +22,7 @@ const garages = [
   { name: "โรงรถล้อ ร้อย.ม.1", regimental: regimentals[1], row: 2, col: 25 },
   { name: "โรงรถสายพาน ร้อย.ม.1", regimental: regimentals[1], row: 2, col: 25 },
   { name: "โรงรถล้อ ร้อย.ม.2", regimental: regimentals[2], row: 2, col: 25 },
-  { name: "โรงรถสายพาน ร้อย.ม.2", regimental: regimentals[2], row: 2, col: 25 },
+  { name: "โรงรถสายพาน ร้อย.ม.2", regimental: regimentals[2], row: 2, col: 10 },
   { name: "โรงรถล้อ ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 25 },
   { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 25 },
 ];
