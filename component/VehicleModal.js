@@ -59,8 +59,8 @@ const initValue = {
   updated_by: "",
   garage: "",
   symptom: "",
-  row: 1,
-  col: 1,
+  row: null,
+  col: null,
 };
 
 const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {

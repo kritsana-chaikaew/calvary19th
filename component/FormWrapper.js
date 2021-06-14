@@ -69,28 +69,29 @@ const FormWrapper = ({
         name="serial_no"
         rules={[{ required: isEdit }]}
       >
-        <Input type="text" readOnly={!isEdit} placeholder="หมายเลข" />
+        <Input type="number" readOnly={!isEdit} />
       </Form.Item>
       <Form.Item label="ชนิด" name="type" rules={[{ required: isEdit }]}>
         <Select
           disabled={!isEdit}
           style={{ width: "100%" }}
           options={typeOptions}
+          showSearch={false}
         />
       </Form.Item>
       <Form.Item label="สถานะ" name="status" rules={[{ required: isEdit }]}>
         <Select
           disabled={!isEdit}
-          mode="tags"
+          mode="multiple"
           onChange={handleStatusChange}
           tagRender={tagRender}
           style={{ width: "100%" }}
           options={statusOptions}
-          placeholder="สถานะ"
+          showSearch={false}
         />
       </Form.Item>
       <Form.Item label="หมายเหตุ" name="symptom" rules={[{ required: false }]}>
-        <Input.TextArea readOnly={!isEdit} type="text" placeholder="หมายเหตุ" />
+        <Input.TextArea readOnly={!isEdit} type="text" />
       </Form.Item>
       <Form.Item
         label="กองร้อย"
@@ -111,22 +112,10 @@ const FormWrapper = ({
         />
       </Form.Item>
       <Form.Item label="จอดแถวที่" name="row" rules={[{ required: isEdit }]}>
-        <Input
-          readOnly={!isEdit}
-          type="number"
-          placeholder="จอดแถวที่"
-          max="2"
-          min="0"
-        />
+        <Input readOnly={!isEdit} type="number" max="2" min="0" />
       </Form.Item>
       <Form.Item label="จอดช่องที่" name="col" rules={[{ required: isEdit }]}>
-        <Input
-          readOnly={!isEdit}
-          type="number"
-          placeholder="จอดช่องที่"
-          max="25"
-          min="0"
-        />
+        <Input readOnly={!isEdit} type="number" max="25" min="0" />
       </Form.Item>
       <Form.Item
         label="ใบส่งซ่อม"
