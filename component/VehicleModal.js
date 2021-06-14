@@ -50,7 +50,7 @@ const initValue = {
   status: [],
   regimental: "",
   serial_no: "",
-  repair_slip: "",
+  repair_slip: [],
   image: "",
   created_date: "",
   created_by: "",
@@ -65,6 +65,7 @@ const initValue = {
 const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   const [form] = Form.useForm();
   const [isEdit, setIsEdit] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const formItemLayout = {
     labelCol: {
       span: 4,
@@ -94,6 +95,9 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
         });
       }
       setIsEdit(edit);
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
     }
   }, [visible]);
   const handleEditClick = () => {
@@ -105,19 +109,38 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
     onOk();
   };
 
+  const onSubmit = (values) => {
+    console.log("submit", values);
+    form.submit();
+  };
+
+  const onFinish = (values) => {
+    console.log("finish", values);
+    handleEditClick();
+  };
+
+  const onFinishFailed = (values) => {
+    console.log("fail");
+  };
+
   return (
     <ModalWrapper
       visible={visible}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
       {...rest}
       footer={[
         <Button key="ok" onClick={handleModalClose} type="primary" size="large">
           ปิด
         </Button>,
+        
         <Button
           key="edit"
-          onClick={handleEditClick}
+          // onClick={handleEditClick}
+          onClick={onSubmit}
           type="warning"
           size="large"
+          htmlType="submit"
         >
           {isEdit ? "บันทึก" : "แก้ไข"}
         </Button>,
@@ -129,6 +152,9 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
         layout="horizontal"
         form={form}
         isEdit={isEdit}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        isOpen={isOpen}
       />
     </ModalWrapper>
   );

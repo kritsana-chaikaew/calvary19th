@@ -12,17 +12,17 @@ const getBase64 = (file) => {
   });
 };
 
-const ImageUpload = ({ isEdit, form }) => {
+const ImageUpload = ({ isEdit, form, isOpen }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    if (form.getFieldValue("repair_slip")) {
+    if (isOpen) {
       setFiles(form.getFieldValue("repair_slip"));
     }
-  }, [form.getFieldValue("repair_slip")]);
+  }, [isOpen]);
 
   const handleCancel = () => setPreviewVisible(false);
 
@@ -39,10 +39,14 @@ const ImageUpload = ({ isEdit, form }) => {
   };
 
   const handleChange = ({ file, fileList }) => {
+    if (file.status === "error") {
+      handleRemove();
+      return;
+    }
     setFiles(fileList);
-    if (["done", "remove"].includes(file.status)) {
+    if (file.status === "done") {
       form.setFieldsValue({
-        repair_slip: files
+        repair_slip: files,
       });
     }
   };
@@ -87,10 +91,12 @@ const ImageUpload = ({ isEdit, form }) => {
 ImageUpload.defaultProps = {
   isEdit: false,
   form: null,
+  isOpen: false,
 };
 ImageUpload.propTypes = {
   isEdit: PropTypes.bool,
   form: PropTypes.objectOf(PropTypes.any),
+  isOpen: PropTypes.bool,
 };
 
 export default ImageUpload;

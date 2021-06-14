@@ -42,34 +42,34 @@ const tagRender = (props) => {
   );
 };
 
-const FormWrapper = ({
-  form,
-  formItemLayout,
-  layout,
-  isEdit,
-  ...rest
-}) => {
+const FormWrapper = ({ form, formItemLayout, layout, isEdit, isOpen, ...rest }) => {
   const handleStatusChange = (value) => {
     form.setFieldsValue({
       status: [value[value.length - 1]],
     });
   };
   return (
-    <Form {...formItemLayout} layout="horizontal" form={form} {...rest}>
-      <Form.Item name="id" rules={isEdit ? [{ required: true }] : null}>
-        <Input type="hidden" readOnly={!isEdit} />
+    <Form
+      {...formItemLayout}
+      layout="horizontal"
+      form={form}
+      {...rest}
+    >
+      <Form.Item name="id" rules={[{ required: false }]}>
+        <Input type="hidden" readOnly />
       </Form.Item>
+      {isEdit ? "true":"false"}
       <Form.Item
         label="หมายเลข"
         name="serial_no"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: isEdit }]}
       >
         <Input type="text" readOnly={!isEdit} placeholder="หมายเลข" />
       </Form.Item>
       <Form.Item
         label="ชนิด"
         name="type"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: isEdit }]}
       >
         <Select
           disabled={!isEdit}
@@ -81,7 +81,7 @@ const FormWrapper = ({
       <Form.Item
         label="สถานะ"
         name="status"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: isEdit }]}
       >
         <Select
           disabled={!isEdit}
@@ -96,28 +96,28 @@ const FormWrapper = ({
       <Form.Item
         label="หมายเหตุ"
         name="symptom"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: false }]}
       >
         <Input.TextArea readOnly={!isEdit} type="text" placeholder="หมายเหตุ" />
       </Form.Item>
       <Form.Item
         label="กองร้อย"
         name="regimental"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: isEdit }]}
       >
         <Input readOnly={!isEdit} type="text" placeholder="กองร้อย" />
       </Form.Item>
       <Form.Item
         label="อยู่ที่"
         name="garage"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: isEdit }]}
       >
         <Input readOnly={!isEdit} type="text" placeholder="อยู่ที่" />
       </Form.Item>
       <Form.Item
         label="จอดแถวที่"
         name="row"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: isEdit }]}
       >
         <Input
           readOnly={!isEdit}
@@ -130,7 +130,7 @@ const FormWrapper = ({
       <Form.Item
         label="จอดช่องที่"
         name="col"
-        rules={isEdit ? [{ required: true }] : null}
+        rules={[{ required: isEdit }]}
       >
         <Input
           readOnly={!isEdit}
@@ -142,11 +142,10 @@ const FormWrapper = ({
       </Form.Item>
       <Form.Item
         label="ใบส่งซ่อม"
-        name="type"
-        rules={isEdit ? [{ required: false }] : null}
-        value=""
+        name="repair_slip"
+        rules={[{ required: false }]}
       >
-        <ImageUpload isEdit={isEdit} form={form} />
+        <ImageUpload isEdit={isEdit} form={form} isOpen={isOpen} />
       </Form.Item>
     </Form>
   );
@@ -156,12 +155,14 @@ FormWrapper.defaultProps = {
   formItemLayout: null,
   layout: null,
   isEdit: false,
+  isOpen: false
 };
 FormWrapper.propTypes = {
   form: PropTypes.objectOf(PropTypes.any),
   formItemLayout: PropTypes.objectOf(PropTypes.any),
   layout: PropTypes.string,
   isEdit: PropTypes.bool,
+  isOpen: PropTypes.bool,
 };
 
 export default FormWrapper;
