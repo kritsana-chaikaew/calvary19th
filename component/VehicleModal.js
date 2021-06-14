@@ -59,8 +59,8 @@ const initValue = {
   updated_by: "",
   garage: "",
   symptom: "",
-  row: null,
-  col: null,
+  row: 1,
+  col: 1,
 };
 
 const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
@@ -137,19 +137,19 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   };
 
   const onEditOrSubmit = () => {
-    form.submit();
+    if (isEdit) {
+      form.submit();
+    } else {
+      setIsEdit(true);
+    }
   };
 
   const onFinish = async (values) => {
-    if (isEdit) {
-      try {
-        await makeRequest("/api/vehicles", values);
-        setIsEdit(false);
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      setIsEdit(true);
+    try {
+      await makeRequest("/api/vehicles", values);
+      setIsEdit(false);
+    } catch (e) {
+      console.log(e);
     }
   };
 

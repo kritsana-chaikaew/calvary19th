@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useState, useEffect } from "react";
-import { Form, Input, Select, Tag } from "antd";
+import { Form, Input, Select, Tag, InputNumber } from "antd";
 import {
   CloseCircleOutlined,
   CheckCircleOutlined,
@@ -62,7 +62,6 @@ const FormWrapper = ({
   };
 
   const [maxCol, setMaxCol] = useState(25);
-  const [colValidateStatus, setColValidateStatus] = useState();
   useEffect(() => {
     const garage = form.getFieldValue("garage");
     setMaxCol(garages.filter((g) => g.name === garage)[0]?.col || 25);
@@ -72,15 +71,6 @@ const FormWrapper = ({
     required: "กรุณาระบุ '${label}'",
     number: {
       range: "'${label}' อยู่ในช่วง ${min} และ ${max}",
-    }
-  };
-
-  const onColChange = () => {
-    const col = form.getFieldValue("col");
-    if (col > maxCol) {
-      setColValidateStatus("error");
-    } else {
-      setColValidateStatus("success");
     }
   };
 
@@ -143,10 +133,10 @@ const FormWrapper = ({
         />
       </Form.Item>
       <Form.Item label="จอดแถวที่" name="row" rules={[{ required: isEdit }]}>
-        <Input readOnly={!isEdit} type="number" max="2" min="1" />
+        <InputNumber readOnly={!isEdit} type="number" max="2" min="1" />
       </Form.Item>
-      <Form.Item label="จอดช่องที่" name="col" rules={[{ required: isEdit }]} validateStatus={colValidateStatus}>
-        <Input readOnly={!isEdit} type="number" max={maxCol} min="1" onChange={onColChange} />
+      <Form.Item label="จอดช่องที่" name="col" rules={[{ required: isEdit }]}>
+        <InputNumber readOnly={!isEdit} type="number" max={maxCol} min="1" />
       </Form.Item>
       <Form.Item
         label="ใบส่งซ่อม"
