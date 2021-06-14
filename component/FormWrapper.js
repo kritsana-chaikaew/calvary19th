@@ -6,11 +6,12 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
-import { statuses, types } from "../utils/const";
+import { statuses, types, regimentals } from "../utils/const";
 import ImageUpload from "./ImageUpload";
 
 const statusOptions = statuses.map((status) => ({ value: status }));
 const typeOptions = types.map((type) => ({ value: type.name }));
+const regimentalOptions = regimentals.map((regimental) => ({ value: regimental }));
 
 const tagRender = (props) => {
   const { label, value, onClose } = props;
@@ -90,12 +91,13 @@ const FormWrapper = ({
       <Form.Item label="หมายเหตุ" name="symptom" rules={[{ required: false }]}>
         <Input.TextArea readOnly={!isEdit} type="text" placeholder="หมายเหตุ" />
       </Form.Item>
-      <Form.Item
-        label="กองร้อย"
-        name="regimental"
-        rules={[{ required: isEdit }]}
-      >
-        <Input readOnly={!isEdit} type="text" placeholder="กองร้อย" />
+      <Form.Item label="กองร้อย" name="regimental" rules={[{ required: isEdit }]}>
+        <Select
+          disabled={!isEdit}
+          style={{ width: "100%" }}
+          options={regimentalOptions}
+          placeholder="กองร้อย"
+        />
       </Form.Item>
       <Form.Item label="อยู่ที่" name="garage" rules={[{ required: isEdit }]}>
         <Input readOnly={!isEdit} type="text" placeholder="อยู่ที่" />
