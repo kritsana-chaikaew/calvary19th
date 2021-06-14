@@ -80,19 +80,20 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
       if (edit) {
         form.setFieldsValue(initValue);
       } else {
+        const repair_slip = vehicleData.repair_slip === "" ? [] : [
+          {
+            uid: "-1",
+            name: "ใบส่งซ่อม",
+            status: "done",
+            url: vehicleData.repair_slip,
+          },
+        ];
         form.setFieldsValue({
           ...vehicleData,
           status: [vehicleData.status],
           row: vehicleData.row + 1,
           col: vehicleData.col + 1,
-          repair_slip: [
-            {
-              uid: "-1",
-              name: "ใบส่งซ่อม.png",
-              status: "done",
-              url: vehicleData.repair_slip,
-            },
-          ],
+          repair_slip,
         });
       }
       setIsEdit(edit);
@@ -110,8 +111,11 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   const makeRequest = async (url, values) => {
     // eslint-disable-next-line camelcase
     const method = edit ? "POST" : "PUT";
+    console.log(values);
     let { repair_slip, status, row, col } = values;
-    repair_slip = repair_slip[0].url;
+    console.log(repair_slip);
+    repair_slip = repair_slip[0]?.url || "";
+    console.log(repair_slip);
     [status] = status;
     row -= 1;
     col -= 1;

@@ -64,7 +64,6 @@ const FormWrapper = ({
       <Form.Item name="id" rules={[{ required: false }]}>
         <Input type="hidden" readOnly />
       </Form.Item>
-      {isEdit ? "true" : "false"}
       <Form.Item
         label="หมายเลข"
         name="serial_no"

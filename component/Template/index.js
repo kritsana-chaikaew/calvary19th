@@ -74,7 +74,7 @@ const Template = (props) => {
     <LayoutWrapper>
       <Navbar>
         <Row align="middle">
-          <Col flex="auto">Hello World</Col>
+          <Col flex="auto">คลังยุทโธปกรณ์</Col>
           <Col span={2}>
             <Button ghost onClick={() => onAddClick()}>
               เพิ่มข้อมูล

@@ -38,13 +38,12 @@ const ImageUpload = ({ isEdit, form, isOpen }) => {
     );
   };
 
-  const handleChange = ({ file, fileList }) => {
+  const handleChange = ({ file }) => {
+    setFiles([file]);
     if (file.status === "error") {
       handleRemove();
-      return;
     }
-    setFiles(fileList);
-    if (file.status === "done") {
+    if (file.status !== "uploading") {
       form.setFieldsValue({
         repair_slip: files,
       });
@@ -75,7 +74,7 @@ const ImageUpload = ({ isEdit, form, isOpen }) => {
         showUploadList={{ showRemoveIcon: isEdit }}
         accept=".jpg,.jpeg,.png"
       >
-        {files.length >= 1 ? null : uploadButton}
+        {files.length >= 1 || !isEdit ? null : uploadButton}
       </Upload>
       <Modal
         visible={previewVisible}
