@@ -100,26 +100,27 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
       setIsOpen(false);
     }
   }, [visible]);
-  const handleEditClick = () => {
-    setIsEdit(!isEdit);
-  };
 
   const handleModalClose = () => {
     form.resetFields();
     onOk();
   };
 
-  const onSubmit = (values) => {
+  const onEditOrSubmit = (values) => {
     console.log("submit", values);
-    form.submit();
+    if (isEdit) {
+      form.submit();
+    } else {
+      setIsEdit(true);
+    }
   };
 
   const onFinish = (values) => {
     console.log("finish", values);
-    handleEditClick();
+    setIsEdit(false);
   };
 
-  const onFinishFailed = (values) => {
+  const onFinishFailed = () => {
     console.log("fail");
   };
 
@@ -133,11 +134,10 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
         <Button key="ok" onClick={handleModalClose} type="primary" size="large">
           ปิด
         </Button>,
-        
+
         <Button
           key="edit"
-          // onClick={handleEditClick}
-          onClick={onSubmit}
+          onClick={onEditOrSubmit}
           type="warning"
           size="large"
           htmlType="submit"
