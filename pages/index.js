@@ -209,6 +209,7 @@ const Index = ({ vehicles }) => {
 
       <VehicleModal
         title="ข้อมูลยานพาหนะ"
+        edit={false}
         visible={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalOk}

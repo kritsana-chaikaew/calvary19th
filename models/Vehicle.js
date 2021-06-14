@@ -31,7 +31,7 @@ export async function createVehicle(vehicle) {
     $status: vehicle.status,
     $regimental: vehicle.regimental,
     $serialNo: vehicle.serial_no,
-    $repaireSlip: vehicle.repair_slip,
+    $repairSlip: vehicle.repair_slip,
     $image: vehicle.image,
     $createdDate: Date.now(),
     $createdBy: vehicle.created_by,
@@ -40,7 +40,7 @@ export async function createVehicle(vehicle) {
     $garage: vehicle.garage,
     $symptom: vehicle.symptom,
     $row: vehicle.row,
-    $col: vehicle.col
+    $col: vehicle.col,
   });
   createdVehicle = await getVehicle(id);
   return createdVehicle;
@@ -54,14 +54,16 @@ export async function updateVehicle(vehicle) {
     $status: vehicle.status,
     $regimental: vehicle.regimental,
     $serialNo: vehicle.serial_no,
-    $repaireSlip: vehicle.repair_slip,
+    $repairSlip: vehicle.repair_slip,
     $image: vehicle.image,
+    $createdDate: Date.now(),
+    $createdBy: vehicle.created_by,
     $updatedDate: Date.now(),
-    $updatedBy: vehicle.updated_by,
+    $updatedBy: vehicle.created_by,
     $garage: vehicle.garage,
     $symptom: vehicle.symptom,
     $row: vehicle.row,
-    $col: vehicle.col
+    $col: vehicle.col,
   });
   updatedVehicle = await getVehicle(vehicle.id);
   return updatedVehicle;

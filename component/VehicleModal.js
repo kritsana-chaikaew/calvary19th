@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "antd";
 import PropTypes from "prop-types";
@@ -102,22 +103,52 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
   }, [visible]);
 
   const handleModalClose = () => {
-    form.resetFields();
+    // form.resetFields();
     onOk();
   };
 
-  const onEditOrSubmit = (values) => {
-    console.log("submit", values);
+  const makeRequest = async (url, values) => {
+    // eslint-disable-next-line camelcase
+    const method = edit ? "POST" : "PUT";
+    let { repair_slip, status, row, col } = values;
+    repair_slip = repair_slip[0].url;
+    [status] = status;
+    row -= 1;
+    col -= 1;
+    const headers = { "Content-Type": "application/json" };
+    const body = {
+      ...initValue,
+      ...values,
+      repair_slip,
+      status,
+      row,
+      col,
+    };
+    const config = {
+      method,
+      headers,
+      body: JSON.stringify(body),
+    };
+    const response = await fetch(url, config);
+    return response.json();
+  };
+
+  const onEditOrSubmit = () => {
+    form.submit();
+  };
+
+  const onFinish = async (values) => {
     if (isEdit) {
-      form.submit();
+      try {
+        const res = await makeRequest("/api/vehicles", values);
+        console.log(res);
+        setIsEdit(false);
+      } catch (e) {
+        console.log(e);
+      }
     } else {
       setIsEdit(true);
     }
-  };
-
-  const onFinish = (values) => {
-    console.log("finish", values);
-    setIsEdit(false);
   };
 
   const onFinishFailed = () => {
