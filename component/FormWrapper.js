@@ -47,7 +47,6 @@ const FormWrapper = ({
   formItemLayout,
   layout,
   isEdit,
-  onFileChange,
   ...rest
 }) => {
   const handleStatusChange = (value) => {
@@ -147,7 +146,7 @@ const FormWrapper = ({
         rules={isEdit ? [{ required: false }] : null}
         value=""
       >
-        <ImageUpload isEdit={isEdit} onFileChange={onFileChange} form={form} />
+        <ImageUpload isEdit={isEdit} form={form} />
       </Form.Item>
     </Form>
   );
@@ -157,14 +156,12 @@ FormWrapper.defaultProps = {
   formItemLayout: null,
   layout: null,
   isEdit: false,
-  onFileChange: null,
 };
 FormWrapper.propTypes = {
   form: PropTypes.objectOf(PropTypes.any),
   formItemLayout: PropTypes.objectOf(PropTypes.any),
   layout: PropTypes.string,
   isEdit: PropTypes.bool,
-  onFileChange: PropTypes.func,
 };
 
 export default FormWrapper;

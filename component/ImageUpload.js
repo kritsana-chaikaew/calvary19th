@@ -12,15 +12,15 @@ const getBase64 = (file) => {
   });
 };
 
-const ImageUpload = ({ isEdit, onFileChange, form }) => {
+const ImageUpload = ({ isEdit, form }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([]);
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     if (form.getFieldValue("repair_slip")) {
-      setFileList([form.getFieldValue("repair_slip")]);
+      setFiles(form.getFieldValue("repair_slip"));
     }
   }, [form.getFieldValue("repair_slip")]);
 
@@ -38,15 +38,17 @@ const ImageUpload = ({ isEdit, onFileChange, form }) => {
     );
   };
 
-  const handleChange = ({ file, fileList, event }) => {
-    console.log(file, fileList, event);
-    setFileList(fileList);
-    onFileChange(fileList);
+  const handleChange = ({ file, fileList }) => {
+    setFiles(fileList);
+    if (["done", "remove"].includes(file.status)) {
+      form.setFieldsValue({
+        repair_slip: files
+      });
+    }
   };
 
-  const handleRemove = (file) => {
-    console.log(file);
-    setFileList([]);
+  const handleRemove = () => {
+    setFiles([]);
   };
 
   const uploadButton = (
@@ -59,7 +61,7 @@ const ImageUpload = ({ isEdit, onFileChange, form }) => {
     <div>
       <Upload
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        fileList={fileList}
+        fileList={files}
         listType="picture-card"
         maxCount={1}
         multiple
@@ -69,7 +71,7 @@ const ImageUpload = ({ isEdit, onFileChange, form }) => {
         showUploadList={{ showRemoveIcon: isEdit }}
         accept=".jpg,.jpeg,.png"
       >
-        {fileList.length >= 1 ? null : uploadButton}
+        {files.length >= 1 ? null : uploadButton}
       </Upload>
       <Modal
         visible={previewVisible}
@@ -85,12 +87,10 @@ const ImageUpload = ({ isEdit, onFileChange, form }) => {
 ImageUpload.defaultProps = {
   isEdit: false,
   form: null,
-  onFileChange: null,
 };
 ImageUpload.propTypes = {
   isEdit: PropTypes.bool,
-  form: PropTypes.objectOf(PropTypes.func),
-  onFileChange: PropTypes.func,
+  form: PropTypes.objectOf(PropTypes.any),
 };
 
 export default ImageUpload;
