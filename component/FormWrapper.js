@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useState, useEffect } from "react";
-import { Form, Input, Select, Tag, InputNumber } from "antd";
+import { Form, Input, Select, Tag } from "antd";
 import {
   CloseCircleOutlined,
   CheckCircleOutlined,
@@ -28,18 +28,9 @@ const tagRender = (props) => {
     color = "default";
     icon = <MinusCircleOutlined />;
   }
-  const onPreventMouseDown = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
+
   return label ? (
-    <Tag
-      icon={icon}
-      color={color}
-      onMouseDown={onPreventMouseDown}
-      onClose={onClose}
-      style={{ marginRight: 3 }}
-    >
+    <Tag icon={icon} color={color} onClose={onClose} style={{ marginRight: 3 }}>
       {label}
     </Tag>
   ) : (
@@ -53,6 +44,7 @@ const FormWrapper = ({
   layout,
   isEdit,
   isOpen,
+  inUsedSlot,
   ...rest
 }) => {
   const handleStatusChange = (value) => {
@@ -62,16 +54,53 @@ const FormWrapper = ({
   };
 
   const [maxCol, setMaxCol] = useState(25);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [selectedCol, setSelectedCol] = useState(null);
+
   useEffect(() => {
     const garage = form.getFieldValue("garage");
     setMaxCol(garages.filter((g) => g.name === garage)[0]?.col || 25);
-  }, [form.getFieldValue("garage")]);
+    const row = form.getFieldValue("row");
+    const col = form.getFieldValue("col");
+    setSelectedRow(row);
+    setSelectedCol(col);
+  }, [isOpen]);
 
   const validateMessages = {
     required: "กรุณาระบุ '${label}'",
     number: {
       range: "'${label}' อยู่ในช่วง ${min} และ ${max}",
+    },
+  };
+
+  const rowOptions = (min, max) => {
+    const options = [];
+    for (let i = min; i <= max; i++) {
+      if (selectedCol !== null && selectedCol !== undefined) {
+        options.push({
+          value: i,
+          disabled: inUsedSlot[i - 1][selectedCol - 1],
+        });
+      } else {
+        options.push({ value: i });
+      }
     }
+    return options;
+  };
+
+  const colOptions = (min, max) => {
+    const options = [];
+    for (let j = min; j <= max; j++) {
+      if (selectedRow !== null && selectedRow !== undefined) {
+        options.push({
+          value: j,
+          disabled: inUsedSlot[selectedRow - 1][j - 1],
+        });
+      } else {
+        options.push({ value: j, disabled: true });
+      }
+    }
+    return options;
   };
 
   return (
@@ -133,10 +162,20 @@ const FormWrapper = ({
         />
       </Form.Item>
       <Form.Item label="จอดแถวที่" name="row" rules={[{ required: isEdit }]}>
-        <InputNumber readOnly={!isEdit} type="number" max="2" min="1" />
+        <Select
+          disabled={!isEdit}
+          style={{ width: "100%" }}
+          options={rowOptions(1, 2)}
+          onChange={(value) => setSelectedRow(value)}
+        />
       </Form.Item>
       <Form.Item label="จอดช่องที่" name="col" rules={[{ required: isEdit }]}>
-        <InputNumber readOnly={!isEdit} type="number" max={maxCol} min="1" />
+        <Select
+          disabled={!isEdit}
+          style={{ width: "100%" }}
+          options={colOptions(1, maxCol)}
+          onChange={(value) => setSelectedCol(value)}
+        />
       </Form.Item>
       <Form.Item
         label="ใบส่งซ่อม"
@@ -154,6 +193,7 @@ FormWrapper.defaultProps = {
   layout: null,
   isEdit: false,
   isOpen: false,
+  inUsedSlot: [],
 };
 FormWrapper.propTypes = {
   form: PropTypes.objectOf(PropTypes.any),
@@ -161,6 +201,7 @@ FormWrapper.propTypes = {
   layout: PropTypes.string,
   isEdit: PropTypes.bool,
   isOpen: PropTypes.bool,
+  inUsedSlot: PropTypes.arrayOf(PropTypes.array),
 };
 
 export default FormWrapper;

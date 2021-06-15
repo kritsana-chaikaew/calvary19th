@@ -28,6 +28,7 @@ const Index = () => {
   const [selectedGarage, setSelectedGarage] = useState(garages[0]);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [vehicles, setVehicles] = useState([]);
+  const [inUsedSlot, setInUsedSlot] = useState();
 
   useEffect(async () => {
     const res = await fetch("/api/vehicles");
@@ -71,6 +72,10 @@ const Index = () => {
 
   const handleAddClick = () => {
     showAddModal();
+  };
+
+  const onGarageOpen = (slot) => {
+    setInUsedSlot(slot);
   };
 
   const vehicleListInGarage = garages.reduce((o, garage) => {
@@ -220,6 +225,7 @@ const Index = () => {
         onOk={handleModalOk}
         onCancel={handleModalOk}
         vehicleData={vehicleData}
+        inUsedSlot={inUsedSlot}
       />
       <VehicleModal
         title="เพิ่มข้อมูล"
@@ -228,6 +234,7 @@ const Index = () => {
         onOk={handleAddModalOk}
         onCancel={handleAddModalOk}
         vehicleData={{}}
+        inUsedSlot={inUsedSlot}
       />
       <GarageModal
         garage={selectedGarage}
@@ -236,6 +243,7 @@ const Index = () => {
         centered
         vehicles={vehicleListInGarage[selectedGarage.name]}
         onVehicleClick={handleVehicleClick}
+        onGarageOpen={onGarageOpen}
       />
     </Template>
   );

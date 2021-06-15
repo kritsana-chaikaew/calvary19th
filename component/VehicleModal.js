@@ -63,7 +63,14 @@ const initValue = {
   col: 1,
 };
 
-const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
+const VehicleModal = ({
+  vehicleData,
+  onOk,
+  edit,
+  visible,
+  inUsedSlot,
+  ...rest
+}) => {
   const [form] = Form.useForm();
   const [isEdit, setIsEdit] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -188,6 +195,7 @@ const VehicleModal = ({ vehicleData, onOk, edit, visible, ...rest }) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         isOpen={isOpen}
+        inUsedSlot={inUsedSlot}
       />
     </ModalWrapper>
   );
@@ -198,6 +206,7 @@ VehicleModal.defaultProps = {
   onOk: null,
   edit: false,
   visible: false,
+  inUsedSlot: [],
 };
 
 VehicleModal.propTypes = {
@@ -205,6 +214,7 @@ VehicleModal.propTypes = {
   onOk: PropTypes.func,
   edit: PropTypes.bool,
   visible: PropTypes.bool,
+  inUsedSlot: PropTypes.arrayOf(PropTypes.array),
 };
 
 export default VehicleModal;
