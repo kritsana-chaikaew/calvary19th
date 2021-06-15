@@ -244,6 +244,8 @@ const Index = () => {
         vehicles={vehicleListInGarage[selectedGarage.name]}
         onVehicleClick={handleVehicleClick}
         onGarageOpen={onGarageOpen}
+        isModalVisible={isModalVisible}
+        isAddModalVisible={isAddModalVisible}
       />
     </Template>
   );

@@ -46,14 +46,23 @@ const ModalWrapper = styled(Modal)`
 `;
 
 const GarageModal = (props) => {
-  const { garage, vehicles, onVehicleClick, onGarageOpen, visible, ...rest } =
-    props;
+  const {
+    garage,
+    vehicles,
+    onVehicleClick,
+    onGarageOpen,
+    visible,
+    isModalVisible,
+    isAddModalVisible,
+    ...rest
+  } = props;
   const [vehicleSlots, setVehicleSlots] = useState();
 
   useEffect(() => {
     const slot = renderSlot();
     setVehicleSlots(slot);
-  }, [visible]);
+    console.log("trigger");
+  }, [visible, isModalVisible, isAddModalVisible]);
 
   const renderSlot = () => {
     const slots = [];
@@ -111,6 +120,8 @@ GarageModal.propTypes = {
   garage: PropTypes.objectOf(PropTypes.any),
   onGarageOpen: PropTypes.func,
   visible: PropTypes.bool.isRequired,
+  isModalVisible: PropTypes.bool.isRequired,
+  isAddModalVisible: PropTypes.bool.isRequired
 };
 
 export default GarageModal;

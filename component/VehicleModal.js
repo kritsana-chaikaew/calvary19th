@@ -1,10 +1,13 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import device from "../utils/device";
 import FormWrapper from "./FormWrapper";
+
+const { confirm } = Modal;
 
 const ModalWrapper = styled(Modal)`
   min-height: 70vh;
@@ -117,6 +120,34 @@ const VehicleModal = ({
     onOk();
   };
 
+  const showConfirm = (id) => {
+    confirm({
+      title: "ต้องการลบข้อมูลใช่หรือไม่?",
+      icon: <ExclamationCircleOutlined />,
+      content: "",
+      okText: "ใช่ ลบเลย",
+      okType: "danger",
+      cancelText: "ไม่ใช่",
+      onOk() {
+        return new Promise((resolve, reject) => {
+          const config = { method: "DELETE" };
+          fetch(`/api/vehicles/${id}`, config).then((response) => {
+            if (response.ok) {
+              resolve(response);
+            } else {
+              reject(new Error("error"));
+            }
+            onOk();
+          });
+        }).catch(() => console.log("Oops errors"));
+      },
+      onCancel() {
+        console.log("ไม่ใช่");
+        onOk();
+      },
+    });
+  };
+
   const makeRequest = async (url, values) => {
     // eslint-disable-next-line camelcase
     const method = edit ? "POST" : "PUT";
@@ -171,6 +202,15 @@ const VehicleModal = ({
       onFinishFailed={onFinishFailed}
       {...rest}
       footer={[
+        <Button
+          key="delete"
+          onClick={() => showConfirm(vehicleData.id)}
+          type="danger"
+          size="large"
+        >
+          ลบ
+        </Button>,
+
         <Button key="ok" onClick={handleModalClose} type="primary" size="large">
           ปิด
         </Button>,
