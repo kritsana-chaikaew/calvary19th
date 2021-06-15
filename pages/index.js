@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import styled from "styled-components";
-import { getVehicles } from "../models/Vehicle";
 import Building from "../component/Building";
 import Template from "../component/Template";
 import VehicleModal from "../component/VehicleModal";
@@ -14,7 +13,7 @@ const RowWrapper = styled(Row)`
   padding-top: ${(props) => props.gap || 0}rem;
 `;
 
-const Index = ({ vehicles }) => {
+const Index = () => {
   const minRowWrapperHeight = "6rem";
   const min2RowWrapperHeight = "12rem";
   const gutter = [
@@ -24,10 +23,17 @@ const Index = ({ vehicles }) => {
   const gap = 1;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [vehicleData, setVehicleData] = useState({});
+  const [vehicleData, setVehicleData] = useState(null);
   const [isGarageModalVisible, setIsGarageModalVisible] = useState(false);
   const [selectedGarage, setSelectedGarage] = useState(garages[0]);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [vehicles, setVehicles] = useState([]);
+
+  useEffect(async () => {
+    const res = await fetch("/api/vehicles");
+    const data = await res.json();
+    setVehicles(data);
+  }, [vehicleData, isModalVisible, isAddModalVisible]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -244,12 +250,3 @@ Index.propTypes = {
 };
 
 export default Index;
-
-export async function getStaticProps() {
-  const vehicles = await getVehicles();
-  return {
-    props: {
-      vehicles,
-    },
-  };
-}
