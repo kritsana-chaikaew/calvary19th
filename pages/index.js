@@ -29,11 +29,13 @@ const Index = () => {
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [vehicles, setVehicles] = useState([]);
   const [inUsedSlot, setInUsedSlot] = useState();
+  const [tick, setTick] = useState(false);
 
   useEffect(async () => {
     const res = await fetch("/api/vehicles");
     const data = await res.json();
     setVehicles(data);
+    setTick(!tick);
   }, [vehicleData, isModalVisible, isAddModalVisible]);
 
   const showModal = () => {
@@ -246,6 +248,7 @@ const Index = () => {
         onGarageOpen={onGarageOpen}
         isModalVisible={isModalVisible}
         isAddModalVisible={isAddModalVisible}
+        tick={tick}
       />
     </Template>
   );

@@ -54,6 +54,7 @@ const GarageModal = (props) => {
     visible,
     isModalVisible,
     isAddModalVisible,
+    tick,
     ...rest
   } = props;
   const [vehicleSlots, setVehicleSlots] = useState();
@@ -61,8 +62,7 @@ const GarageModal = (props) => {
   useEffect(() => {
     const slot = renderSlot();
     setVehicleSlots(slot);
-    console.log("trigger");
-  }, [visible, isModalVisible, isAddModalVisible]);
+  }, [visible, tick]);
 
   const renderSlot = () => {
     const slots = [];
@@ -121,7 +121,8 @@ GarageModal.propTypes = {
   onGarageOpen: PropTypes.func,
   visible: PropTypes.bool.isRequired,
   isModalVisible: PropTypes.bool.isRequired,
-  isAddModalVisible: PropTypes.bool.isRequired
+  isAddModalVisible: PropTypes.bool.isRequired,
+  tick: PropTypes.bool.isRequired,
 };
 
 export default GarageModal;

@@ -103,6 +103,20 @@ const FormWrapper = ({
     return options;
   };
 
+  const onRowChange = (value) => {
+    setSelectedRow(value);
+    form.setFieldsValue({
+      row: value,
+    });
+  };
+
+  const onColChange = (value) => {
+    setSelectedCol(value);
+    form.setFieldsValue({
+      col: value,
+    });
+  };
+
   return (
     <Form
       {...formItemLayout}
@@ -166,7 +180,7 @@ const FormWrapper = ({
           disabled={!isEdit}
           style={{ width: "100%" }}
           options={rowOptions(1, 2)}
-          onChange={(value) => setSelectedRow(value)}
+          onChange={(value) => onRowChange(value)}
         />
       </Form.Item>
       <Form.Item label="จอดช่องที่" name="col" rules={[{ required: isEdit }]}>
@@ -174,7 +188,7 @@ const FormWrapper = ({
           disabled={!isEdit}
           style={{ width: "100%" }}
           options={colOptions(1, maxCol)}
-          onChange={(value) => setSelectedCol(value)}
+          onChange={(value) => onColChange(value)}
         />
       </Form.Item>
       <Form.Item
