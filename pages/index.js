@@ -80,14 +80,13 @@ const Index = () => {
     setInUsedSlot(slot);
   };
 
-  const vehicleListInGarage = garages.reduce((o, garage) => {
-    return {
-      ...o,
-      [garage.name]: vehicles.filter((vehicle) => {
-        return vehicle.garage === garage.name;
-      }),
-    };
-  }, {});
+  const vehicleListInGarage = (garageName) => {
+    if (!garageName) return [];
+    return vehicles.filter((vehicle) => {
+      console.log("int", garageName);
+      return vehicle.garage === garageName;
+    });
+  };
 
   return (
     <Template onAddClick={handleAddClick}>
@@ -98,7 +97,7 @@ const Index = () => {
       >
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.2 */}
-          <Garage garage={garages[5]} onClick={handleGarageClick} />
+          <Garage garage={garages[4]} onClick={handleGarageClick} />
         </Col>
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.1 */}
@@ -106,7 +105,7 @@ const Index = () => {
         </Col>
         <Col span={8}>
           {/* โรงรถสายพาน ร้อย.ม.3 */}
-          <Garage garage={garages[7]} onClick={handleGarageClick} />
+          <Garage garage={garages[6]} onClick={handleGarageClick} />
         </Col>
       </RowWrapper>
 
@@ -131,7 +130,7 @@ const Index = () => {
             <Col span={12} />
             <Col span={12}>
               {/* โรงรถล้อ ร้อย.ม.3 */}
-              <Garage garage={garages[6]} onClick={handleGarageClick} />
+              <Garage garage={garages[5]} onClick={handleGarageClick} />
             </Col>
           </RowWrapper>
           <RowWrapper
@@ -243,7 +242,7 @@ const Index = () => {
         visible={isGarageModalVisible}
         onCancel={handleGarageModalOk}
         centered
-        vehicles={vehicleListInGarage[selectedGarage.name]}
+        vehicles={vehicleListInGarage(selectedGarage?.name)}
         onVehicleClick={handleVehicleClick}
         onGarageOpen={onGarageOpen}
         isModalVisible={isModalVisible}
