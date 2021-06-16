@@ -72,17 +72,17 @@ const Template = (props) => {
 
   return (
     <LayoutWrapper>
-      <Navbar>
-        <Row align="middle">
-          <Col flex="auto">คลังยุทโธปกรณ์</Col>
-          <Col span={2}>
-            <Button ghost onClick={exportDatabase}>
+      <Navbar style={{padding: "5px"}}>
+        <Row style={{fontSize: "1rem"}} justify="space-around">
+          <Col xs={12} sm={12} md={18}>คลังยุทโธปกรณ์</Col>  
+          <Col xs={4} sm={6} md={3} style={{ textAlign: "center"}}>
+            <Button style={{padding: "2px"}} ghost onClick={exportDatabase}>
               ส่งออกข้อมูล
             </Button>
-          </Col>
-          <Col span={2}>
+          </Col>  
+          <Col xs={4} sm={6} md={3} style={{ textAlign: "left"}}>
             {cookie?.username || (
-              <Button ghost onClick={showLoginForm}>
+              <Button style={{padding: "3px"}} ghost onClick={showLoginForm}>
                 เข้าสู่ระบบ
               </Button>
             )}
