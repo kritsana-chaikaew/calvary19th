@@ -3,6 +3,7 @@ import { Button, Form, Layout, Row, Col, Modal, Input } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
+import Head from "next/head";
 import device from "../../utils/device";
 import parseJwt from "../../utils/jwt";
 
@@ -72,6 +73,10 @@ const Template = (props) => {
 
   return (
     <LayoutWrapper>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </Head>
       <Navbar style={{padding: "5px"}}>
         <Row style={{fontSize: "1rem"}} justify="space-around">
           <Col xs={12} sm={12} md={18}>คลังยุทโธปกรณ์</Col>  
