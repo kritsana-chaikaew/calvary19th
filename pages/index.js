@@ -87,7 +87,6 @@ const Index = () => {
   const vehicleListInGarage = (garageName) => {
     if (!garageName) return [];
     return vehicles.filter((vehicle) => {
-      console.log("int", garageName);
       return vehicle.garage === garageName;
     });
   };
@@ -231,6 +230,7 @@ const Index = () => {
         onCancel={handleModalOk}
         vehicleData={vehicleData}
         inUsedSlot={inUsedSlot}
+        selectedGarageName={selectedGarage?.name || ""}
       />
       <VehicleModal
         title="เพิ่มข้อมูล"
@@ -240,6 +240,7 @@ const Index = () => {
         onCancel={handleAddModalOk}
         vehicleData={{}}
         inUsedSlot={inUsedSlot}
+        selectedGarageName={selectedGarage?.name || ""}
       />
       <GarageModal
         garage={selectedGarage}

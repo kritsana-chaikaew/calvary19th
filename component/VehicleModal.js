@@ -72,6 +72,7 @@ const VehicleModal = ({
   edit,
   visible,
   inUsedSlot,
+  selectedGarageName,
   ...rest
 }) => {
   const [form] = Form.useForm();
@@ -88,7 +89,7 @@ const VehicleModal = ({
   useEffect(() => {
     if (visible) {
       if (edit) {
-        form.setFieldsValue(initValue);
+        form.setFieldsValue({...initValue, garage: selectedGarageName});
       } else {
         const repair_slip =
           vehicleData.repair_slip === ""
@@ -255,6 +256,7 @@ VehicleModal.propTypes = {
   edit: PropTypes.bool,
   visible: PropTypes.bool,
   inUsedSlot: PropTypes.arrayOf(PropTypes.array),
+  selectedGarageName: PropTypes.string.isRequired
 };
 
 export default VehicleModal;
