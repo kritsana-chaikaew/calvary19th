@@ -80,8 +80,9 @@ const ImageUpload = ({ isEdit, form, isOpen }) => {
         onRemove={handleRemove}
         showUploadList={{ showRemoveIcon: isEdit }}
         accept=".jpg,.jpeg,.png"
+        disabled={!isEdit}
       >
-        {files.length >= 1 || !isEdit ? null : uploadButton}
+        {files.length >= 1 ? null : uploadButton}
       </Upload>
       <Modal
         visible={previewVisible}
