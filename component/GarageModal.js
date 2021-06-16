@@ -73,7 +73,7 @@ const GarageModal = (props) => {
       for (let j = 0; j < garage.col; j++) {
         cols.push(
           <Col key={`${i}-${j}`}>
-            <Vehicle />
+            <Vehicle onClick={() => onVehicleClick(false)} />
           </Col>
         );
         inUsedCol.push(false);

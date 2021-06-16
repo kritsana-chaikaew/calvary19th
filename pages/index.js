@@ -63,8 +63,12 @@ const Index = () => {
   };
 
   const handleVehicleClick = (data) => {
-    setVehicleData(data);
-    showModal();
+    if (data) {
+      setVehicleData(data);
+      showModal();
+    } else {
+      showAddModal();
+    }
   };
 
   const handleGarageClick = (garage) => {
