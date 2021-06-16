@@ -35,7 +35,7 @@ const Content = styled(Layout.Content)`
 `;
 
 const Template = (props) => {
-  const { children, onAddClick } = props;
+  const { children } = props;
   const [cookie, setCookie] = useCookies();
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [isUserNotFound, setIsUserNotFound] = useState(false);
@@ -75,11 +75,6 @@ const Template = (props) => {
       <Navbar>
         <Row align="middle">
           <Col flex="auto">คลังยุทโธปกรณ์</Col>
-          <Col span={2}>
-            <Button ghost onClick={() => onAddClick()}>
-              เพิ่มข้อมูล
-            </Button>
-          </Col>
           <Col span={2}>
             <Button ghost onClick={exportDatabase}>
               ส่งออกข้อมูล
