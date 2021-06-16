@@ -11,11 +11,16 @@ const ButtonWrapper = styled(Button)`
   height: var(--unit-size);
   padding: 0px 0px;
   margin: 1px;
+  div.normal > div  {
+    background-color: #22bb33
+  }
   div.disable > div > img {
-    filter: opacity(0.5) grayscale(1);
+    // filter: opacity(0.5) grayscale(1);
+    background-color: #aaaaaa;
   }
   div.unavailable > div > img {
-    filter: hue-rotate(270deg) saturate(400%);
+    // filter: hue-rotate(270deg) saturate(400%);
+    background-color: #bb2124;
   }
   :hover {
     transform: scale(1.01);
@@ -37,8 +42,9 @@ const Icons = types.reduce(
 
 const Vehicle = ({ data, ...rest }) => {
   let className = "icon available";
-  if (data?.status === statuses[2]) className = "icon disable";
+  if (data?.status === statuses[0]) className = "icon normal";
   if (data?.status === statuses[1]) className = "icon unavailable";
+  if (data?.status === statuses[2]) className = "icon disable";
   return (
     <ButtonWrapper type="text" {...rest}>
       <div className={className}>{data ? Icons[data.type] : EmptyIcon}</div>
