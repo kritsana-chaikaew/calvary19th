@@ -73,6 +73,8 @@ const VehicleModal = ({
   visible,
   inUsedSlot,
   selectedGarageName,
+  clickedRow,
+  clickedCol,
   ...rest
 }) => {
   const [form] = Form.useForm();
@@ -89,7 +91,12 @@ const VehicleModal = ({
   useEffect(() => {
     if (visible) {
       if (edit) {
-        form.setFieldsValue({...initValue, garage: selectedGarageName});
+        form.setFieldsValue({
+          ...initValue,
+          garage: selectedGarageName,
+          row: clickedRow >= 0 ? clickedRow + 1 : null,
+          col: clickedCol >= 0 ? clickedCol + 1 : null,
+        });
       } else {
         const repair_slip =
           vehicleData.repair_slip === ""
@@ -248,6 +255,8 @@ VehicleModal.defaultProps = {
   edit: false,
   visible: false,
   inUsedSlot: [],
+  clickedRow: null,
+  clickedCol: null,
 };
 
 VehicleModal.propTypes = {
@@ -256,7 +265,9 @@ VehicleModal.propTypes = {
   edit: PropTypes.bool,
   visible: PropTypes.bool,
   inUsedSlot: PropTypes.arrayOf(PropTypes.array),
-  selectedGarageName: PropTypes.string.isRequired
+  selectedGarageName: PropTypes.string.isRequired,
+  clickedRow: PropTypes.number,
+  clickedCol: PropTypes.number,
 };
 
 export default VehicleModal;

@@ -30,6 +30,8 @@ const Index = () => {
   const [vehicles, setVehicles] = useState([]);
   const [inUsedSlot, setInUsedSlot] = useState();
   const [tick, setTick] = useState(false);
+  const [clickedRow, setClickedRow] = useState(null);
+  const [clickedCol, setClickedCol] = useState(null);
 
   useEffect(async () => {
     const res = await fetch("/api/vehicles");
@@ -63,11 +65,13 @@ const Index = () => {
   };
 
   const handleVehicleClick = (data) => {
-    if (data) {
+    if (data?.empty) {
+      setClickedRow(data.row);
+      setClickedCol(data.col);
+      showAddModal();
+    } else {
       setVehicleData(data);
       showModal();
-    } else {
-      showAddModal();
     }
   };
 
@@ -241,6 +245,8 @@ const Index = () => {
         vehicleData={{}}
         inUsedSlot={inUsedSlot}
         selectedGarageName={selectedGarage?.name || ""}
+        clickedRow={clickedRow}
+        clickedCol={clickedCol}
       />
       <GarageModal
         garage={selectedGarage}
