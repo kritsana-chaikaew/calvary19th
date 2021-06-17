@@ -12,15 +12,11 @@ const ButtonWrapper = styled(Button)`
   padding: 0px 0px;
   margin: 1px;
   div.normal > div  {
-    background-color: #22bb33
   }
   div.disable > div > img {
-    // filter: opacity(0.5) grayscale(1);
-    background-color: #aaaaaa;
   }
   div.unavailable > div > img {
-    // filter: hue-rotate(270deg) saturate(400%);
-    background-color: #bb2124;
+    filter: hue-rotate(230deg) saturate(4);
   }
   :hover {
     transform: scale(1.01);

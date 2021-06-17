@@ -64,7 +64,7 @@ const ImageUpload = ({ isEdit, form, isOpen }) => {
   const uploadButton = (
     <div>
       <PlusOutlined style={{ margin: "auto" }} />
-      <div style={{ margin: "auto" }}>Upload</div>
+      <div style={{ margin: "auto" }}>อัปโหลด</div>
     </div>
   );
   return (
