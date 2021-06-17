@@ -7,12 +7,12 @@
 	.st1{fill:none;stroke:#22BB33;stroke-miterlimit:10;}
 	.st2{opacity:0;}
 </style>
-<polygon class="st0" points="25,9 33.9,24.4 36.6,24.4 25,4.2 13.4,24.4 16.1,24.4 "/>
 <polygon class="st0" points="25,41 16.1,25.6 13.4,25.6 25,45.8 36.6,25.6 33.9,25.6 "/>
-<circle class="st0" cx="25" cy="30" r="2.2"/>
-<polygon class="st1" points="25,17.8 24,19.5 26,19.5 "/>
-<line class="st0" x1="25" y1="19.5" x2="25" y2="28.3"/>
+<polygon class="st0" points="25,9 33.9,24.4 36.6,24.4 25,4.2 13.4,24.4 16.1,24.4 "/>
+<circle class="st0" cx="25" cy="20" r="2.2"/>
+<polygon class="st1" points="25,32.2 26,30.5 24,30.5 "/>
+<line class="st1" x1="25" y1="30.5" x2="25" y2="21.7"/>
 <g class="st2">
-	<path d="M49,1v48H1V1H49 M50,0H0v50h50V0z"/>
+	<path d="M1,49V1h48v48H1 M0,50h50V0H0V50z"/>
 </g>
 </svg>
