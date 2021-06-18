@@ -19,7 +19,7 @@ const MyApp = ({ Component, pageProps }) => {
             font-size: 17px;
           }
           :root {
-            --unit-size: 3rem;
+            --unit-size: 4rem;
           }          
         `}
       </style>

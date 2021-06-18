@@ -86,6 +86,7 @@ const GarageModal = (props) => {
       slots[vehicle.row].props.children[vehicle.col] = (
         <Col key={`${vehicle.row}-${vehicle.col}`}>
           <Vehicle index={vehicle.col + 1} onClick={() => onVehicleClick(vehicle)} data={vehicle} />
+          <div>{vehicle?.serial_no}</div>
         </Col>
       );
       inUsed[vehicle.row][vehicle.col] = true;

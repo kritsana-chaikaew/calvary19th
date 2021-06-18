@@ -28,7 +28,10 @@ const ButtonWrapper = styled(Button)`
     position: absolute;
     left: 0;
     top: 0;
-    font-size: 0.5em;
+    font-size: 0.8rem;
+    padding: 0;
+    margin: 0;
+    line-height: 0.8rem;
   }
 `;
 
