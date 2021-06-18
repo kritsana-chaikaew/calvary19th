@@ -24,6 +24,12 @@ const ButtonWrapper = styled(Button)`
   .icon > div:hover {
     border: solid #364239;
   }
+  .index {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 0.5em;
+  }
 `;
 
 const EmptyIcon = <Image layout="fill" src="/empty.svg" alt="empty" />;
@@ -36,13 +42,14 @@ const Icons = types.reduce(
   {}
 );
 
-const Vehicle = ({ data, ...rest }) => {
+const Vehicle = ({ data, index, ...rest }) => {
   let className = "icon available";
   if (data?.status === statuses[0]) className = "icon normal";
   if (data?.status === statuses[1]) className = "icon unavailable";
-  if (data?.status === statuses[2]) className = "icon disable";
+  // if (data?.status === statuses[2]) className = "icon disable";
   return (
     <ButtonWrapper type="text" {...rest}>
+      <div className="index">{index}</div>
       <div className={className}>{data ? Icons[data.type] : EmptyIcon}</div>
     </ButtonWrapper>
   );
@@ -51,11 +58,13 @@ const Vehicle = ({ data, ...rest }) => {
 Vehicle.defaultProps = {
   icon: null,
   data: null,
+  index: null,
 };
 
 Vehicle.propTypes = {
   icon: PropTypes.element,
   data: PropTypes.objectOf(PropTypes.any),
+  index: PropTypes.number,
 };
 
 export default Vehicle;

@@ -73,7 +73,7 @@ const GarageModal = (props) => {
       for (let j = 0; j < garage.col; j++) {
         cols.push(
           <Col key={`${i}-${j}`}>
-            <Vehicle onClick={() => onVehicleClick({empty: true, row: i, col: j})} />
+            <Vehicle index={j+1} onClick={() => onVehicleClick({empty: true, row: i, col: j})} />
           </Col>
         );
         inUsedCol.push(false);
@@ -85,7 +85,7 @@ const GarageModal = (props) => {
     for (const vehicle of vehicles) {
       slots[vehicle.row].props.children[vehicle.col] = (
         <Col key={`${vehicle.row}-${vehicle.col}`}>
-          <Vehicle onClick={() => onVehicleClick(vehicle)} data={vehicle} />
+          <Vehicle index={vehicle.col + 1} onClick={() => onVehicleClick(vehicle)} data={vehicle} />
         </Col>
       );
       inUsed[vehicle.row][vehicle.col] = true;
