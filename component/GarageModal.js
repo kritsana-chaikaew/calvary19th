@@ -13,9 +13,10 @@ const ModalWrapper = styled(Modal)`
     width: 100%;
     display: flex !important;
     flex-flow: column nowrap;
+    overflow: hidden;
   }
   .ant-modal-body {
-    overflow: scroll;
+    overflow-x: scroll;
     height: max-content;
   }
   .ant-modal-title {
@@ -33,7 +34,7 @@ const ModalWrapper = styled(Modal)`
   }
   .container {
     height: 100%;
-    overflow: scroll;
+    // overflow: scroll;
   }
   .ant-row {
     min-height: var(--unit-size);
@@ -42,6 +43,12 @@ const ModalWrapper = styled(Modal)`
   }
   .ant-col {
     min-height: var(--unit-size);
+  }
+  .ant-modal-header {
+    padding-bottom: 0; 
+  }
+  span.ant-modal-close-x {
+    font-size: 1.5rem;
   }
 `;
 
@@ -86,7 +93,7 @@ const GarageModal = (props) => {
       slots[vehicle.row].props.children[vehicle.col] = (
         <Col key={`${vehicle.row}-${vehicle.col}`}>
           <Vehicle index={vehicle.col + 1} onClick={() => onVehicleClick(vehicle)} data={vehicle} />
-          <div>{vehicle?.serial_no}</div>
+          <div style={{textAlign: "center", fontSize: "0.6rem", paddingBottom:"4px"}}>{vehicle?.serial_no}</div>
         </Col>
       );
       inUsed[vehicle.row][vehicle.col] = true;

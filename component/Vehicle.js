@@ -19,16 +19,16 @@ const ButtonWrapper = styled(Button)`
     filter: hue-rotate(230deg) saturate(4);
   }
   :hover {
-    transform: scale(1.01);
+    // transform: scale(1.01);
   }
   .icon > div:hover {
-    border: solid #364239;
+    // border: solid #364239;
   }
   .index {
     position: absolute;
     left: 0;
     top: 0;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     padding: 0;
     margin: 0;
     line-height: 0.8rem;
