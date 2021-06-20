@@ -3,6 +3,8 @@ import { promises as fs } from "fs";
 
 const path = require("path");
 
+const publicPath = process.env.PUBLIC_PATH;
+
 const upload = async (req) => {
   const { files } = await new Promise((resolve, reject) => {
     const form = new IncomingForm({ keepExtensions: true });
@@ -14,7 +16,7 @@ const upload = async (req) => {
   const tempPath = files.file.path;
   const fileName = path.basename(tempPath);
   const urlPath = path.join("/uploads", fileName.toLocaleLowerCase());
-  const destinationPath = path.join("./public", urlPath);
+  const destinationPath = path.join(publicPath, urlPath);
   fs.rename(tempPath, destinationPath, (err) => {
     if (err) console.log(err);
     return {
