@@ -2,6 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import device from "../utils/device";
+
+const ModalWrapper = styled(Modal)`
+  top: 0;
+  img {
+    max-height: 80vh;
+    max-width: 50vw;
+    object-fit: contain;
+  }
+  @media ${device.xs} {
+    img {
+      max-height: 90vh;
+      max-width: 80vw;
+      object-fit: contain;
+    }
+  }
+  width: fit-content !important;
+`;
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -84,14 +103,14 @@ const ImageUpload = ({ isEdit, form, isOpen }) => {
       >
         {files.length >= 1 ? null : uploadButton}
       </Upload>
-      <Modal
+      <ModalWrapper
         visible={previewVisible}
         title={previewTitle}
         footer={null}
         onCancel={handleCancel}
       >
         <img alt="example" style={{ width: "100%" }} src={previewImage} />
-      </Modal>
+      </ModalWrapper>
     </div>
   );
 };
