@@ -111,7 +111,7 @@ const createGun = `CREATE TABLE IF NOT EXISTS gun (
   regimental TEXT,
   serial_no TEXT,
   repair_slip TEXT,
-  symptom TEXT,
+  symptom TEXT
 )`;
 
 const insertGun = `INSERT INTO gun (
@@ -121,7 +121,7 @@ const insertGun = `INSERT INTO gun (
   regimental,
   serial_no,
   repair_slip,
-  symptom,
+  symptom
 ) VALUES (
   $id,
   $type,
@@ -129,7 +129,7 @@ const insertGun = `INSERT INTO gun (
   $regimental,
   $serialNo,
   $repairSlip,
-  $symptom,
+  $symptom
 )`;
 
 const updateGunStmt = `UPDATE vehicle 
@@ -139,7 +139,7 @@ const updateGunStmt = `UPDATE vehicle
     regimental = $regimental,
     serial_no = $serialNo,
     repair_slip = $repairSlip,
-    symptom = $symptom,
+    symptom = $symptom
   WHERE id = $id
 `;
 
@@ -152,5 +152,5 @@ module.exports = {
   updateUserStmt,
   createGun,
   insertGun,
-  updateGunStmt
+  updateGunStmt,
 };
