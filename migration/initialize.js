@@ -1,13 +1,21 @@
 const { v4: uuidv4 } = require("uuid");
 const handle = require("../utils/error");
 const { db } = require("../models/db");
-const { statuses, types, garages } = require("../utils/const");
+const {
+  statuses,
+  types,
+  garages,
+  gunTypes,
+  regimentals,
+} = require("../utils/const");
 
 const {
   createVehicle,
   createUser,
   insertVehicle,
   insertUser,
+  createGun,
+  insertGun,
 } = require("../models/statments");
 
 const sample = (arr) => {
@@ -23,7 +31,7 @@ const randomInt = (min, max) => {
 const randomGarage = sample(garages);
 const mockVehicle = {
   $id: uuidv4(),
-  $type: sample(types.map(t => t.name)),
+  $type: sample(types.map((t) => t.name)),
   $status: sample(statuses),
   $regimental: randomGarage.regimental,
   $serialNo: randomInt(10000, 20000),
@@ -37,7 +45,7 @@ const mockVehicle = {
   $garage: randomGarage.name,
   $symptom: "อาการเสีย",
   $row: sample([0, 1]),
-  $col: sample([0, 1, 2, 3])
+  $col: sample([0, 1, 2, 3]),
 };
 
 const mockUser = {
@@ -50,6 +58,16 @@ const mockUser = {
   $updatedBy: "admin",
 };
 
+const mockGun = {
+  $id: uuidv4(),
+  $type: gunTypes[0].name,
+  $status: sample(statuses),
+  $regimental: sample(regimentals),
+  $serialNo: "12345",
+  $repairSlip: "",
+  $symptom: "อาการเสีย",
+};
+
 db.serialize(() => {
   db.run(createVehicle, (err) => handle(err, "Created table vehicle."));
   db.run(insertVehicle, mockVehicle, (err) =>
@@ -57,5 +75,7 @@ db.serialize(() => {
   );
   db.run(createUser, (err) => handle(err, "Created table user."));
   db.run(insertUser, mockUser, (err) => handle(err, "Inserted mock user."));
+  db.run(createGun, (err) => handle(err, "Created table gun."));
+  db.run(insertGun, mockGun, (err) => handle(err, "Inserted mock gun."));
 });
 db.close((err) => handle(err, "Close the database connection."));

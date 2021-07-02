@@ -32,7 +32,10 @@ const types = [
   },
   { name: "รยบ.ขนาดเบา 4X4 แบบ 50 (ฉบับปรับปรุงใหม่)", icon: "/humvee.svg" },
   { name: "รยบ.ขนาดเบา 4X4 แบบ 51 (ฉบับปรับปรุงใหม่)", icon: "/humvee.svg" },
-  { name: "รยบ.ขนาดเบา 4X4 แบบ 51 A (บังคับการและติดตั้งป้อมปืนกล)", icon: "/humvee.svg" },
+  {
+    name: "รยบ.ขนาดเบา 4X4 แบบ 51 A (บังคับการและติดตั้งป้อมปืนกล)",
+    icon: "/humvee.svg",
+  },
   { name: "รถกู้ 5 ตัน M.543 A.2", icon: "/humvee.svg" },
   { name: "รถกู้ ถ.เบา 21 FV.106 (แซมซั่น)", icon: "/tank.svg" },
   { name: "รถพ่วง 1 1/2 ตัน สัมภาระ M.105 A.2 C", icon: "/humvee.svg" },
@@ -53,9 +56,12 @@ const garages = [
   { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 6 },
 ];
 
+const gunTypes = [{ name: "Tar-21", image: "" }];
+
 module.exports = {
   statuses,
   regimentals,
   types,
   garages,
+  gunTypes,
 };
