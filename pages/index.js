@@ -5,9 +5,10 @@ import styled from "styled-components";
 import Building from "../component/Building";
 import Template from "../component/Template";
 import VehicleModal from "../component/VehicleModal";
-import { garages } from "../utils/const";
+import { garages, regimentals } from "../utils/const";
 import Garage from "../component/Garage";
 import GarageModal from "../component/GarageModal";
+import RegimentalModal from "../component/RegimentalModal";
 
 const RowWrapper = styled(Row)`
   padding-top: ${(props) => props.gap || 0}rem;
@@ -32,6 +33,9 @@ const Index = () => {
   const [tick, setTick] = useState(false);
   const [clickedRow, setClickedRow] = useState(null);
   const [clickedCol, setClickedCol] = useState(null);
+  const [isRegimentalModalVisible, setIsRegimentalModalVisible] =
+    useState(false);
+  const [selectedRegimental, setSelectedRegimental] = useState("");
 
   useEffect(async () => {
     const res = await fetch("/api/vehicles");
@@ -95,6 +99,15 @@ const Index = () => {
     });
   };
 
+  const handleBuildingClick = (regimental) => {
+    setIsRegimentalModalVisible(true);
+    setSelectedRegimental(regimental);
+  };
+
+  const handleRegimentalModalOk = () => {
+    setIsRegimentalModalVisible(false);
+  };
+
   return (
     <Template onAddClick={handleAddClick}>
       <RowWrapper
@@ -124,7 +137,10 @@ const Index = () => {
             gutter={gutter}
           >
             <Col span={24}>
-              <Building name="ร้อย.ม.2" />
+              <Building
+                name="ร้อย.ม.2"
+                onClick={() => handleBuildingClick(regimentals[2])}
+              />
             </Col>
           </RowWrapper>
         </Col>
@@ -156,7 +172,10 @@ const Index = () => {
             gutter={gutter}
           >
             <Col span={24}>
-              <Building name="ร้อย.ม.3" />
+              <Building
+                name="ร้อย.ม.3"
+                onClick={() => handleBuildingClick(regimentals[3])}
+              />
             </Col>
           </RowWrapper>
         </Col>
@@ -170,7 +189,10 @@ const Index = () => {
             gutter={gutter}
           >
             <Col span={24}>
-              <Building name="ร้อย.ม.1" />
+              <Building
+                name="ร้อย.ม.1"
+                onClick={() => handleBuildingClick(regimentals[1])}
+              />
             </Col>
           </RowWrapper>
         </Col>
@@ -208,7 +230,10 @@ const Index = () => {
             gutter={gutter}
           >
             <Col span={24}>
-              <Building name="ร้อย.บก." />
+              <Building
+                name="ร้อย.บก."
+                onClick={() => handleBuildingClick(regimentals[0])}
+              />
             </Col>
           </RowWrapper>
         </Col>
@@ -259,6 +284,12 @@ const Index = () => {
         isModalVisible={isModalVisible}
         isAddModalVisible={isAddModalVisible}
         tick={tick}
+      />
+      <RegimentalModal
+        regimental={selectedRegimental}
+        visible={isRegimentalModalVisible}
+        tick={tick}
+        onCancel={handleRegimentalModalOk}
       />
     </Template>
   );
