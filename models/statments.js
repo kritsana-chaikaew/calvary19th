@@ -104,6 +104,45 @@ SET
 WHERE id = $id
 `;
 
+const createGun = `CREATE TABLE IF NOT EXISTS gun (
+  id TEXT PRIMARY KEY,
+  type TEXT NOT NULL,
+  status TEXT NOT NULL,
+  regimental TEXT,
+  serial_no TEXT,
+  repair_slip TEXT,
+  symptom TEXT,
+)`;
+
+const insertGun = `INSERT INTO gun (
+  id,
+  type,
+  status,
+  regimental,
+  serial_no,
+  repair_slip,
+  symptom,
+) VALUES (
+  $id,
+  $type,
+  $status,
+  $regimental,
+  $serialNo,
+  $repairSlip,
+  $symptom,
+)`;
+
+const updateGunStmt = `UPDATE vehicle 
+  SET
+    type = $type,
+    status = $status,
+    regimental = $regimental,
+    serial_no = $serialNo,
+    repair_slip = $repairSlip,
+    symptom = $symptom,
+  WHERE id = $id
+`;
+
 module.exports = {
   createVehicle,
   insertVehicle,
@@ -111,4 +150,7 @@ module.exports = {
   createUser,
   insertUser,
   updateUserStmt,
+  createGun,
+  insertGun,
+  updateGunStmt
 };
