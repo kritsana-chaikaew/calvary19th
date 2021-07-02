@@ -33,6 +33,9 @@ const Building = ({ name, ...props }) => {
               font-size: 1em;
             }
           }
+          h1.name {
+            font-size: 1.5em;
+          }
         `}
       </style>
     </div>

@@ -43,41 +43,36 @@ const ModalWrapper = styled(Modal)`
     min-height: var(--unit-size);
   }
   .ant-modal-header {
-    padding-bottom: 0; 
+    padding-bottom: 0;
   }
   span.ant-modal-close-x {
     font-size: 1.5rem;
   }
+  .ant-modal-content {
+    width: 520px;
+  }
 `;
 
 const RegimentalModal = (props) => {
-  const {
-    regimental,
-    visible,
-    tick,
-    ...rest
-  } = props;
+  const { regimental, visible, tick, children, ...rest } = props;
 
-  useEffect(() => {
-  }, [visible, tick]);
-
+  useEffect(() => {}, [visible, tick]);
 
   return (
-    <ModalWrapper
-      title={regimental}
-      {...rest}
-      visible={visible}
-      footer={null}
-    >
-      <div className="container">Things go here</div>
+    <ModalWrapper title={regimental} {...rest} visible={visible} footer={null}>
+      <div className="container">{children}</div>
     </ModalWrapper>
   );
+};
+RegimentalModal.defaultProps = {
+  children: null,
 };
 
 RegimentalModal.propTypes = {
   regimental: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   tick: PropTypes.bool.isRequired,
+  children: PropTypes.objectOf(PropTypes.any),
 };
 
 export default RegimentalModal;

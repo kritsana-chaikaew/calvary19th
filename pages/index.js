@@ -290,7 +290,20 @@ const Index = () => {
         visible={isRegimentalModalVisible}
         tick={tick}
         onCancel={handleRegimentalModalOk}
-      />
+        centered
+      >
+        <RowWrapper gutter={gutter}>
+          <Col span={6}>
+            <Building name="บก.ร้อย." />
+          </Col>
+          <Col span={12}>
+            <Building name="โรงนอน" />
+          </Col>
+          <Col span={6}>
+            <Building name="คลังอาวุธ" />
+          </Col>
+        </RowWrapper>
+      </RegimentalModal>
     </Template>
   );
 };
