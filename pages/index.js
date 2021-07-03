@@ -9,6 +9,7 @@ import { garages, regimentals } from "../utils/const";
 import Garage from "../component/Garage";
 import GarageModal from "../component/GarageModal";
 import RegimentalModal from "../component/RegimentalModal";
+import ArmoryModal from "../component/ArmoryModal";
 
 const RowWrapper = styled(Row)`
   padding-top: ${(props) => props.gap || 0}rem;
@@ -33,9 +34,10 @@ const Index = () => {
   const [tick, setTick] = useState(false);
   const [clickedRow, setClickedRow] = useState(null);
   const [clickedCol, setClickedCol] = useState(null);
+  const [selectedRegimental, setSelectedRegimental] = useState("");
   const [isRegimentalModalVisible, setIsRegimentalModalVisible] =
     useState(false);
-  const [selectedRegimental, setSelectedRegimental] = useState("");
+  const [isArmoryModalVisible, setIsArmoryModalVisible] = useState(false);
 
   useEffect(async () => {
     const res = await fetch("/api/vehicles");
@@ -106,6 +108,14 @@ const Index = () => {
 
   const handleRegimentalModalOk = () => {
     setIsRegimentalModalVisible(false);
+  };
+
+  const handleArmoryClick = () => {
+    setIsArmoryModalVisible(true);
+  };
+
+  const handleArmoryModalOk = () => {
+    setIsArmoryModalVisible(false);
   };
 
   return (
@@ -300,10 +310,19 @@ const Index = () => {
             <Building name="โรงนอน" />
           </Col>
           <Col span={6}>
-            <Building name="คลังอาวุธ" />
+            <Building name="คลังอาวุธ" onClick={handleArmoryClick} />
           </Col>
         </RowWrapper>
       </RegimentalModal>
+      <ArmoryModal
+        regimental={selectedRegimental}
+        visible={isArmoryModalVisible}
+        tick={tick}
+        onCancel={handleArmoryModalOk}
+        centered
+      >
+        ArmoryModal
+      </ArmoryModal>
     </Template>
   );
 };
