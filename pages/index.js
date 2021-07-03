@@ -321,7 +321,11 @@ const Index = () => {
         onCancel={handleArmoryModalOk}
         centered
       >
-        ArmoryModal
+        <RowWrapper gutter={gutter}>
+          <Col span={6}>
+            <Building name="TAR-21" />
+          </Col>
+        </RowWrapper>
       </ArmoryModal>
     </Template>
   );
