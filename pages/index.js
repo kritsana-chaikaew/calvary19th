@@ -10,6 +10,8 @@ import Garage from "../component/Garage";
 import GarageModal from "../component/GarageModal";
 import RegimentalModal from "../component/RegimentalModal";
 import ArmoryModal from "../component/ArmoryModal";
+import GunGroupModal from "../component/GunGroupModal";
+import GunModal from "../component/GunModal";
 
 const RowWrapper = styled(Row)`
   padding-top: ${(props) => props.gap || 0}rem;
@@ -24,7 +26,7 @@ const Index = () => {
   ];
   const gap = 1;
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isVehicleModalVisible, setIsVehicleModalVisible] = useState(false);
   const [vehicleData, setVehicleData] = useState(null);
   const [isGarageModalVisible, setIsGarageModalVisible] = useState(false);
   const [selectedGarage, setSelectedGarage] = useState(garages[0]);
@@ -38,16 +40,31 @@ const Index = () => {
   const [isRegimentalModalVisible, setIsRegimentalModalVisible] =
     useState(false);
   const [isArmoryModalVisible, setIsArmoryModalVisible] = useState(false);
+  const [guns, setGuns] = useState();
+  const [isGunShowModalVisible, setIsGunShowModalVisible] = useState(false);
+  const [isGunGroupModalVisible, setIsGunGroupModalVisible] = useState(false);
+  const [selectedGun, setSelectedGun] = useState();
+  // const [isGunAddModalVisible, setIsGunAddModalVisible] = useState(false);
 
   useEffect(async () => {
     const res = await fetch("/api/vehicles");
     const data = await res.json();
     setVehicles(data);
     setTick(!tick);
-  }, [vehicleData, isModalVisible, isAddModalVisible]);
+  }, [vehicleData, isVehicleModalVisible, isAddModalVisible]);
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  useEffect(() => {
+    fetch("/api/guns")
+      .then(res => res.json())
+      .then(guns => {
+        setGuns(guns);
+        // setTick(!tick);
+        console.log(guns);
+      });
+  }, []);
+
+  const showVehicleModal = () => {
+    setIsVehicleModalVisible(true);
   };
 
   const showGarageModal = () => {
@@ -58,8 +75,8 @@ const Index = () => {
     setIsAddModalVisible(true);
   };
 
-  const handleModalOk = () => {
-    setIsModalVisible(false);
+  const handleVehicleModalOk = () => {
+    setIsVehicleModalVisible(false);
   };
 
   const handleGarageModalOk = () => {
@@ -77,7 +94,7 @@ const Index = () => {
       showAddModal();
     } else {
       setVehicleData(data);
-      showModal();
+      showVehicleModal();
     }
   };
 
@@ -117,6 +134,31 @@ const Index = () => {
   const handleArmoryModalOk = () => {
     setIsArmoryModalVisible(false);
   };
+
+  const showGunShowModal = (gun) => {
+    setIsGunShowModalVisible(true);
+    setSelectedGun(gun);
+  };
+
+  const showGunGroupModalVisible = () => {
+    setIsGunGroupModalVisible(true);
+  };
+
+  // const showGunAddModal = () => {
+  //   setIsGunAddModalVisible(true);
+  // };
+
+  const handleGunShowModalOk = () => {
+    setIsGunShowModalVisible(false);
+  };
+
+  const handleGunGroupModalOk = () => {
+    setIsGunGroupModalVisible(false);
+  };
+
+  // const handleGunAddModalOk = () => {
+  //   setIsGunAddModalVisible(false);
+  // };
 
   return (
     <Template onAddClick={handleAddClick}>
@@ -264,9 +306,9 @@ const Index = () => {
       <VehicleModal
         title="ข้อมูลยานพาหนะ"
         edit={false}
-        visible={isModalVisible}
-        onOk={handleModalOk}
-        onCancel={handleModalOk}
+        visible={isVehicleModalVisible}
+        onOk={handleVehicleModalOk}
+        onCancel={handleVehicleModalOk}
         vehicleData={vehicleData}
         inUsedSlot={inUsedSlot}
         selectedGarageName={selectedGarage?.name || ""}
@@ -291,7 +333,7 @@ const Index = () => {
         vehicles={vehicleListInGarage(selectedGarage?.name)}
         onVehicleClick={handleVehicleClick}
         onGarageOpen={onGarageOpen}
-        isModalVisible={isModalVisible}
+        isModalVisible={isVehicleModalVisible}
         isAddModalVisible={isAddModalVisible}
         tick={tick}
       />
@@ -323,10 +365,26 @@ const Index = () => {
       >
         <RowWrapper gutter={gutter}>
           <Col span={6}>
-            <Building name="TAR-21" />
+            <Building name="TAR-21" onClick={showGunGroupModalVisible} />
           </Col>
         </RowWrapper>
       </ArmoryModal>
+      {/* show gun detail */}
+      <GunGroupModal 
+        guns={guns}
+        onGunClick={showGunShowModal}
+        onCancel={handleGunGroupModalOk}
+        title="TAR-21"
+        visible={isGunGroupModalVisible}
+        tick={tick}
+        centered
+      />
+      <GunModal 
+        gun={selectedGun}
+        onOk={handleGunShowModalOk}
+        edit={false}
+        visible={isGunShowModalVisible}
+      />
     </Template>
   );
 };
