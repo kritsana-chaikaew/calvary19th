@@ -33,6 +33,7 @@ export async function createGun(gun) {
     $serialNo: gun.serial_no,
     $repairSlip: gun.repair_slip,
     $symptom: gun.symptom,
+    $scope: gun.scope,
   });
   createdGun = await getGun(id);
   return createdGun;
@@ -48,7 +49,8 @@ export async function updateGun(gun) {
     $serialNo: gun.serial_no,
     $repairSlip: gun.repair_slip,
     $symptom: gun.symptom,
+    $scope: gun.scope,
   });
-  updatedGun = await getGun(gun.id);  
+  updatedGun = await getGun(gun.id);
   return updatedGun;
 }

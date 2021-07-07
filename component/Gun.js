@@ -6,8 +6,8 @@ import { statuses } from "../utils/const";
 
 const ButtonWrapper = styled(Button)`
   background-color: #22bb33;
-  width: var(--unit-size);
-  height: var(--unit-size);
+  width: var(--gun-size);
+  height: var(--gun-size);
   padding: 0px 0px;
   margin: 1px;
   div.unavailable > div > div {
@@ -26,7 +26,7 @@ const ButtonWrapper = styled(Button)`
   }
 `;
 
-const Icon = ({ serialNo }) => <div className="gun-icon">{serialNo}</div>;
+const Icon = ({ serialNo }) => <div className="gun-icon">{serialNo.split(" ")[1]}</div>;
 Icon.propTypes = {
   serialNo: PropTypes.string.isRequired,
 };

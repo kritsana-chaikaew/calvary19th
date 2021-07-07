@@ -56,7 +56,7 @@ const garages = [
   { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 6 },
 ];
 
-const gunTypes = [{ name: "Tar-21", image: "" }];
+const gunTypes = [{ name: "TAR 21", image: "" }];
 
 module.exports = {
   statuses,

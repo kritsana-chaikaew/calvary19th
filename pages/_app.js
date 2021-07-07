@@ -20,7 +20,8 @@ const MyApp = ({ Component, pageProps }) => {
           }
           :root {
             --unit-size: 4rem;
-          }          
+            --gun-size: 2rem;
+          }
         `}
       </style>
       <Component {...pageProps} />

@@ -6,7 +6,7 @@ import device from "../utils/device";
 import Gun from "./Gun";
 
 const ModalWrapper = styled(Modal)`
-  min-width: 520px !important;
+  min-width: max-content !important;
   min-height: max-content;
   .ant-modal-content {
     height: 100%;
@@ -62,15 +62,25 @@ const GunGroupModal = (props) => {
 
   const renderSlot = () => {
     const slots = [];
-    const cols = [];
-    for (const gun of guns) {
+    let cols = [];
+    guns.sort((a, b) => {
+      const aNo = parseInt(a.serial_no.replace(" ", ""), 10);
+      const bNo = parseInt(b.serial_no.replace(" ", ""), 10);
+      return aNo - bNo;
+    });
+    const wrap = Math.floor(Math.sqrt(guns.length) * 2);
+    for (const [i, gun] of guns.entries()) {
       cols.push(
         <Col key={gun.id}>
           <Gun key={gun.id} onClick={() => onGunClick(gun)} data={gun} />
         </Col>
       );
+      if ((i + 1) % wrap === 0) {
+        slots.push(<Row key={i}>{cols}</Row>);
+        cols = [];
+      }
     }
-    slots.push(<Row key="1">{cols}</Row>);
+    slots.push(<Row key="a">{cols}</Row>);
 
     return slots;
   };

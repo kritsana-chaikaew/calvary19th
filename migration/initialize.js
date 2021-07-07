@@ -66,6 +66,7 @@ const mockGun = {
   $serialNo: "12345",
   $repairSlip: "",
   $symptom: "อาการเสีย",
+  $scope: "8765",
 };
 
 db.serialize(() => {

@@ -111,7 +111,8 @@ const createGun = `CREATE TABLE IF NOT EXISTS gun (
   regimental TEXT,
   serial_no TEXT,
   repair_slip TEXT,
-  symptom TEXT
+  symptom TEXT,
+  scope TEXT
 )`;
 
 const insertGun = `INSERT INTO gun (
@@ -121,7 +122,8 @@ const insertGun = `INSERT INTO gun (
   regimental,
   serial_no,
   repair_slip,
-  symptom
+  symptom,
+  scope
 ) VALUES (
   $id,
   $type,
@@ -129,7 +131,8 @@ const insertGun = `INSERT INTO gun (
   $regimental,
   $serialNo,
   $repairSlip,
-  $symptom
+  $symptom,
+  $scope
 )`;
 
 const updateGunStmt = `UPDATE gun 
@@ -139,7 +142,8 @@ const updateGunStmt = `UPDATE gun
     regimental = $regimental,
     serial_no = $serialNo,
     repair_slip = $repairSlip,
-    symptom = $symptom
+    symptom = $symptom,
+    scope= $scop
   WHERE id = $id
 `;
 

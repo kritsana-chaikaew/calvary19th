@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Building from "../component/Building";
 import Template from "../component/Template";
 import VehicleModal from "../component/VehicleModal";
-import { garages, regimentals } from "../utils/const";
+import { garages, gunTypes, regimentals } from "../utils/const";
 import Garage from "../component/Garage";
 import GarageModal from "../component/GarageModal";
 import RegimentalModal from "../component/RegimentalModal";
@@ -40,7 +40,7 @@ const Index = () => {
   const [isRegimentalModalVisible, setIsRegimentalModalVisible] =
     useState(false);
   const [isArmoryModalVisible, setIsArmoryModalVisible] = useState(false);
-  const [guns, setGuns] = useState();
+  const [guns, setGuns] = useState([]);
   const [isGunShowModalVisible, setIsGunShowModalVisible] = useState(false);
   const [isGunGroupModalVisible, setIsGunGroupModalVisible] = useState(false);
   const [selectedGun, setSelectedGun] = useState();
@@ -55,11 +55,10 @@ const Index = () => {
 
   useEffect(() => {
     fetch("/api/guns")
-      .then(res => res.json())
-      .then(guns => {
+      .then((res) => res.json())
+      .then((guns) => {
         setGuns(guns);
         setTick(!tick);
-        console.log(guns);
       });
   }, [isGunShowModalVisible]);
 
@@ -365,13 +364,18 @@ const Index = () => {
       >
         <RowWrapper gutter={gutter}>
           <Col span={6}>
-            <Building name="TAR-21" onClick={showGunGroupModalVisible} />
+            <Building
+              name={gunTypes[0].name}
+              onClick={showGunGroupModalVisible}
+            />
           </Col>
         </RowWrapper>
       </ArmoryModal>
       {/* show gun detail */}
-      <GunGroupModal 
-        guns={guns}
+      <GunGroupModal
+        guns={guns.filter((gun) => {
+          return gun.regimental === selectedRegimental;
+        })}
         onGunClick={showGunShowModal}
         onCancel={handleGunGroupModalOk}
         title="TAR-21"
@@ -379,7 +383,7 @@ const Index = () => {
         tick={tick}
         centered
       />
-      <GunModal 
+      <GunModal
         gun={selectedGun}
         onCancel={handleGunShowModalOk}
         onOk={handleGunShowModalOk}

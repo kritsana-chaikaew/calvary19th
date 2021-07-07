@@ -74,7 +74,7 @@ const FormWrapper = ({
         name="serial_no"
         rules={[{ required: isEdit }]}
       >
-        <Input type="number" readOnly={!isEdit} />
+        <Input type="text" readOnly={!isEdit} />
       </Form.Item>
       <Form.Item label="ชนิด" name="type" rules={[{ required: isEdit }]}>
         <Select
