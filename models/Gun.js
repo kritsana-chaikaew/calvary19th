@@ -49,6 +49,6 @@ export async function updateGun(gun) {
     $repairSlip: gun.repair_slip,
     $symptom: gun.symptom,
   });
-  updatedGun = await getGun(gun.id);
+  updatedGun = await getGun(gun.id);  
   return updatedGun;
 }

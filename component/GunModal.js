@@ -136,19 +136,15 @@ const GunModal = ({ gun, onOk, edit, visible, ...rest }) => {
   const makeRequest = async (url, values) => {
     // eslint-disable-next-line camelcase
     const method = edit ? "POST" : "PUT";
-    let { repair_slip, status, row, col } = values;
+    let { repair_slip, status } = values;
     repair_slip = repair_slip[0]?.url || "";
     [status] = status;
-    row -= 1;
-    col -= 1;
     const headers = { "Content-Type": "application/json" };
     const body = {
       ...initValue,
       ...values,
       repair_slip,
       status,
-      row,
-      col,
     };
     const config = {
       method,

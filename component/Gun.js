@@ -23,12 +23,13 @@ const ButtonWrapper = styled(Button)`
     line-height: 0.8rem;
   }
   .gun-icon {
-    width: 50px;
-    height: 50px;
   }
 `;
 
-const Icon = <div className="gun-icon">GUN</div>;
+const Icon = ({ serialNo }) => <div className="gun-icon">{serialNo}</div>;
+Icon.propTypes = {
+  serialNo: PropTypes.string.isRequired,
+};
 
 const Gun = ({ data, ...rest }) => {
   let className = "icon available";
@@ -36,7 +37,9 @@ const Gun = ({ data, ...rest }) => {
   if (data?.status === statuses[1]) className = "icon unavailable";
   return (
     <ButtonWrapper type="text" {...rest}>
-      <div className={className}>{Icon}</div>
+      <div className={className}>
+        <Icon serialNo={data.serial_no} />
+      </div>
     </ButtonWrapper>
   );
 };

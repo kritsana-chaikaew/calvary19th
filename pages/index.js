@@ -58,10 +58,10 @@ const Index = () => {
       .then(res => res.json())
       .then(guns => {
         setGuns(guns);
-        // setTick(!tick);
+        setTick(!tick);
         console.log(guns);
       });
-  }, []);
+  }, [isGunShowModalVisible]);
 
   const showVehicleModal = () => {
     setIsVehicleModalVisible(true);
@@ -381,6 +381,7 @@ const Index = () => {
       />
       <GunModal 
         gun={selectedGun}
+        onCancel={handleGunShowModalOk}
         onOk={handleGunShowModalOk}
         edit={false}
         visible={isGunShowModalVisible}

@@ -132,7 +132,7 @@ const insertGun = `INSERT INTO gun (
   $symptom
 )`;
 
-const updateGunStmt = `UPDATE vehicle 
+const updateGunStmt = `UPDATE gun 
   SET
     type = $type,
     status = $status,

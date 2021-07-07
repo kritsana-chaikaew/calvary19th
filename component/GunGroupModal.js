@@ -6,7 +6,7 @@ import device from "../utils/device";
 import Gun from "./Gun";
 
 const ModalWrapper = styled(Modal)`
-  width: max-content !important;
+  min-width: 520px !important;
   min-height: max-content;
   .ant-modal-content {
     height: 100%;
