@@ -56,7 +56,21 @@ const garages = [
   { name: "โรงรถสายพาน ร้อย.ม.3", regimental: regimentals[3], row: 2, col: 6 },
 ];
 
-const gunTypes = [{ name: "TAR 21", image: "" }];
+const gunTypes = [
+  { name: "TAR 21", image: "" },
+  { name: "เครื่องยิง", image: "" },
+  { name: "M.4", image: "" },
+  { name: "M.17", image: "" },
+  { name: "เครื่องยิงพลุ", image: "" },
+  { name: "M.16", image: "" },
+  { name: "Mag 58", image: "" },
+  { name: "L.43 A 1", image: "" },
+  { name: "M.240", image: "" },
+  { name: "ปพ.86", image: "" },
+  { name: "ปก.93", image: "" },
+  { name: "ปถ.", image: "" },
+  { name: "กล้องและขาหยั่ง", image: "" },
+];
 
 module.exports = {
   statuses,

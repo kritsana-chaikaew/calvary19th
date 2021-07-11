@@ -343,17 +343,26 @@ const Index = () => {
         onCancel={handleRegimentalModalOk}
         centered
       >
-        <RowWrapper gutter={gutter}>
-          <Col span={6}>
-            <Building name="บก.ร้อย." />
-          </Col>
-          <Col span={12}>
-            <Building name="โรงนอน" />
-          </Col>
-          <Col span={6}>
-            <Building name="คลังอาวุธ" onClick={handleArmoryClick} />
-          </Col>
-        </RowWrapper>
+        <div>
+          <RowWrapper gutter={gutter} style={{marginBottom: "20px"}}>
+            <Col span={6}>
+              <Building name="บก.ร้อย." />
+            </Col>
+            <Col span={12}>
+              <Building name="โรงนอน" />
+            </Col>
+            <Col span={6}>
+              <Building name="คลังอาวุธ" onClick={handleArmoryClick} />
+            </Col>
+          </RowWrapper>
+          <RowWrapper gutter={gutter}>
+            <Col span={8} />
+            <Col span={8}>
+              <Building name="คลังอาภรภัณฑ์" />
+            </Col>
+            <Col span={8} />
+          </RowWrapper>
+        </div>
       </RegimentalModal>
       <ArmoryModal
         regimental={selectedRegimental}
@@ -362,14 +371,77 @@ const Index = () => {
         onCancel={handleArmoryModalOk}
         centered
       >
-        <RowWrapper gutter={gutter}>
-          <Col span={6}>
-            <Building
-              name={gunTypes[0].name}
-              onClick={showGunGroupModalVisible}
-            />
-          </Col>
-        </RowWrapper>
+        <div>
+          <RowWrapper gutter={gutter} style={{marginBottom: "16px"}}>
+            <Col span={6}>
+              <Building
+                name={gunTypes[0].name}
+                onClick={showGunGroupModalVisible}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[1].name}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[2].name}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[3].name}
+              />
+            </Col>
+          </RowWrapper>
+          <RowWrapper gutter={gutter} style={{marginBottom: "16px"}}>
+            <Col span={6}>
+              <Building
+                name={gunTypes[4].name}
+                onClick={showGunGroupModalVisible}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[5].name}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[6].name}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[7].name}
+              />
+            </Col>
+          </RowWrapper>
+          <RowWrapper gutter={gutter} style={{marginBottom: "16px"}}>
+            <Col span={6}>
+              <Building
+                name={gunTypes[8].name}
+                onClick={showGunGroupModalVisible}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[9].name}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[10].name}
+              />
+            </Col>
+            <Col span={6}>
+              <Building
+                name={gunTypes[11].name}
+              />
+            </Col>
+          </RowWrapper>
+        </div>
       </ArmoryModal>
       {/* show gun detail */}
       <GunGroupModal
