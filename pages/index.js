@@ -375,29 +375,24 @@ const Index = () => {
         centered
       >
         <div>
-          {[0].map((row) => {
-            return (
-              <RowWrapper
-                gutter={gutter}
-                style={{ marginBottom: "16px", flexFlow: "wrap" }}
-                key={row}
-                justify="center"
-              >
-                {gunTypes
-                  .map((gunType) => {
-                    return (
-                      <Col span={ArmoryModalCol} key={gunType.name}>
-                        <Building
-                          name={gunType.name}
-                          onClick={() => { showGunGroupModalVisible(gunType.name);}}
-                          style={{height: "100px"}}
-                        />
-                      </Col>
-                    );
-                  })}
-              </RowWrapper>
-            );
-          })}
+          <RowWrapper
+            gutter={gutter}
+            style={{ marginBottom: "16px", flexFlow: "wrap" }}
+            justify="center"
+          >
+            {gunTypes
+              .map((gunType) => {
+                return (
+                  <Col span={ArmoryModalCol} key={gunType.name}>
+                    <Building
+                      name={gunType.name}
+                      onClick={() => { showGunGroupModalVisible(gunType.name);}}
+                      style={{height: "100px"}}
+                    />
+                  </Col>
+                );
+              })}
+          </RowWrapper>
         </div>
       </ArmoryModal>
       {/* show gun detail */}
@@ -410,7 +405,6 @@ const Index = () => {
         title={selectedGunType}
         visible={isGunGroupModalVisible}
         tick={tick}
-        centered
       />
       <GunModal
         gun={selectedGun}

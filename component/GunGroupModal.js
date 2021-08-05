@@ -10,14 +10,13 @@ const ModalWrapper = styled(Modal)`
   min-height: max-content;
   .ant-modal-content {
     height: 100%;
-    width: 100%;
     display: flex !important;
     flex-flow: column nowrap;
     overflow: hidden;
   }
   .ant-modal-body {
-    overflow-x: scroll;
     height: max-content;
+    width: calc(var(--gun-size) * 22);
   }
   .ant-modal-title {
     font-size: 1.5rem;
@@ -36,12 +35,11 @@ const ModalWrapper = styled(Modal)`
     height: 100%;
   }
   .ant-row {
-    min-height: var(--unit-size);
-    width: 100%;
-    flex-flow: row nowrap;
+    min-height: var(--gun-size);
+    flex-flow: row wrap;
   }
   .ant-col {
-    min-height: var(--unit-size);
+    min-height: var(--gun-size);
   }
   .ant-modal-header {
     padding-bottom: 0;
@@ -62,23 +60,24 @@ const GunGroupModal = (props) => {
 
   const renderSlot = () => {
     const slots = [];
-    let cols = [];
+    const cols = [];
     guns.sort((a, b) => {
-      const aNo = parseInt(a.serial_no.replace(" ", ""), 10);
-      const bNo = parseInt(b.serial_no.replace(" ", ""), 10);
-      return aNo - bNo;
+      // const aNo = parseInt(a.serial_no.replace(" ", ""), 10);
+      // const bNo = parseInt(b.serial_no.replace(" ", ""), 10);
+      // return aNo - bNo;
+      return a < b;
     });
-    const wrap = Math.floor(Math.sqrt(guns.length) * 2);
+    // const wrap = Math.floor(Math.sqrt(guns.length) * 2);
     for (const [i, gun] of guns.entries()) {
       cols.push(
-        <Col key={gun.id}>
-          <Gun key={gun.id} onClick={() => onGunClick(gun)} data={gun} />
+        <Col key={i}>
+          <Gun onClick={() => onGunClick(gun)} data={gun} />
         </Col>
       );
-      if ((i + 1) % wrap === 0) {
-        slots.push(<Row key={i}>{cols}</Row>);
-        cols = [];
-      }
+      // if ((i + 1) % wrap === 0) {
+      //   slots.push(<Row key={i}>{cols}</Row>);
+      //   cols = [];
+      // }
     }
     slots.push(<Row key="a">{cols}</Row>);
 

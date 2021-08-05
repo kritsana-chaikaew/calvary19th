@@ -19,7 +19,7 @@ const ButtonWrapper = styled(Button)`
   }
 `;
 
-const Icon = ({ serialNo }) => <div className="gun-icon">{serialNo.split(" ")[1]}</div>;
+const Icon = ({ serialNo }) => <div className="gun-icon">{serialNo.slice(-4)}</div>;
 Icon.propTypes = {
   serialNo: PropTypes.string.isRequired,
 };
