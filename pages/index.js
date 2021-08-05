@@ -25,6 +25,7 @@ const Index = () => {
     { xs: 5, sm: 16, md: 16, lg: 16 },
   ];
   const gap = 1;
+  const ArmoryModalCol = 5;
 
   const [isVehicleModalVisible, setIsVehicleModalVisible] = useState(false);
   const [vehicleData, setVehicleData] = useState(null);
@@ -37,6 +38,7 @@ const Index = () => {
   const [clickedRow, setClickedRow] = useState(null);
   const [clickedCol, setClickedCol] = useState(null);
   const [selectedRegimental, setSelectedRegimental] = useState("");
+  const [selectedGunType, setSelectedGunType] = useState("");
   const [isRegimentalModalVisible, setIsRegimentalModalVisible] =
     useState(false);
   const [isArmoryModalVisible, setIsArmoryModalVisible] = useState(false);
@@ -139,7 +141,8 @@ const Index = () => {
     setSelectedGun(gun);
   };
 
-  const showGunGroupModalVisible = () => {
+  const showGunGroupModalVisible = (gunType) => {
+    setSelectedGunType(gunType);
     setIsGunGroupModalVisible(true);
   };
 
@@ -344,7 +347,7 @@ const Index = () => {
         centered
       >
         <div>
-          <RowWrapper gutter={gutter} style={{marginBottom: "20px"}}>
+          <RowWrapper gutter={gutter} style={{ marginBottom: "20px" }}>
             <Col span={6}>
               <Building name="บก.ร้อย." />
             </Col>
@@ -372,85 +375,39 @@ const Index = () => {
         centered
       >
         <div>
-          <RowWrapper gutter={gutter} style={{marginBottom: "16px"}}>
-            <Col span={6}>
-              <Building
-                name={gunTypes[0].name}
-                onClick={showGunGroupModalVisible}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[1].name}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[2].name}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[3].name}
-              />
-            </Col>
-          </RowWrapper>
-          <RowWrapper gutter={gutter} style={{marginBottom: "16px"}}>
-            <Col span={6}>
-              <Building
-                name={gunTypes[4].name}
-                onClick={showGunGroupModalVisible}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[5].name}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[6].name}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[7].name}
-              />
-            </Col>
-          </RowWrapper>
-          <RowWrapper gutter={gutter} style={{marginBottom: "16px"}}>
-            <Col span={6}>
-              <Building
-                name={gunTypes[8].name}
-                onClick={showGunGroupModalVisible}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[9].name}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[10].name}
-              />
-            </Col>
-            <Col span={6}>
-              <Building
-                name={gunTypes[11].name}
-              />
-            </Col>
-          </RowWrapper>
+          {[0].map((row) => {
+            return (
+              <RowWrapper
+                gutter={gutter}
+                style={{ marginBottom: "16px", flexFlow: "wrap" }}
+                key={row}
+                justify="center"
+              >
+                {gunTypes
+                  .map((gunType) => {
+                    return (
+                      <Col span={ArmoryModalCol} key={gunType.name}>
+                        <Building
+                          name={gunType.name}
+                          onClick={() => { showGunGroupModalVisible(gunType.name);}}
+                          style={{height: "100px"}}
+                        />
+                      </Col>
+                    );
+                  })}
+              </RowWrapper>
+            );
+          })}
         </div>
       </ArmoryModal>
       {/* show gun detail */}
       <GunGroupModal
         guns={guns.filter((gun) => {
-          return gun.regimental === selectedRegimental;
+          return gun.regimental === selectedRegimental && gun.type === selectedGunType;
         })}
         onGunClick={showGunShowModal}
         onCancel={handleGunGroupModalOk}
-        title="TAR-21"
+        title={selectedGunType}
         visible={isGunGroupModalVisible}
         tick={tick}
         centered

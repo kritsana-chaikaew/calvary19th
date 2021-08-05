@@ -49,7 +49,7 @@ const ModalWrapper = styled(Modal)`
     font-size: 1.5rem;
   }
   .ant-modal-content {
-    width: 520px;
+    width: 1200px;
   }
 `;
 

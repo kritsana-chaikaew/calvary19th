@@ -25,8 +25,7 @@ const Building = ({ name, ...props }) => {
             transform: translateY(4px);
           }
           .building:hover {
-            transform: scale(1.01);
-            border: solid #364239;
+            outline: 2px solid black;
           }
           @media ${device.xs} {
             h1.name {
