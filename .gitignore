@@ -36,3 +36,5 @@ yarn-error.log*
 .db/*
 public/data.xlsx
 public/uploads/*
+
+data
