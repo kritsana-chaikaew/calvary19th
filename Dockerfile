@@ -1,6 +1,8 @@
 FROM node:14-alpine
 
 RUN mkdir -p /usr/src
+RUN mkdir -p /usr/src/data/.db
+RUN mkdir -p /usr/src/data/upload
 WORKDIR /usr/src
 
 COPY . /usr/src

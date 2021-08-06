@@ -3,7 +3,11 @@ import { promises as fs } from "fs";
 
 const path = require("path");
 
-const publicPath = process.env.PUBLIC_PATH;
+const rootPath = process.env.ROOT_PATH;
+const uplodaPath = path.join(rootPath, "/data/upload");
+fs.access(uplodaPath).catch(() => {
+  fs.mkdir(uplodaPath);
+});
 
 const upload = async (req) => {
   const { files } = await new Promise((resolve, reject) => {
@@ -15,9 +19,11 @@ const upload = async (req) => {
   });
   const tempPath = files.file.path;
   const fileName = path.basename(tempPath);
-  const urlPath = path.join("/uploads", fileName.toLocaleLowerCase());
-  const destinationPath = path.join(publicPath, urlPath);
-  fs.rename(tempPath, destinationPath, (err) => {
+  const newFileName = fileName.toLocaleLowerCase();
+  const destinationPath = path.join(rootPath, "/data/upload", newFileName);
+  const urlPath = `/api/upload/${newFileName}`;
+
+  fs.copyFile(tempPath, destinationPath).catch((err) => {
     if (err) console.log(err);
     return {
       name: "",
