@@ -85,14 +85,14 @@ const gunTypes = [
   },
 ];
 
-const clothesType = [
-  "อจย.",
-  "อสอ.",
-  "เครื่องสนาม",
-  "ประจำหน่วย",
-  "นอกอัตรา",
-  "สูทภัณฑ์ปกติ",
-  "ประจำอาคาร",
+const clothesTypes = [
+  { name: "อจย.", image: "" },
+  { name: "อสอ.", image: "" },
+  { name: "เครื่องสนาม", image: "" },
+  { name: "ประจำหน่วย", image: "" },
+  { name: "นอกอัตรา", image: "" },
+  { name: "สูทภัณฑ์ปกติ", image: "" },
+  { name: "ประจำอาคาร", image: "" },
 ];
 
 module.exports = {
@@ -101,5 +101,5 @@ module.exports = {
   types,
   garages,
   gunTypes,
-  clothesType,
+  clothesTypes,
 };
