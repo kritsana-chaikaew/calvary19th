@@ -149,6 +149,7 @@ const updateGunStmt = `UPDATE gun
 
 const createClothes = `CREATE TABLE IF NOT EXISTS clothes (
   id TEXT PRIMARY KEY,
+  type TEXT NOT NULL,
   no TEXT,
   list TEXT,
   count INTEGER,
@@ -162,6 +163,7 @@ const createClothes = `CREATE TABLE IF NOT EXISTS clothes (
 
 const insertClothes = `INSERT INTO clothes (
   id,
+  type,
   no,
   list,
   count,
@@ -173,6 +175,7 @@ const insertClothes = `INSERT INTO clothes (
   remark
 ) VALUES (
   $id,
+  $type,
   $no,
   $list,
   $count,
@@ -186,6 +189,7 @@ const insertClothes = `INSERT INTO clothes (
 
 const updateClothesStmt = `UPDATE clothes 
   SET
+    type = $type,
     no = $no,
     list = $list,
     coun = $count,
