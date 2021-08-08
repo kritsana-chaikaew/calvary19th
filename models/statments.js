@@ -147,6 +147,57 @@ const updateGunStmt = `UPDATE gun
   WHERE id = $id
 `;
 
+const createClothes = `CREATE TABLE IF NOT EXISTS clothes (
+  id TEXT PRIMARY KEY,
+  no TEXT,
+  list TEXT,
+  count INTEGER,
+  spend INTEGER,
+  lack INTEGER,
+  exeed INTEGER,
+  remain INTEGER,
+  receive INTEGER,
+  remark TEXT
+)`;
+
+const insertClothes = `INSERT INTO clothes (
+  id,
+  no,
+  list,
+  count,
+  spend,
+  lack,
+  exeed,
+  remain,
+  receive,
+  remark
+) VALUES (
+  $id,
+  $no,
+  $list,
+  $count,
+  $spend,
+  $lack,
+  $exeed,
+  $remain,
+  $receive,
+  $remark
+)`;
+
+const updateClothesStmt = `UPDATE clothes 
+  SET
+    no = $no,
+    list = $list,
+    coun = $count,
+    spen = $spend,
+    lack = $lack,
+    exee = $exeed,
+    remain = $remain,
+    receiv = $receive,
+    remark = $remark
+  WHERE id = $id
+`;
+
 module.exports = {
   createVehicle,
   insertVehicle,
@@ -157,4 +208,7 @@ module.exports = {
   createGun,
   insertGun,
   updateGunStmt,
+  createClothes,
+  insertClothes,
+  updateClothesStmt
 };

@@ -215,7 +215,12 @@ const Index = () => {
             style={{ minHeight: minRowWrapperHeight }}
             gutter={gutter}
           >
-            <Col span={12} />
+            <Col span={12}>
+              <Building
+                name="คลังอาภรณ์ภัณฑ์"
+                onClick={() => handleBuildingClick(regimentals[3])}
+              />
+            </Col>
             <Col span={12} />
           </RowWrapper>
         </Col>
@@ -357,13 +362,6 @@ const Index = () => {
             <Col span={6}>
               <Building name="คลังอาวุธ" onClick={handleArmoryClick} />
             </Col>
-          </RowWrapper>
-          <RowWrapper gutter={gutter}>
-            <Col span={8} />
-            <Col span={8}>
-              <Building name="คลังอาภรภัณฑ์" />
-            </Col>
-            <Col span={8} />
           </RowWrapper>
         </div>
       </RegimentalModal>

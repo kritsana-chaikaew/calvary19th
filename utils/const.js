@@ -14,7 +14,7 @@ const types = [
   { name: "รถสายพานติดตั้ง ค.81 มม. M.125 A.1", icon: "/armed-carrier.svg" },
   { name: "รถสายพานติดตั้ง ค.81 มม. M.125 A.2", icon: "/armed-carrier.svg" },
   { name: "รยบ. 1 1/4 ตัน M.1026 A.1 (ฮัมวี่)", icon: "/humvee.svg" },
-  { name: "รยบ. 1 1/4 ตัน M.1038 A.1 ", icon: "/humvee.svg" },
+  { name: "รยบ. 1 1/4 ตัน M.1038 A.1", icon: "/humvee.svg" },
   { name: "รยบ. 1 1/4 ตัน UNIMOG W/W ( มีกว้าน )", icon: "/humvee.svg" },
   { name: "รยบ. 1 1/4 ตัน UNIMOG WO/W (ไม่มีกว้าน)", icon: "/humvee.svg" },
   { name: "รยบ. 1/4 ตัน M.151 A.1", icon: "/humvee.svg" },
@@ -85,10 +85,21 @@ const gunTypes = [
   },
 ];
 
+const clothesType = [
+  "อจย.",
+  "อสอ.",
+  "เครื่องสนาม",
+  "ประจำหน่วย",
+  "นอกอัตรา",
+  "สูทภัณฑ์ปกติ",
+  "ประจำอาคาร",
+];
+
 module.exports = {
   statuses,
   regimentals,
   types,
   garages,
   gunTypes,
+  clothesType,
 };
