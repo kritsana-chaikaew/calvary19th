@@ -192,12 +192,12 @@ const updateClothesStmt = `UPDATE clothes
     type = $type,
     no = $no,
     list = $list,
-    coun = $count,
-    spen = $spend,
+    count = $count,
+    spend = $spend,
     lack = $lack,
-    exee = $exeed,
+    exeed = $exeed,
     remain = $remain,
-    receiv = $receive,
+    receive = $receive,
     remark = $remark
   WHERE id = $id
 `;

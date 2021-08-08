@@ -6,6 +6,7 @@ const {
   createVehicle,
   createUser,
   createGun,
+  createClothes
 } = require("./statments");
 
 if (!fs.existsSync("data/.db")) {
@@ -25,6 +26,7 @@ db.serialize(() => {
   db.run(createVehicle, (err) => handle(err, "Created table vehicle."));
   db.run(createUser, (err) => handle(err, "Created table user."));
   db.run(createGun, (err) => handle(err, "Created table gun."));
+  db.run(createClothes, (err) => handle(err, "Created table clothes."));
 });
 
 module.exports = {
