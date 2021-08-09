@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Building from "./Building";
+import Building from "../Common/Building";
 
 const Garage = ({ garage, onClick, ...rest }) => {
   return (

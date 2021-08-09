@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import styled from "styled-components";
-import Building from "../component/Building";
+import Building from "../component/Common/Building";
 import Template from "../component/Template";
-import VehicleModal from "../component/VehicleModal";
+import VehicleModal from "../component/Vehicle/VehicleModal";
 import { garages, gunTypes, regimentals } from "../utils/const";
-import Garage from "../component/Garage";
-import GarageModal from "../component/GarageModal";
-import RegimentalModal from "../component/RegimentalModal";
-import ArmoryModal from "../component/ArmoryModal";
-import GunGroupModal from "../component/GunGroupModal";
-import GunModal from "../component/GunModal";
+import Garage from "../component/Vehicle/Garage";
+import GarageModal from "../component/Vehicle/GarageModal";
+import RegimentalModal from "../component/Common/RegimentalModal";
+import ArmoryModal from "../component/Gun/ArmoryModal";
+import GunGroupModal from "../component/Gun/GunGroupModal";
+import GunModal from "../component/Gun/GunModal";
 
 const RowWrapper = styled(Row)`
   padding-top: ${(props) => props.gap || 0}rem;

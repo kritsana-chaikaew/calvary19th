@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import device from "../utils/device";
+import device from "../../utils/device";
 
 const Building = ({ name, ...props }) => {
   return (

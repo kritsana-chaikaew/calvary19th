@@ -7,8 +7,8 @@ import {
   MinusCircleOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
-import { statuses, types, regimentals, garages } from "../utils/const";
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../Common/ImageUpload";
+import { statuses, types, regimentals, garages } from "../../utils/const";
 
 const statusOptions = statuses.map((status) => ({ value: status }));
 const typeOptions = types.map((type) => ({ value: type.name }));

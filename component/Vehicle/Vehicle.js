@@ -3,7 +3,7 @@ import { Button } from "antd";
 import Image from "next/image";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { statuses, types } from "../utils/const";
+import { statuses, types } from "../../utils/const";
 
 const ButtonWrapper = styled(Button)`
   background-color: #d6d6d6;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Modal } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import device from "../utils/device";
+import device from "../../utils/device";
 
 const ModalWrapper = styled(Modal)`
   width: max-content !important;

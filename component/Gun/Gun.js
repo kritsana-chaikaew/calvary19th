@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { statuses } from "../utils/const";
+import { statuses } from "../../utils/const";
 
 const ButtonWrapper = styled(Button)`
   width: var(--gun-size);

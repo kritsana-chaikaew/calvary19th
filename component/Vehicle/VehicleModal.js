@@ -4,7 +4,7 @@ import { Modal, Button, Form } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import device from "../utils/device";
+import device from "../../utils/device";
 import FormWrapper from "./FormWrapper";
 
 const { confirm } = Modal;

@@ -3,7 +3,7 @@ import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import device from "../utils/device";
+import device from "../../utils/device";
 
 const ModalWrapper = styled(Modal)`
   top: 0;

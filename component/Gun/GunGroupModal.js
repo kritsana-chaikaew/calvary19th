@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Modal, Row, Col } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import device from "../utils/device";
 import Gun from "./Gun";
+import device from "../../utils/device";
 
 const ModalWrapper = styled(Modal)`
   min-width: max-content !important;
