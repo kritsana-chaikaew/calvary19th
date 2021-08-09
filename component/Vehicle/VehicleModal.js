@@ -5,7 +5,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import device from "../../utils/device";
-import FormWrapper from "./FormWrapper";
+import VehicleFormWrapper from "./VehicleFormWrapper";
 
 const { confirm } = Modal;
 
@@ -235,7 +235,7 @@ const VehicleModal = ({
       ]}
       centered
     >
-      <FormWrapper
+      <VehicleFormWrapper
         formItemLayout={formItemLayout}
         layout="horizontal"
         form={form}

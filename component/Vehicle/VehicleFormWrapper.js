@@ -38,7 +38,7 @@ const tagRender = (props) => {
   );
 };
 
-const FormWrapper = ({
+const VehicleFormWrapper = ({
   form,
   formItemLayout,
   layout,
@@ -201,7 +201,7 @@ const FormWrapper = ({
     </Form>
   );
 };
-FormWrapper.defaultProps = {
+VehicleFormWrapper.defaultProps = {
   form: null,
   formItemLayout: null,
   layout: null,
@@ -209,7 +209,7 @@ FormWrapper.defaultProps = {
   isOpen: false,
   inUsedSlot: [],
 };
-FormWrapper.propTypes = {
+VehicleFormWrapper.propTypes = {
   form: PropTypes.objectOf(PropTypes.any),
   formItemLayout: PropTypes.objectOf(PropTypes.any),
   layout: PropTypes.string,
@@ -218,4 +218,4 @@ FormWrapper.propTypes = {
   inUsedSlot: PropTypes.arrayOf(PropTypes.array),
 };
 
-export default FormWrapper;
+export default VehicleFormWrapper;

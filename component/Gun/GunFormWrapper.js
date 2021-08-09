@@ -37,7 +37,7 @@ const tagRender = (props) => {
   );
 };
 
-const FormWrapper = ({
+const GunFormWrapper = ({
   form,
   formItemLayout,
   layout,
@@ -119,14 +119,14 @@ const FormWrapper = ({
     </Form>
   );
 };
-FormWrapper.defaultProps = {
+GunFormWrapper.defaultProps = {
   form: null,
   formItemLayout: null,
   layout: null,
   isEdit: false,
   isOpen: false,
 };
-FormWrapper.propTypes = {
+GunFormWrapper.propTypes = {
   form: PropTypes.objectOf(PropTypes.any),
   formItemLayout: PropTypes.objectOf(PropTypes.any),
   layout: PropTypes.string,
@@ -134,4 +134,4 @@ FormWrapper.propTypes = {
   isOpen: PropTypes.bool,
 };
 
-export default FormWrapper;
+export default GunFormWrapper;
