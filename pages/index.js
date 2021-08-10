@@ -2,16 +2,21 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import styled from "styled-components";
-import Building from "../component/Common/Building";
 import Template from "../component/Template";
+import Building from "../component/Common/Building";
+import RegimentalModal from "../component/Common/RegimentalModal";
+import { garages, gunTypes, regimentals, clothesTypes } from "../utils/const";
+
 import VehicleModal from "../component/Vehicle/VehicleModal";
-import { garages, gunTypes, regimentals } from "../utils/const";
 import Garage from "../component/Vehicle/Garage";
 import GarageModal from "../component/Vehicle/GarageModal";
-import RegimentalModal from "../component/Common/RegimentalModal";
+
 import ArmoryModal from "../component/Gun/ArmoryModal";
 import GunGroupModal from "../component/Gun/GunGroupModal";
 import GunModal from "../component/Gun/GunModal";
+
+import ClothesWarehouseModal from "../component/Clothes/ClothesWarehouseModal";
+import ClothesTypeModal from "../component/Clothes/ClothesTypeModal";
 
 const RowWrapper = styled(Row)`
   padding-top: ${(props) => props.gap || 0}rem;
@@ -46,7 +51,11 @@ const Index = () => {
   const [isGunShowModalVisible, setIsGunShowModalVisible] = useState(false);
   const [isGunGroupModalVisible, setIsGunGroupModalVisible] = useState(false);
   const [selectedGun, setSelectedGun] = useState();
-  // const [isGunAddModalVisible, setIsGunAddModalVisible] = useState(false);
+  const [isClothesWarehouseModalVisible, setIsClothesWarehouseModalVisible] =
+    useState(false);
+  const [selectedClothesType, setSelectedClothesType] = useState();
+  const [isClothesTypeModalVisible, setIsClothesTypeModalVisible] =
+    useState(false);
 
   useEffect(async () => {
     const res = await fetch("/api/vehicles");
@@ -128,7 +137,7 @@ const Index = () => {
     setIsRegimentalModalVisible(false);
   };
 
-  const handleArmoryClick = () => {
+  const showArmoryModal = () => {
     setIsArmoryModalVisible(true);
   };
 
@@ -159,9 +168,22 @@ const Index = () => {
     setIsGunGroupModalVisible(false);
   };
 
-  // const handleGunAddModalOk = () => {
-  //   setIsGunAddModalVisible(false);
-  // };
+  const handleClothesWarehouseModalOk = () => {
+    setIsClothesWarehouseModalVisible(false);
+  };
+
+  const showClothesWarehouseModal = () => {
+    setIsClothesWarehouseModalVisible(true);
+  };
+
+  const handleClothesTypeModalOk = () => {
+    setIsClothesTypeModalVisible(false);
+  };
+
+  const showClothesTypeModal = (typeName) => {
+    setSelectedClothesType(typeName);
+    setIsClothesTypeModalVisible(true);
+  };
 
   return (
     <Template onAddClick={handleAddClick}>
@@ -219,7 +241,7 @@ const Index = () => {
             <Col span={12}>
               <Building
                 name="คลังอาภรณ์ภัณฑ์"
-                onClick={() => handleBuildingClick(regimentals[3])}
+                onClick={showClothesWarehouseModal}
               />
             </Col>
             <Col span={12} />
@@ -361,7 +383,7 @@ const Index = () => {
               <Building name="โรงนอน" />
             </Col>
             <Col span={6}>
-              <Building name="คลังอาวุธ" onClick={handleArmoryClick} />
+              <Building name="คลังอาวุธ" onClick={showArmoryModal} />
             </Col>
           </RowWrapper>
         </div>
@@ -415,6 +437,41 @@ const Index = () => {
         onOk={handleGunShowModalOk}
         edit={selectedGun?.isNull}
         visible={isGunShowModalVisible}
+      />
+      <ClothesWarehouseModal
+        visible={isClothesWarehouseModalVisible}
+        tick={tick}
+        onCancel={handleClothesWarehouseModalOk}
+        centered
+      >
+        <div>
+          <RowWrapper
+            gutter={gutter}
+            style={{ marginBottom: "16px", flexFlow: "wrap" }}
+            justify="center"
+          >
+            {clothesTypes.map((clothesType) => {
+              return (
+                <Col span={ArmoryModalCol} key={clothesType.name}>
+                  <Building
+                    name={clothesType.name}
+                    onClick={() => {
+                      showClothesTypeModal(clothesType.name);
+                    }}
+                    style={{ height: "100px" }}
+                  />
+                </Col>
+              );
+            })}
+          </RowWrapper>
+        </div>
+      </ClothesWarehouseModal>
+      <ClothesTypeModal
+        clothesType={selectedClothesType}
+        onCancel={handleClothesTypeModalOk}
+        title={selectedClothesType}
+        visible={isClothesTypeModalVisible}
+        tick={tick}
       />
     </Template>
   );
