@@ -10,24 +10,28 @@ const ButtonWrapper = styled(Button)`
   padding: 0px 0px;
   margin: 1px;
   background-color: #22bb33;
-  .unavailable {
-    background-color: #bb2233 !important;;
-  }
   .gun-icon {
     width: 100%;
     heigh: 100%;
   }
 `;
 
-const Icon = ({ serialNo }) => <div className="gun-icon">{serialNo.slice(-4)}</div>;
+const Icon = ({ serialNo, label }) => (
+  <div className="gun-icon">{label || serialNo?.slice(-4)}</div>
+);
+Icon.defaultProps = {
+  serialNo: null,
+  label: null,
+};
 Icon.propTypes = {
-  serialNo: PropTypes.string.isRequired,
+  serialNo: PropTypes.string,
+  label: PropTypes.string,
 };
 
-const Gun = ({ data, ...rest }) => {
+const Gun = ({ data, label, ...rest }) => {
   const [className, setClassName] = useState();
   useEffect(() => {
-    if (data?.status === statuses[1]) {
+    if (data?.status === statuses[1] || label) {
       setClassName("unavailable");
     }
   }, [data]);
@@ -35,7 +39,7 @@ const Gun = ({ data, ...rest }) => {
   return (
     <ButtonWrapper type="text" className={className} {...rest}>
       <div>
-        <Icon serialNo={data.serial_no} />
+        <Icon serialNo={data?.serial_no} label={label} />
       </div>
     </ButtonWrapper>
   );
@@ -44,11 +48,13 @@ const Gun = ({ data, ...rest }) => {
 Gun.defaultProps = {
   icon: null,
   data: null,
+  label: null,
 };
 
 Gun.propTypes = {
   icon: PropTypes.element,
   data: PropTypes.objectOf(PropTypes.any),
+  label: PropTypes.string,
 };
 
 export default Gun;

@@ -75,6 +75,7 @@ const GunModal = ({ gun, onOk, edit, visible, ...rest }) => {
       if (edit) {
         form.setFieldsValue({
           ...initValue,
+          ...gun,
         });
       } else {
         const repair_slip =

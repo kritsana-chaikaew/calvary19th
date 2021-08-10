@@ -136,19 +136,20 @@ const Index = () => {
     setIsArmoryModalVisible(false);
   };
 
-  const showGunShowModal = (gun) => {
+  const showGunShowModal = (gun, isNull = false) => {
     setIsGunShowModalVisible(true);
-    setSelectedGun(gun);
+    setSelectedGun({
+      ...gun,
+      type: selectedGunType,
+      regimental: selectedRegimental,
+      isNull,
+    });
   };
 
   const showGunGroupModalVisible = (gunType) => {
     setSelectedGunType(gunType);
     setIsGunGroupModalVisible(true);
   };
-
-  // const showGunAddModal = () => {
-  //   setIsGunAddModalVisible(true);
-  // };
 
   const handleGunShowModalOk = () => {
     setIsGunShowModalVisible(false);
@@ -378,25 +379,29 @@ const Index = () => {
             style={{ marginBottom: "16px", flexFlow: "wrap" }}
             justify="center"
           >
-            {gunTypes
-              .map((gunType) => {
-                return (
-                  <Col span={ArmoryModalCol} key={gunType.name}>
-                    <Building
-                      name={gunType.name}
-                      onClick={() => { showGunGroupModalVisible(gunType.name);}}
-                      style={{height: "100px"}}
-                    />
-                  </Col>
-                );
-              })}
+            {gunTypes.map((gunType) => {
+              return (
+                <Col span={ArmoryModalCol} key={gunType.name}>
+                  <Building
+                    name={gunType.name}
+                    onClick={() => {
+                      showGunGroupModalVisible(gunType.name);
+                    }}
+                    style={{ height: "100px" }}
+                  />
+                </Col>
+              );
+            })}
           </RowWrapper>
         </div>
       </ArmoryModal>
       {/* show gun detail */}
       <GunGroupModal
         guns={guns.filter((gun) => {
-          return gun.regimental === selectedRegimental && gun.type === selectedGunType;
+          return (
+            gun.regimental === selectedRegimental &&
+            gun.type === selectedGunType
+          );
         })}
         onGunClick={showGunShowModal}
         onCancel={handleGunGroupModalOk}
@@ -408,7 +413,7 @@ const Index = () => {
         gun={selectedGun}
         onCancel={handleGunShowModalOk}
         onOk={handleGunShowModalOk}
-        edit={false}
+        edit={selectedGun?.isNull}
         visible={isGunShowModalVisible}
       />
     </Template>

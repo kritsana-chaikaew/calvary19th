@@ -47,6 +47,12 @@ const ModalWrapper = styled(Modal)`
   span.ant-modal-close-x {
     font-size: 1.5rem;
   }
+  .unavailable {
+    background-color: #d6d6d6 !important;
+  }
+  .unavailable:hover {
+    background-color: transparent !important;
+  }
 `;
 
 const GunGroupModal = (props) => {
@@ -62,23 +68,21 @@ const GunGroupModal = (props) => {
     const slots = [];
     const cols = [];
     guns.sort((a, b) => {
-      // const aNo = parseInt(a.serial_no.replace(" ", ""), 10);
-      // const bNo = parseInt(b.serial_no.replace(" ", ""), 10);
-      // return aNo - bNo;
       return a < b;
     });
-    // const wrap = Math.floor(Math.sqrt(guns.length) * 2);
     for (const [i, gun] of guns.entries()) {
       cols.push(
         <Col key={i}>
           <Gun onClick={() => onGunClick(gun)} data={gun} />
         </Col>
       );
-      // if ((i + 1) % wrap === 0) {
-      //   slots.push(<Row key={i}>{cols}</Row>);
-      //   cols = [];
-      // }
     }
+    cols.push(
+      <Col key="k">
+        <Gun onClick={() => onGunClick({}, true)} data={{}} label="เพิ่ม" />
+      </Col>
+    );
+
     slots.push(<Row key="a">{cols}</Row>);
 
     return slots;
