@@ -69,7 +69,7 @@ const ClothesTypeModal = (props) => {
         const newData = [];
         for (const d of data) {
           if (d.type === clothesType) {
-            newData.push({ ...d, key: d.no });
+            newData.push({ ...d, key: d.id });
           }
         }
         setClotheses(newData);

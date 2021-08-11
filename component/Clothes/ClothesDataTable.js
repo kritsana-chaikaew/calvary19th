@@ -100,6 +100,23 @@ const ClothesDataTable = ({ clotheses }) => {
     }
   };
 
+  const deleteRecord = async (record) => {
+    fetch(`/api/clothes/${record.id}`, {
+      method: "DELETE",
+    })
+    .then((res) => {
+      if (res.ok) {
+        const newData = data.filter((item) => record.key !== item.key);
+        setData(newData);
+        setEditingKey("");
+      }
+      console.log(res.json());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+
   const columns = [
     {
       title: "no",
@@ -175,9 +192,14 @@ const ClothesDataTable = ({ clotheses }) => {
             </Popconfirm>
           </span>
         ) : (
-          <Button disabled={editingKey !== ""} onClick={() => edit(record)}>
-            แก้ไข
-          </Button>
+          <span>
+            <Button disabled={editingKey !== ""} onClick={() => edit(record)}>
+              แก้ไข
+            </Button>
+            <Popconfirm title="ยืนยันการลบ?" onConfirm={() => {deleteRecord(record);}}>
+              <Button>`ลบ</Button>
+            </Popconfirm>
+          </span>
         );
       },
     },
