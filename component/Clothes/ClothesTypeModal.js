@@ -53,6 +53,9 @@ const ModalWrapper = styled(Modal)`
   .unavailable:hover {
     background-color: transparent !important;
   }
+  .ant-table-cell {
+    padding: 4px;
+  }
 `;
 
 const ClothesTypeModal = (props) => {

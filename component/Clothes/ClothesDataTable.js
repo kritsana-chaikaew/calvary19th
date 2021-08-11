@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, InputNumber, Popconfirm, Form, Typography } from "antd";
+import { Table, Input, InputNumber, Popconfirm, Form, Button } from "antd";
 import PropTypes from "prop-types";
 
 const EditableCell = ({
@@ -104,7 +104,7 @@ const ClothesDataTable = ({ clotheses }) => {
     {
       title: "no",
       dataIndex: "no",
-      width: "10%",
+      width: "5%",
       editable: false,
       sorter: {
         compare: (a, b) => a.no - b.no,
@@ -115,72 +115,69 @@ const ClothesDataTable = ({ clotheses }) => {
     {
       title: "list",
       dataIndex: "list",
-      width: "15%",
+      // width: "20%",
       editable: true,
     },
     {
       title: "count",
       dataIndex: "count",
-      width: "10%",
+      width: "5%",
       editable: true,
     },
     {
       title: "spend",
       dataIndex: "spend",
-      width: "10%",
+      width: "5%",
       editable: true,
     },
     {
       title: "lack",
       dataIndex: "lack",
-      width: "10%",
+      width: "5%",
       editable: true,
     },
     {
       title: "exeed",
       dataIndex: "exeed",
-      width: "10%",
+      width: "5%",
       editable: true,
     },
     {
       title: "remain",
       dataIndex: "remain",
-      width: "10%",
+      width: "5%",
       editable: true,
     },
     {
       title: "receive",
       dataIndex: "receive",
-      width: "10%",
+      width: "5%",
       editable: true,
     },
     {
       title: "operation",
       dataIndex: "operation",
+      width: "10%",
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
-            <a
-              href=""
+            <Button
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8,
               }}
             >
               บันทึก
-            </a>
+            </Button>
             <Popconfirm title="ยืนยันการยกเลิก?" onConfirm={cancel}>
-              <a>ยกเลิก</a>
+              <Button>ยกเลิก</Button>
             </Popconfirm>
           </span>
         ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
+          <Button disabled={editingKey !== ""} onClick={() => edit(record)}>
             แก้ไข
-          </Typography.Link>
+          </Button>
         );
       },
     },
@@ -199,6 +196,13 @@ const ClothesDataTable = ({ clotheses }) => {
         title: col.title,
         editing: isEditing(record),
       }),
+      shouldCellUpdate: (record, prevRecord) => {
+        return (
+          record[col.dataIndex] !== prevRecord[col.dataIndex] ||
+          isEditing(record) ||
+          editingKey === ""
+        );
+      },
     };
   });
   return (
