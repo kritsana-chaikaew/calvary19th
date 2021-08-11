@@ -79,19 +79,36 @@ const ClothesDataTable = ({ clotheses }) => {
     setEditingKey("");
   };
 
+  const updateRecord = async (newItem, newData) => {
+    fetch("/api/clothes", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newItem),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setData(newData);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const save = async (key) => {
     try {
-      const row = await form.validateFields();
+      const changedRecord = await form.validateFields();
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
 
       if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        setData(newData);
+        const oldItem = newData[index];
+        const newItem = { ...oldItem, ...changedRecord };
+        newData.splice(index, 1, newItem);
+        updateRecord(newItem, newData);
         setEditingKey("");
       } else {
-        newData.push(row);
+        newData.push(changedRecord);
         setData(newData);
         setEditingKey("");
       }
@@ -104,17 +121,16 @@ const ClothesDataTable = ({ clotheses }) => {
     fetch(`/api/clothes/${record.id}`, {
       method: "DELETE",
     })
-    .then((res) => {
-      if (res.ok) {
-        const newData = data.filter((item) => record.key !== item.key);
-        setData(newData);
-        setEditingKey("");
-      }
-      console.log(res.json());
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        if (res.ok) {
+          const newData = data.filter((item) => record.key !== item.key);
+          setData(newData);
+          setEditingKey("");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const columns = [
@@ -196,7 +212,12 @@ const ClothesDataTable = ({ clotheses }) => {
             <Button disabled={editingKey !== ""} onClick={() => edit(record)}>
               แก้ไข
             </Button>
-            <Popconfirm title="ยืนยันการลบ?" onConfirm={() => {deleteRecord(record);}}>
+            <Popconfirm
+              title="ยืนยันการลบ?"
+              onConfirm={() => {
+                deleteRecord(record);
+              }}
+            >
               <Button>`ลบ</Button>
             </Popconfirm>
           </span>
