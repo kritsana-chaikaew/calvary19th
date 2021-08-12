@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nextjs:
+    build: ./
+    volumes:
+      - ./data:/usr/src/data/
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./data/certs:/etc/ssl/certs/

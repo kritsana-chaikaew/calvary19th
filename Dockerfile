@@ -7,8 +7,14 @@ WORKDIR /usr/src
 
 COPY . /usr/src
 
-RUN npm ci --only=production
+RUN npm install --global pm2
+RUN apk --no-cache --virtual build-dependencies add \
+        python \
+        make \
+        g++ \
+&& npm ci --only=productionn \
+&& apk del build-dependencies
 
 RUN npm run build
 EXPOSE 3000
-CMD npm run start
+CMD [ "pm2-runtime", "npm", "--", "start" ]
