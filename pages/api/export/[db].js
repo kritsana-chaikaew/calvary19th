@@ -19,13 +19,13 @@ export default async function handler(req, res) {
   await getVehicles();
   switch (db) {
     case "vehicle":
-      data = getVehicles();
+      data = await getVehicles();
       break;
     case "gun":
-      data = getGuns();
+      data = await getGuns();
       break;
     case "clothes":
-      data = getClotheses();
+      data = await getClotheses();
       break;
     default:
       break;
