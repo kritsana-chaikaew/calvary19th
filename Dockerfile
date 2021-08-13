@@ -12,7 +12,7 @@ RUN apk --no-cache --virtual build-dependencies add \
         python \
         make \
         g++ \
-&& npm ci --only=productionn \
+&& npm ci --only=production \
 && apk del build-dependencies
 
 RUN npm run build
