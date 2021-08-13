@@ -31,8 +31,10 @@ Icon.propTypes = {
 const Gun = ({ data, label, ...rest }) => {
   const [className, setClassName] = useState();
   useEffect(() => {
-    if (data?.status === statuses[1] || label) {
+    if (data?.status === statuses[1]) {
       setClassName("unavailable");
+    } else if (label) {
+      setClassName("empty");
     }
   }, [data]);
 

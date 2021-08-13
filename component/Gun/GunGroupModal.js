@@ -48,9 +48,12 @@ const ModalWrapper = styled(Modal)`
     font-size: 1.5rem;
   }
   .unavailable {
+    background-color: red !important;
+  }
+  .empty {
     background-color: #d6d6d6 !important;
   }
-  .unavailable:hover {
+  .empty:hover {
     background-color: transparent !important;
   }
 `;
