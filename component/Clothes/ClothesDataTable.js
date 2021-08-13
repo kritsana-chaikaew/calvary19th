@@ -135,7 +135,7 @@ const ClothesDataTable = ({ clotheses }) => {
 
   const columns = [
     {
-      title: "no",
+      title: "ลำดับ",
       dataIndex: "no",
       width: "5%",
       editable: false,
@@ -146,51 +146,51 @@ const ClothesDataTable = ({ clotheses }) => {
       sortOrder: "ascend",
     },
     {
-      title: "list",
+      title: "รายการ",
       dataIndex: "list",
       // width: "20%",
       editable: true,
     },
     {
-      title: "count",
+      title: "อัตรา",
       dataIndex: "count",
       width: "5%",
       editable: true,
     },
     {
-      title: "spend",
+      title: "จ่าย",
       dataIndex: "spend",
       width: "5%",
       editable: true,
     },
     {
-      title: "lack",
+      title: "ขาด/+",
       dataIndex: "lack",
       width: "5%",
       editable: true,
     },
     {
-      title: "exeed",
+      title: "เกิน/-",
       dataIndex: "exeed",
       width: "5%",
       editable: true,
     },
     {
-      title: "remain",
+      title: "คงคลัง",
       dataIndex: "remain",
       width: "5%",
       editable: true,
     },
     {
-      title: "receive",
+      title: "ได้รับ",
       dataIndex: "receive",
       width: "5%",
       editable: true,
     },
     {
-      title: "operation",
+      title: "ตัวเลือก",
       dataIndex: "operation",
-      width: "10%",
+      width: "15%",
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -209,7 +209,7 @@ const ClothesDataTable = ({ clotheses }) => {
           </span>
         ) : (
           <span>
-            <Button disabled={editingKey !== ""} onClick={() => edit(record)}>
+            <Button primary disabled={editingKey !== ""} onClick={() => edit(record)}>
               แก้ไข
             </Button>
             <Popconfirm
@@ -218,7 +218,7 @@ const ClothesDataTable = ({ clotheses }) => {
                 deleteRecord(record);
               }}
             >
-              <Button>`ลบ</Button>
+              <Button danger>ลบ</Button>
             </Popconfirm>
           </span>
         );
